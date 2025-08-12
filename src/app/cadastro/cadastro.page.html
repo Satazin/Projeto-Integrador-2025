@@ -1,0 +1,28 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>cadastro</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">cadastro</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Cadastro de usuário</ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content>
+      <ion-input label="login" [(ngModel)]="login"></ion-input>
+      <ion-input label="nome" [(ngModel)]="nome"></ion-input>
+      <ion-input label="e-mail" [(ngModel)]="email"></ion-input>
+      <ion-input type="password" label="Password" [(ngModel)]="senha">
+        <ion-input-password-toggle slot="end"></ion-input-password-toggle>  
+      </ion-input>
+      <ion-button expand="block" (click)="post()">Cadastrar-se</ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
