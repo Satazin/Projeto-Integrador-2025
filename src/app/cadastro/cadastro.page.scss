@@ -1,0 +1,56 @@
+ion-content {
+  --background: #271717;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+
+ion-card-title {
+  color: #fff;
+  font-size: 1.8em;
+  font-weight: bold;
+  margin-bottom: 0;
+  font-family: 'Noto Sans JP', sans-serif;
+}
+
+ion-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+
+}
+
+ion-input {
+  --background: #ffffff;
+  --color: #000000;
+ --placeholder-color: #b81212;
+  border-radius: 18px;
+  padding: 0 12px;
+  font-size: 1.1em;
+  margin-bottom: 0;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 500;
+}
+
+ion-input[ng-reflect-type="password"] {
+  --background: #888;
+}
+
+
+ion-button {
+  --background: #c0392b;
+  --color: #fff;
+  border-radius: 18px;
+  font-size: 1.2em;
+  margin-top: 50px;
+  width: 50%;
+  align-self: center;
+  letter-spacing: 1px;
+  text-transform: none;
+}
+
+
+
+
