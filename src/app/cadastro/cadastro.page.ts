@@ -1,20 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms'; 
-import { 
-  IonContent, 
-  IonHeader, 
-  IonTitle, 
-  IonToolbar, 
-  IonCard, 
-  IonCardHeader, 
-  IonCardContent, 
+import { FormsModule } from '@angular/forms';
+import {
+  IonContent,
+  IonHeader,
+  IonTitle,
+  IonToolbar,
+  IonCard,
+  IonCardHeader,
+  IonCardContent,
   IonCardTitle,
   IonInput,
   IonInputPasswordToggle,
   IonButton,
 } from '@ionic/angular/standalone';
-import { RouterLink } from '@angular/router';
 import { Requisicao } from '../service/requisicao';
 
 @Component({
@@ -22,45 +21,45 @@ import { Requisicao } from '../service/requisicao';
   templateUrl: './cadastro.page.html',
   styleUrls: ['./cadastro.page.scss'],
   standalone: true,
-  imports: [IonInput, 
-    IonContent, 
-    IonHeader, 
-    IonTitle, 
-    IonToolbar, 
-    CommonModule, 
-    FormsModule,  
-    IonCard, 
-    IonCardHeader, 
-    IonCardContent, 
+  imports: [IonInput,
+    IonContent,
+    IonHeader,
+    IonTitle,
+    IonToolbar,
+    CommonModule,
+    FormsModule,
+    IonCard,
+    IonCardHeader,
+    IonCardContent,
     IonCardTitle,
     IonInputPasswordToggle,
     IonButton,
-    RouterLink
   ]
 })
+
 export class CadastroPage implements OnInit {
-  public login:string = "";
-  public nome:string = "";
-  public email:string = "";
-  public senha:string = "";
+  public login: string = "";
+  public nome: string = "";
+  public email: string = "";
+  public senha: string = "";
 
   constructor(
-    public rs :Requisicao
+    public rs: Requisicao
   ) { }
 
   ngOnInit() {
-    
+
   }
 
-  post(){
+  post() {
     const fd = new FormData();
-    fd.append('controller','cadastro-usuario');
+    fd.append('controller', 'cadastro-usuario');
     fd.append('nome', this.nome);
     fd.append('login', this.login);
     fd.append('email', this.email);
     fd.append('senha', this.senha);
 
     this.rs.post(fd)
-    .subscribe();
+      .subscribe();
   }
 }
