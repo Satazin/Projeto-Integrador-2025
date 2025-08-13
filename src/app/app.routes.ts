@@ -9,5 +9,17 @@ export const routes: Routes = [
     path: '',
     redirectTo: 'home',
     pathMatch: 'full',
+  },  {
+    path: 'cadastro',
+    loadComponent: () => import('./cadastro/cadastro.page').then( m => m.CadastroPage)
   },
+  {
+    path: 'login',
+    loadComponent: () => import('./login/login.page').then( m => m.LoginPage)
+  },
+  {
+    path: 'pedidos',
+    loadComponent: () => import('./pedidos/pedidos.page').then( m => m.PedidosPage)
+  },
+
 ];
