@@ -1,26 +1,19 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>login</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">login</ion-title>
-    </ion-toolbar>
+      </ion-header>
 
-  </ion-header>
-    <ion-card class="ion-padding">
-      <p>Email</p>
-      <ion-input label="" label-placement="floating" fill="solid" placeholder="Digite seu Login" [(ngModel)]="email"></ion-input>
-      
-      <p>Senha</p>
-      <ion-input label="" label-placement="floating" fill="solid" placeholder="Digite sua Senha" [(ngModel)]="senha"></ion-input>
-      
-      <p class="link-recuperacao"><a routerLink="/recuperacao">Esqueceu a Senha?</a></p>
-      
-      <ion-button expand="block" (click)="login()" color="success">Entrar</ion-button>
-      <ion-button expand="block" routerLink="/cadastro" class="botao-cadastro">Cadastrar</ion-button>
+    <ion-card>
+      <ion-card-title>Faça o <br> seu login!</ion-card-title>
+
+      <ion-card-content>
+        <ion-input label="E-mail" [(ngModel)]="email"></ion-input>
+        <ion-input type="Password" label="Senha" [(ngModel)]="senha"></ion-input>
+      </ion-card-content>
+      <ion-button expand="block" color="dark" routerLink="/pedidos">Entrar</ion-button>
+      <div class="secondary-button-container">
+        <ion-button expand="block" color="light" routerLink="/recuperacao" >Esqueceu a Senha?</ion-button>
+        <ion-button expand="block" color="light" routerLink="/cadastro" class="botao-cadastro">Voltar ao cadastro</ion-button>
+      </div>
+
     </ion-card>
 </ion-content>

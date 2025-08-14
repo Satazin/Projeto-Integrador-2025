@@ -15,6 +15,7 @@ import {
   IonButton,
 } from '@ionic/angular/standalone';
 import { Requisicao } from '../service/requisicao';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-cadastro',
@@ -34,6 +35,7 @@ import { Requisicao } from '../service/requisicao';
     IonCardTitle,
     IonInputPasswordToggle,
     IonButton,
+    RouterLink
   ]
 })
 
