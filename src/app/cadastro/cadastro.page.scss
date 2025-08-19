@@ -1,77 +1,56 @@
 ion-content {
   --background: #5a1919;
-  /* Cor de fundo suave */
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  /* Ocupa toda a altura da tela */
 }
 
 ion-card {
   margin-top: 60px;
-  /* Espaçamento superior */
   width: 90%;
-  /* Largura responsiva */
   margin-left: 17px;
   max-width: 400px;
-  /* Largura máxima */
   border-radius: 10px;
-  /* Bordas arredondadas */
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  /* Sombra suave */
   background: rgb(93, 62, 62);
-  /* Fundo branco para o card */
   align-items: center;
 }
 
 ion-card-title {
   font-size: 35px;
-  /* Tamanho da fonte do título */
   text-align: center;
-  /* Centraliza o título */
   margin: 40px 0;
-  /* Margem superior e inferior */
   color: #ffffff;
-  /* Cor do texto */
   font-weight: bold;
-  /* Negrito */
-  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 ion-card-content {
   padding: 20px 20px 20px 20px;
-  /* Espaçamento interno */
-
 }
 
 ion-input {
   margin-bottom: 25px;
-  /* Espaçamento entre os inputs */
   --padding-start: 10px;
-  /* Espaçamento interno à esquerda */
   --padding-end: 10px;
-  /* Espaçamento interno à direita */
   border: 2px solid #c2c2c2;
-  /* Borda suave */
   border-radius: 5px;
-  /* Bordas arredondadas */
-
 }
 
 ion-button {
   background: #3880ff;
-  /* Cor do botão */
+
   color: rgb(255, 255, 255);
-  /* Cor do texto do botão */
+
   border-radius: 5px;
-  /* Bordas arredondadas */
+
   font-size: 1.1em;
-  /* Tamanho da fonte do botão */
+
   margin-top: 10px;
-  /* Margem superior */
+
   margin-bottom: 20px;
-   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
 }
 
@@ -79,26 +58,25 @@ ion-button {
 
 ion-button:hover {
   background: #dadada;
-  /* Cor do botão ao passar o mouse */
+
 }
 
 ion-input-password-toggle {
   color: #3e75d4;
-  /* Cor do ícone de toggle */
+
 }
 
-/* Botões secundários abaixo do formulário */
 .secondary-button-container {
   display: flex;
   gap: 8px;
- 
+
 }
 
 .btn-account {
   flex: 1;
   height: 20px;
   font-size: 0.9rem;
-   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 
@@ -106,7 +84,5 @@ ion-input-password-toggle {
   flex: 1;
   height: 20px;
   font-size: 0.9rem;
- font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-
-

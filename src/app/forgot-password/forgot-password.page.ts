@@ -1,14 +1,15 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonicModule, AlertController } from '@ionic/angular'; // Corrigido: importar AlertController
+import { IonicModule, AlertController } from '@ionic/angular'; 
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-forgot-password',
   templateUrl: './forgot-password.page.html',
   styleUrls: ['./forgot-password.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule]
+  imports: [IonicModule, CommonModule, FormsModule, RouterLink]
 })
 export class ForgotPasswordPage {
   email: string = '';
@@ -26,11 +27,9 @@ export class ForgotPasswordPage {
       return;
     }
 
-    // Aqui você pode chamar seu serviço de recuperação de senha
-    // Exemplo de feedback para o usuário:
     const alert = await this.alertController.create({
       header: 'Sucesso',
-      message: 'Se o e-mail estiver cadastrado, você receberá um link de recuperação.',
+      message: 'Se o e-mail estiver cadastrado, você receberá um link de recuperação no seu E-mail.',
       buttons: ['OK'],
     });
     await alert.present();
