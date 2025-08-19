@@ -9,7 +9,8 @@ export const routes: Routes = [
     path: '',
     redirectTo: 'home',
     pathMatch: 'full',
-  },  {
+  },
+  {
     path: 'cadastro',
     loadComponent: () => import('./cadastro/cadastro.page').then( m => m.CadastroPage)
   },
@@ -21,5 +22,11 @@ export const routes: Routes = [
     path: 'pedidos',
     loadComponent: () => import('./pedidos/pedidos.page').then( m => m.PedidosPage)
   },
+
+  {
+    path: 'forgot-password',
+    loadComponent: () => import('./forgot-password/forgot-password.page').then( m => m.ForgotPasswordPage)
+  },
+
 
 ];
