@@ -26,12 +26,12 @@ export const routes: Routes = [
   {
     path: 'forgot-password',
     loadComponent: () => import('./forgot-password/forgot-password.page').then( m => m.ForgotPasswordPage)
-  },  {
+  },
+  {
     path: 'carrinho',
     loadComponent: () => import('./carrinho/carrinho.page').then( m => m.CarrinhoPage)
   },
 
-<<<<<<< HEAD
   {
     path: 'forgot-password',
     loadComponent: () => import('./forgot-password/forgot-password.page').then( m => m.ForgotPasswordPage)
@@ -43,8 +43,3 @@ export const routes: Routes = [
 
 
 ];
-=======
-
-
-];
->>>>>>> e49f1fd6a3f2efd583444438ed078212d0dd07a4
