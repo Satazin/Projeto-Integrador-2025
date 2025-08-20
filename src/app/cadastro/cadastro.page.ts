@@ -25,12 +25,9 @@ import { RouterLink } from '@angular/router';
   imports: [IonInput,
     IonContent,
     IonHeader,
-    IonTitle,
-    IonToolbar,
     CommonModule,
     FormsModule,
     IonCard,
-    IonCardHeader,
     IonCardContent,
     IonCardTitle,
     IonInputPasswordToggle,
@@ -40,7 +37,7 @@ import { RouterLink } from '@angular/router';
 })
 
 export class CadastroPage implements OnInit {
-  public login: string = "";
+  public telefone: string = "";
   public nome: string = "";
   public email: string = "";
   public senha: string = "";
@@ -57,7 +54,7 @@ export class CadastroPage implements OnInit {
     const fd = new FormData();
     fd.append('controller', 'cadastro-usuario');
     fd.append('nome', this.nome);
-    fd.append('login', this.login);
+    fd.append('telefone', this.telefone);
     fd.append('email', this.email);
     fd.append('senha', this.senha);
 
