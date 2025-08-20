@@ -1,13 +1,47 @@
+<!-- MENU LATERAL DIREITO -->
+<ion-menu side="end" contentId="main-content" menuId="rightMenu">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Opções</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content class="ion-padding">
+    <ion-list>
+      <ion-item routerLink="/perfil">Perfil</ion-item>
+      <ion-item routerLink="/sobre">Sobre nós</ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<!-- HEADER -->
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>pedidos</ion-title>
+        <ion-buttons slot="start">
+      <ion-avatar>
+        <img alt="Perfil" src="../../assets/png-removebg-preview.png" />
+      </ion-avatar>
+    </ion-buttons>
+    <ion-title>Casa Bonsai</ion-title>
+
+    <!-- Botões do lado direito -->
+    <ion-buttons slot="end">
+      <!-- Botão carrinho -->
+      <ion-button fill="clear" routerLink="/carrinho">
+        <ion-icon slot="icon-only" name="cart-outline"></ion-icon>
+      </ion-button>
+
+      <!-- Botão menu direito -->
+      <ion-menu-button menu="rightMenu"></ion-menu-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<!-- CONTEÚDO -->
+<ion-content id="main-content" [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">pedidos</ion-title>
+      <ion-title size="large">Pedidos</ion-title>
     </ion-toolbar>
   </ion-header>
 </ion-content>
