@@ -5,7 +5,6 @@
       <ion-title>Opções</ion-title>
     </ion-toolbar>
   </ion-header>
-
   <ion-content class="ion-padding">
     <ion-list>
       <ion-item routerLink="/perfil">Perfil</ion-item>
@@ -26,6 +25,10 @@
 
     <!-- Botões do lado direito -->
     <ion-buttons slot="end">
+      <!-- Botão localizacao -->
+      <ion-button fill="clear" routerLink="/">
+        <ion-icon slot="icon-only" name="pin"></ion-icon>
+      </ion-button>
       <!-- Botão carrinho -->
       <ion-button fill="clear" routerLink="/carrinho">
         <ion-icon slot="icon-only" name="cart-outline"></ion-icon>
