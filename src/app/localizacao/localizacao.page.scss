@@ -1,0 +1,65 @@
+ion-content {
+    --background: url('/assets/fundo.loc.jpg');
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+ion-card {
+    background: #393939;
+    border-radius: 12px;
+    align-items: center;
+    justify-content: center;
+    margin: 70px 30px 30px 30px;
+}
+
+ion-card-title {
+    color: #ffffff;
+    font-size: 4em;
+    font-weight: bold;
+    font-family: 'chinese';
+    text-align: center;
+    margin-top: 20px;
+}
+
+
+h2 {
+    font-size: 1.2em;
+    color: #ffffff;
+}
+
+ion-card-content {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #f5f5f5;
+    text-align: center;
+}
+
+
+iframe {
+    width: 100% !important;
+    height: 400px !important;
+    border-radius: 10px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+ion-button {
+    border-radius: 6px;
+    font-size: 1.1em;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-bottom: 20px;
+
+}
+
+
+.secondary-button-container {
+    justify-content: center;
+    margin-left: 100px;
+    margin-right: 100px;
+    margin-bottom: 40px;
+}
+
+@font-face {
+  font-family: 'chinese';
+  src: url('/assets/fonte.ttf') format('truetype');
+}
