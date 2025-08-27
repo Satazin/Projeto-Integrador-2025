@@ -1,3 +1,4 @@
+// ...existing code...
 <!-- MENU LATERAL DIREITO -->
 <ion-menu side="end" contentId="main-content" menuId="rightMenu">
   <ion-header>
@@ -16,7 +17,7 @@
 <!-- HEADER -->
 <ion-header [translucent]="true">
   <ion-toolbar>
-        <ion-buttons slot="start">
+    <ion-buttons slot="start">
       <ion-avatar>
         <img alt="Perfil" src="../../assets/png-removebg-preview.png" />
       </ion-avatar>
@@ -47,4 +48,36 @@
       <ion-title size="large">Pedidos</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <!-- CARDS DE PRODUTOS -->
+  <div class="cards-container">
+    <ion-card *ngFor="let p of products" (click)="openProduct(p)" class="product-card">
+      <ion-img *ngIf="p.imageUrl" [src]="p.imageUrl"></ion-img>
+
+      <ion-card-header>
+        <ion-card-title>{{ p.name }}</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <p class="desc">{{ p.description }}</p>
+
+        <div class="card-row">
+          <div class="price">R$ {{ p.price | number:'1.2-2' }}</div>
+
+          <ion-button fill="clear" (click)="addToCart(p); $event.stopPropagation()">
+            <ion-icon slot="icon-only" name="cart-outline"></ion-icon>
+          </ion-button>
+
+          <ion-button *ngIf="isAdded(p)" fill="solid" color="success" size="small" disabled>
+            Adicionado
+          </ion-button>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <ng-template #empty>
+    <div class="ion-padding">Nenhum produto cadastrado.</div>
+  </ng-template>
 </ion-content>
+// ...existing code...

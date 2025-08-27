@@ -11,17 +11,23 @@ import { IonContent,
   IonButton,
   IonButtons, 
   IonMenuButton, 
-  IonList, 
-  IonAvatar 
-} from '@ionic/angular/standalone';
+  IonList,
+  IonItem,
+  IonLabel,
+  IonThumbnail,
+  IonAvatar, IonCard, IonCardContent, IonCardTitle, IonCardHeader, IonImg } from '@ionic/angular/standalone';
+import { ProductService, Product } from '../service/product'; // ADDED
 
 @Component({
   selector: 'app-pedidos',
   templateUrl: './pedidos.page.html',
   styleUrls: ['./pedidos.page.scss'],
   standalone: true,
-  imports: [IonAvatar,
+  imports: [IonImg, IonCardHeader, IonCardTitle, IonCardContent, IonCard, IonAvatar,
     IonList,
+    IonItem,
+    IonLabel,
+    IonThumbnail,
     IonButtons,
     IonButton, 
     IonIcon, 
@@ -38,9 +44,12 @@ import { IonContent,
 })
 export class PedidosPage implements OnInit {
 
-  constructor() {}
+  products: Product[] = []; // ADDED
 
-  ngOnInit() {
+  constructor(private productService: ProductService) {} // MODIFIED
+
+  async ngOnInit() {
+    this.products = await this.productService.getAll(); // ADDED
   }
 
 }

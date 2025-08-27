@@ -15,7 +15,7 @@ export const environment = {
  */
 // import 'zone.js/plugins/zone-error';  // Included with Angular CLI.
 
-const firebaseConfig = {
+export const firebaseConfig = {
   apiKey: "AIzaSyB-HGkUTe_NDtsK015lILyq2-QwDf-s_Mw",
   authDomain: "projetointegrador-69272.firebaseapp.com",
   databaseURL: "https://projetointegrador-69272-default-rtdb.firebaseio.com",
