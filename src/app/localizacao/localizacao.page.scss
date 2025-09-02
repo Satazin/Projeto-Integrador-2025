@@ -1,8 +1,10 @@
 ion-content {
     --background: url('/assets/fundo.loc.jpg');
     display: flex;
+    min-height: 100vh;
     justify-content: center;
     align-items: center;
+    padding: 0;
 }
 
 ion-card {
@@ -10,7 +12,7 @@ ion-card {
     border-radius: 12px;
     align-items: center;
     justify-content: center;
-    margin: 70px 30px 30px 30px;
+    margin-top: 70px;
 }
 
 ion-card-title {
@@ -37,7 +39,7 @@ ion-card-content {
 
 iframe {
     width: 100% !important;
-    height: 400px !important;
+    height: 300px !important;
     border-radius: 10px;
     margin-top: 40px;
     margin-bottom: 40px;
