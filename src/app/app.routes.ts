@@ -39,6 +39,32 @@ export const routes: Routes = [
   {
     path: 'sobre-nos',
     loadComponent: () => import('./sobre-nos/sobre-nos.page').then( m => m.SobreNosPage)
+  },  {
+    path: 'localizacao',
+    loadComponent: () => import('./localizacao/localizacao.page').then( m => m.LocalizacaoPage)
+  },
+  {
+    path: 'contato',
+    loadComponent: () => import('./contato/contato.page').then( m => m.ContatoPage)
+  },
+
+<<<<<<< HEAD
+  {
+    path: 'forgot-password',
+    loadComponent: () => import('./forgot-password/forgot-password.page').then( m => m.ForgotPasswordPage)
+  },
+  {
+    path: 'carrinho',
+    loadComponent: () => import('./carrinho/carrinho.page').then( m => m.CarrinhoPage)
+  },
+
+  {
+    path: 'forgot-password',
+    loadComponent: () => import('./forgot-password/forgot-password.page').then( m => m.ForgotPasswordPage)
+  },
+  {
+    path: 'sobre-nos',
+    loadComponent: () => import('./sobre-nos/sobre-nos.page').then( m => m.SobreNosPage)
   },
   {
     path: 'brindes',
@@ -51,3 +77,8 @@ export const routes: Routes = [
 
 
 
+=======
+
+
+];
+>>>>>>> a6c2dbf5c2139fb04d9b0caa019c4c6f9bc051f4

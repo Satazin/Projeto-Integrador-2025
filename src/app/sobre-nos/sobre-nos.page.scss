@@ -1,6 +1,6 @@
 .sobre-nos-bg {
     --background: none;
-    background: url('/assets/sobrenos.jfif') center center/cover no-repeat fixed;
+    background: url('/assets/fundo.loc.jpg') center center/cover no-repeat fixed;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -11,13 +11,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 80px 20px 20px;
+    padding: 100px 20px 20px;
 }
 
 ion-card {
-    background: #af7979;
+    background: #525252;
     border-radius: 18px;
-    border: 2px solid rgb(90, 0, 0);
+    border: 2px solid rgb(0, 0, 0);
     text-align: center;
 }
 
@@ -29,16 +29,15 @@ ion-card {
 }
 
 ion-card-title {
-    font-size: 2.8em;
+    font-size: 4em;
     font-weight: bold;
-    color: #2d1407;
-    margin-bottom: 12px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-
+    color: #ffffff;
+    margin-bottom: 6px;
+    font-family: 'chinese';
 }
 
 ion-card-content {
-    color: #2d1407;
+    color: #ffffff;
     font-size: 1.05em;
     text-align: justify;
 }
@@ -47,6 +46,12 @@ ion-card-content {
 .botao-voltar-home {
     margin-top: 30px;
     margin-bottom: 12px;
+    font-weight: bold;
     text-align: center;
 
+}
+
+@font-face {
+  font-family: 'chinese';
+  src: url('/assets/fonte.ttf') format('truetype');
 }

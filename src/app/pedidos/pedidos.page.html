@@ -1,4 +1,27 @@
-<!-- MENU LATERAL DIREITO -->
+<ion-header [translucent]="false">
+  <ion-toolbar color="#000000">
+    <ion-buttons slot="start">
+      <ion-avatar>
+        <img alt="Perfil" src="../../assets/png-removebg-preview.png" routerLink="/home" />
+      </ion-avatar>
+    </ion-buttons>
+
+    <ion-title>Casa Bonsai</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" routerLink="/localizacao">
+        <ion-icon slot="icon-only" name="pin"></ion-icon>
+      </ion-button>
+      <ion-button fill="clear" routerLink="/carrinho">
+        <ion-icon slot="icon-only" name="cart-outline"></ion-icon>
+      </ion-button>
+      <ion-menu-button menu="rightMenu"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <div class="bemvindo">
+    <h1 color="#ffffff">Seja bem-vindo ao <br>Casa Bonsai!</h1>
+  </div>
+</ion-header>
+
 <ion-menu side="end" contentId="main-content" menuId="rightMenu">
   <ion-header>
     <ion-toolbar>
@@ -9,42 +32,37 @@
     <ion-list>
       <ion-item routerLink="/perfil">Perfil</ion-item>
       <ion-item routerLink="/sobre-nos">Sobre nós</ion-item>
+      <ion-item routerLink="/contato">Fale Conosco</ion-item>
     </ion-list>
   </ion-content>
 </ion-menu>
 
-<!-- HEADER -->
-<ion-header [translucent]="true">
-  <ion-toolbar>
-        <ion-buttons slot="start">
-      <ion-avatar>
-        <img alt="Perfil" src="../../assets/png-removebg-preview.png" />
-      </ion-avatar>
-    </ion-buttons>
-    <ion-title>Casa Bonsai</ion-title>
-
-    <!-- Botões do lado direito -->
-    <ion-buttons slot="end">
-      <!-- Botão localizacao -->
-      <ion-button fill="clear" routerLink="/">
-        <ion-icon slot="icon-only" name="pin"></ion-icon>
-      </ion-button>
-      <!-- Botão carrinho -->
-      <ion-button fill="clear" routerLink="/carrinho">
-        <ion-icon slot="icon-only" name="cart-outline"></ion-icon>
-      </ion-button>
-
-      <!-- Botão menu direito -->
-      <ion-menu-button menu="rightMenu"></ion-menu-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
-<!-- CONTEÚDO -->
 <ion-content id="main-content" [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Pedidos</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <img src="assets/lights.jpg" alt="Lanternas japonesas" class="banner-lanternas" />
+
+  <!-- Menu de categorias -->
+  <div class="categorias-menu">
+    <button *ngFor="let cat of categorias" [class.selected]="categoriaEmFoco === cat.id"
+      (click)="scrollToCategoria(cat.id)">
+      {{cat.nome}}
+    </button>
+  </div>
+
+
+  <!-- Lista de itens agrupados por categoria -->
+  <div class="produtos-lista">
+    <ng-container *ngFor="let cat of categorias">
+      <div [id]="cat.id" class="categoria-titulo">{{cat.nome}}</div>
+      <div *ngFor="let item of itensPorCategoria(cat.id)" class="produto-card">
+        <img [src]="item.imagem" alt="{{item.nome}}" class="produto-img" />
+        <div class="produto-info">
+          <div class="produto-nome">{{item.nome}}</div>
+          <div class="produto-desc">{{item.descricao}}</div>
+          <div class="produto-serve">Serve {{item.serve}}</div>
+          <div class="produto-preco">R$ {{item.preco}}</div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+
 </ion-content>
