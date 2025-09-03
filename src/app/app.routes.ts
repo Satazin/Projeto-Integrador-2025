@@ -40,6 +40,14 @@ export const routes: Routes = [
     path: 'sobre-nos',
     loadComponent: () => import('./sobre-nos/sobre-nos.page').then( m => m.SobreNosPage)
   },
+  {
+    path: 'brindes',
+    loadComponent: () => import('./brindes/brindes.page').then( m => m.BrindesPage)
+  },
 
-
+ 
 ];
+
+
+
+
