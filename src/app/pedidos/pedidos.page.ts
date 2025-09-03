@@ -13,8 +13,6 @@ import { IonContent,
   IonMenuButton, 
   IonList,
   IonItem,
-  IonLabel,
-  IonThumbnail,
   IonAvatar, IonCard, IonCardContent, IonCardTitle, IonCardHeader, IonImg } from '@ionic/angular/standalone';
 import { ProductService, Product } from '../service/product'; // ADDED
 
@@ -26,8 +24,6 @@ import { ProductService, Product } from '../service/product'; // ADDED
   imports: [IonImg, IonCardHeader, IonCardTitle, IonCardContent, IonCard, IonAvatar,
     IonList,
     IonItem,
-    IonLabel,
-    IonThumbnail,
     IonButtons,
     IonButton, 
     IonIcon, 

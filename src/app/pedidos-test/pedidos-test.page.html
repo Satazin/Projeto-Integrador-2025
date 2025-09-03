@@ -1,0 +1,52 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Pedidos Test</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Pedidos Test</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <!-- FORMULÁRIO DE CADASTRO -->
+  <div class="formulario">
+    <p>Nome</p>
+    <ion-input placeholder="Digite o nome do produto" [(ngModel)]="nome"></ion-input>
+
+    <p>Descrição</p>
+    <ion-input placeholder="Digite a descrição do produto" [(ngModel)]="descricao"></ion-input>
+
+    <p>Serve (quantas pessoas)</p>
+    <ion-input type="number" placeholder="Ex: 2" [(ngModel)]="serve"></ion-input>
+
+    <p>Preço</p>
+    <ion-input type="number" placeholder="Digite o preço" [(ngModel)]="preco"></ion-input>
+
+    <p>Imagem (URL)</p>
+    <ion-input placeholder="Cole o link da imagem" [(ngModel)]="imagem"></ion-input>
+
+    <ion-button expand="block" (click)="salvar()">Cadastrar</ion-button> 
+  </div>
+
+  <hr>
+
+  <!-- LISTAGEM DE PRODUTOS EM BOTÕES CLICÁVEIS -->
+  <div class="produtos-container">
+    <button
+      *ngFor="let item of pedidos"
+      class="produto-card produto-botao"
+    >
+      <img *ngIf="item.imagem" [src]="item.imagem" alt="{{item.nome}}" class="produto-img" />
+
+      <div class="produto-info">
+        <div class="produto-nome">{{item.nome}}</div>
+        <div class="produto-desc">{{item.descricao}}</div>
+        <div class="produto-serve">Serve {{item.serve}} pessoa{{item.serve > 1 ? 's' : ''}}</div>
+        <div class="produto-preco">R$ {{item.preco}}</div>
+      </div>
+    </button>
+  </div>
+</ion-content>

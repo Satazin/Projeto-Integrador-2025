@@ -51,7 +51,7 @@
 
   <!-- CARDS DE PRODUTOS -->
   <div class="cards-container">
-    <ion-card *ngFor="let p of products" (click)="openProduct(p)" class="product-card">
+    <ion-card *ngFor="let p of products" class="product-card">
       <ion-img *ngIf="p.imageUrl" [src]="p.imageUrl"></ion-img>
 
       <ion-card-header>
@@ -64,11 +64,11 @@
         <div class="card-row">
           <div class="price">R$ {{ p.price | number:'1.2-2' }}</div>
 
-          <ion-button fill="clear" (click)="addToCart(p); $event.stopPropagation()">
+          <ion-button fill="clear">
             <ion-icon slot="icon-only" name="cart-outline"></ion-icon>
           </ion-button>
 
-          <ion-button *ngIf="isAdded(p)" fill="solid" color="success" size="small" disabled>
+          <ion-button fill="solid" color="success" size="small" disabled>
             Adicionado
           </ion-button>
         </div>
