@@ -5,6 +5,7 @@ import { RouterLink } from '@angular/router';
 import { IonicModule, ModalController } from '@ionic/angular';
 import { EnderecosModalComponent } from '../enderecos-modal/enderecos-modal.component'; // ajuste o caminho
 
+
 @Component({
   selector: 'app-pedidos',
   templateUrl: './pedidos.page.html',
@@ -23,6 +24,7 @@ export class PedidosPage implements OnInit, AfterViewInit {
     { id: 'temaki', nome: 'TEMAKI' },
     { id: 'yakisoba', nome: 'YAKISOBA' }
   ];
+
 
   categoriaEmFoco = 'poke';
 

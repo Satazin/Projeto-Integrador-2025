@@ -1,0 +1,114 @@
+<ion-header>
+  <ion-toolbar color="light">
+    <ion-title class="titulo">BRINDES</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+    <!-- Chaveiro -->
+      <ion-col size="6">
+        <ion-card class="brinde-card"  (click)="toggleDescricao('chaveiro')">
+            <div class="card-content" [class.active]="descricaoAtiva === 'chaveiro'"></div>
+          <img src="assets/chaveiro.png" alt="Chaveiro">
+          <ion-card-content>
+            <h2>Chaveiros</h2>
+             <p class="descricao" *ngIf="descricaoAtiva === 'chaveiro'">
+              Chaveiros estiloso para manter suas chaves organizadas.
+              </p>
+          </ion-card-content>
+          <div class="coin">...</div>
+        </ion-card>
+      </ion-col>
+
+   <!-- Meias -->
+      <ion-col size="6">
+        <ion-card class="brinde-card" (click)="toggleDescricao('meias')">
+            <div class="card-content" [class.active]="descricaoAtiva === 'meias'"></div>
+          <img src="assets/meias.png" alt="Meias">
+          <ion-card-content>
+            <h2>Meias</h2>
+              <p class="descricao" *ngIf="descricaoAtiva === 'meias'">
+              Meias confortaveis e estilosas representando oque voce mais gosta.
+              </p>
+          </ion-card-content>
+          <div class="coin">...</div>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <!-- xicara -->
+      <ion-col size="6">
+        <ion-card class="brinde-card" (click)="toggleDescricao('caneca')">
+            <div class="card-content" [class.active]="descricaoAtiva === 'caneca'"></div>
+          <img src="assets/caneca.png" alt="Caneca">
+          <ion-card-content>
+            <h2>Xícara</h2>
+            <p class="descricao" *ngIf="descricaoAtiva === 'caneca'">
+             Pense em você tomando sua bebida favorita nesta xícara com a nossa logo
+              </p>
+          </ion-card-content>
+          <div class="coin">...</div>
+        </ion-card>
+      </ion-col>
+  <!-- Gato -->
+        <ion-col size="6">
+        <ion-card class="brinde-card" (click)="toggleDescricao('gato')">
+            <div class="card-content" [class.active]="descricaoAtiva === 'gato'"></div>
+          <img src="assets/gato.png" alt="gato">
+          <ion-card-content>
+            <h2>Gatinho da sorte</h2>
+             <p class="descricao" *ngIf="descricaoAtiva === 'gato'">
+              Gatinho dourado para trazer a sorte para sua vida.
+              </p>
+          </ion-card-content>
+          <div class="coin">...</div>
+        </ion-card>
+      </ion-col>
+
+    </ion-row>
+
+    <ion-row>
+     
+       <!-- Totoro -->
+      <ion-col size="6">
+        <ion-card class="brinde-card"  (click)="toggleDescricao('totoro')">
+          <div class="card-content" [class.active]="descricaoAtiva === 'totoro'"></div>
+          <img src="assets/totoro.png" alt="Totoro">
+          <ion-card-content>
+            <h2>Totoro</h2>
+             <p class="descricao" *ngIf="descricaoAtiva === 'totoro'">
+                Brinde inspirado no personagem Totoro
+                 do filme 
+                "Meu Amigo Totoro" do Studio Ghibli.
+              </p>
+          </ion-card-content>
+          <div class="coin">...</div>
+        </ion-card>
+      </ion-col>
+
+   <!-- Bonsai -->
+      <ion-col size="6">
+        <ion-card class="brinde-card"  (click)="toggleDescricao('bonsai')">
+            <div class="card-content" [class.active]="descricaoAtiva === 'bonsai'"></div>
+          <img src="assets/bonsai.png" alt="Bonsai">
+          <ion-card-content>
+            <h2>Bonsai</h2>
+             <p class="descricao" *ngIf="descricaoAtiva === 'bonsai'">
+                Bonsai,uma tecnica de plantio pequena mas cheia de significado.
+              </p>
+          </ion-card-content>
+          <div class="coin">...</div>
+        </ion-card>
+      </ion-col>
+
+
+    </ion-row>
+  </ion-grid>
+
+  <div class="pontos">
+    Seus pontos: <strong>{{ pontos }}</strong>
+  </div>
+</ion-content>
