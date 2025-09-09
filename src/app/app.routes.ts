@@ -31,21 +31,21 @@ export const routes: Routes = [
     path: 'carrinho',
     loadComponent: () => import('./carrinho/carrinho.page').then( m => m.CarrinhoPage)
   },
-
-  {
-    path: 'forgot-password',
-    loadComponent: () => import('./forgot-password/forgot-password.page').then( m => m.ForgotPasswordPage)
-  },
   {
     path: 'sobre-nos',
     loadComponent: () => import('./sobre-nos/sobre-nos.page').then( m => m.SobreNosPage)
-  },  {
-    path: 'pontos-teste',
-    loadComponent: () => import('./pontos-teste/pontos-teste.page').then( m => m.PontosTestePage)
   },
   {
     path: 'pedidos-test',
     loadComponent: () => import('./pedidos-test/pedidos-test.page').then( m => m.PedidosTestPage)
+  },
+  {
+    path: 'localizacao',
+    loadComponent: () => import('./localizacao/localizacao.page').then( m => m.LocalizacaoPage)
+  },
+  {
+    path: 'contato',
+    loadComponent: () => import('./contato/contato.page').then( m => m.ContatoPage)
   },
 
 
