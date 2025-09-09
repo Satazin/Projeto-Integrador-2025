@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
+
 @Component({
   selector: 'app-pedidos',
   templateUrl: './pedidos.page.html',
@@ -22,6 +23,7 @@ export class PedidosPage implements OnInit, AfterViewInit {
     { id: 'temaki', nome: 'TEMAKI' },
     { id: 'yakisoba', nome: 'YAKISOBA' }
   ];
+
 
   categoriaEmFoco = 'poke';
 
