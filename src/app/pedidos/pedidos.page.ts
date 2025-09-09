@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { IonicModule, ModalController } from '@ionic/angular';
-import { EnderecosModalComponent } from '../enderecos-modal/enderecos-modal.component'; // ajuste o caminho
+
 
 
 @Component({
@@ -188,12 +188,5 @@ export class PedidosPage implements OnInit, AfterViewInit {
   console.log('Item selecionado:', item);
 }
 
-async abrirEnderecos() {
-  const modal = await this.modalCtrl.create({
-    component: EnderecosModalComponent,
-    cssClass: 'modal-enderecos-custom'
-  });
-  await modal.present();
-}
 }
 
