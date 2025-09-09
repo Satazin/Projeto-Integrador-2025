@@ -59,14 +59,13 @@ export const routes: Routes = [
   {
     path: 'perfil',
     loadComponent: () => import('./perfil/perfil.page').then( m => m.PerfilPage)
-  }
+  },
   {
     path: 'pedidos-test',
     loadComponent: () => import('./pedidos-test/pedidos-test.page').then( m => m.PedidosTestPage)
   },
-{
+  {
     path: 'brindes',
     loadComponent: () => import('./brindes/brindes.page').then( m => m.BrindesPage)
   },
-
 ];
