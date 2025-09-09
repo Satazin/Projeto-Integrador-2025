@@ -39,7 +39,8 @@ export const routes: Routes = [
   {
     path: 'sobre-nos',
     loadComponent: () => import('./sobre-nos/sobre-nos.page').then( m => m.SobreNosPage)
-  },  {
+  },
+  {
     path: 'localizacao',
     loadComponent: () => import('./localizacao/localizacao.page').then( m => m.LocalizacaoPage)
   },
@@ -47,6 +48,17 @@ export const routes: Routes = [
     path: 'contato',
     loadComponent: () => import('./contato/contato.page').then( m => m.ContatoPage)
   },
+  {
+    path: 'infoitens',
+    loadComponent: () => import('./infoitens/infoitens.page').then( m => m.InfoitensPage)
+  },
+  {
+    path: 'infoitens/:id',
+    loadComponent: () => import('./infoitens/infoitens.page').then(m => m.InfoitensPage)
+  },  {
+    path: 'perfil',
+    loadComponent: () => import('./perfil/perfil.page').then( m => m.PerfilPage)
+  }
 
 
 

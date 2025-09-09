@@ -1,30 +1,19 @@
-import { Component, OnInit, AfterViewInit, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
-import { IonicModule, ModalController } from '@ionic/angular';
-import { EnderecosModalComponent } from '../enderecos-modal/enderecos-modal.component'; // ajuste o caminho
+import { IonicModule} from '@ionic/angular';
 
 @Component({
-  selector: 'app-pedidos',
-  templateUrl: './pedidos.page.html',
-  styleUrls: ['./pedidos.page.scss'],
+  selector: 'app-infoitens',
+  templateUrl: './infoitens.page.html',
+  styleUrls: ['./infoitens.page.scss'],
   standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    RouterLink
-  ]
+  imports: [IonicModule, CommonModule, FormsModule]
 })
-export class PedidosPage implements OnInit, AfterViewInit {
-  categorias = [
-    { id: 'poke', nome: 'POKE' },
-    { id: 'temaki', nome: 'TEMAKI' },
-    { id: 'yakisoba', nome: 'YAKISOBA' }
-  ];
-
-  categoriaEmFoco = 'poke';
+export class InfoitensPage implements OnInit {
+  item: any;
+  quantidade = 1;
 
   itens = [
     // POKE
@@ -142,56 +131,25 @@ export class PedidosPage implements OnInit, AfterViewInit {
     }
   ];
 
-  constructor(private elRef: ElementRef, private modalCtrl: ModalController) {}
+  constructor(private route: ActivatedRoute) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    const id = this.route.snapshot.paramMap.get('id');
+    this.item = this.itens.find(i => i.id === id);
+  }
 
-  ngAfterViewInit() {
-    // Escuta o scroll para destacar a categoria
-    const content = document.getElementById('main-content');
-    if (content) {
-      content.addEventListener('scroll', () => this.onScroll());
+  get valorTotal() {
+    // Converte o preço para número e multiplica pela quantidade
+    return (parseFloat(this.item?.preco.replace(',', '.')) || 0) * this.quantidade;
+  }
+
+  alterarQtd(valor: number) {
+    if (this.quantidade + valor >= 1) {
+      this.quantidade += valor;
     }
   }
 
-  itensPorCategoria(cat: string) {
-    return this.itens.filter(i => i.categoria === cat);
+  adicionarAoCarrinho() {
+    // Sua lógica para adicionar ao carrinho
   }
-
-  scrollToCategoria(catId: string) {
-    const el = document.getElementById(catId);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  }
-
-  onScroll() {
-    // Pega a posição de cada categoria e destaca a correta
-    let found = this.categorias[0].id;
-    for (const cat of this.categorias) {
-      const el = document.getElementById(cat.id);
-      if (el) {
-        const rect = el.getBoundingClientRect();
-        // Ajuste o valor 120 conforme a altura do seu header
-        if (rect.top < 130) {
-          found = cat.id;
-        }
-      }
-    }
-    this.categoriaEmFoco = found;
-  }
-
-  selecionarItem(item: any) {
-  // Ação ao clicar no item (abrir detalhes, adicionar ao carrinho, etc)
-  console.log('Item selecionado:', item);
 }
-
-async abrirEnderecos() {
-  const modal = await this.modalCtrl.create({
-    component: EnderecosModalComponent,
-    cssClass: 'modal-enderecos-custom'
-  });
-  await modal.present();
-}
-}
-

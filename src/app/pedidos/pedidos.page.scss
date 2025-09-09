@@ -7,10 +7,17 @@
     border: 2px solid #a2591c;
 
 }
-
 ion-title {
-    font-size: 1.3em;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: left;
+    font-size: 1.5em;
     color: #ffffff;
+}
+
+ion-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
 }
 
 .categorias-menu {
@@ -76,26 +83,27 @@ ion-title {
 
 .produto-nome {
     font-weight: bold;
-    font-size: 1.3em;
-    margin-bottom: 2px;
+    font-size: 1.5em;
+    margin-bottom: 8px;
 }
 
 .produto-desc {
-    font-size: 0.8em;
+    font-size: 1em;
     color: #fff6f6;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
 }
 
 .produto-serve {
     font-size: 1em;
     font-weight: bold;
     color: #ffffff;
+    margin-top: auto;
 }
 
 .produto-preco {
     font-weight: bold;
-    font-size: 1.3em;
-    color: #c0392b;
+    font-size: 1.7em;
+    color: #ffffff;
     margin-top: auto;
 
 }
@@ -137,4 +145,10 @@ ion-title {
         font-family: 'chinese';
         src: url('/assets/fonte.ttf') format('truetype');
     }
+}
+.produto-botao {
+  background: #393939;
+  width: 90%;
+  text-align: left;cursor: pointer;
+  display: flex;
 }
