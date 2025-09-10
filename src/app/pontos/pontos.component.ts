@@ -3,7 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 
-import { PontoService } from '../ponto/pontos-recom'; 
+import { PontoService } from '../ponto/pontos-recom';
 
 @Component({
   selector: 'app-pontos',
@@ -17,7 +17,7 @@ export class PontosPage {
   pontosUsuario: number = 0;
   pontosRemover: number = 0;
 
-  constructor(private pontoService: PontoService) {}
+  constructor(private pontoService: PontoService) { }
 
   async mostrarPontos() {
     this.pontosUsuario = await this.pontoService.lerPontos();
@@ -27,18 +27,23 @@ export class PontosPage {
   async adicionarPontos() {
     if (this.valorCompra > 0) {
       await this.pontoService.adicionarPontos(this.valorCompra);
-      this.valorCompra = 0; 
+      this.valorCompra = 0;
       alert('Pontos adicionados com sucesso!');
     } else {
       alert('Por favor, insira um valor válido para a compra.');
     }
   }
 
-   async removerPontos() {
+  async removerPontos() {
+    const pontosAtuais = await this.pontoService.lerPontos();
     if (this.pontosRemover > 0) {
-      await this.pontoService.removerPontos(this.pontosRemover);
-      alert(`${this.pontosRemover} pontos removidos!`);
-      this.mostrarPontos();
+      if (this.pontosRemover <= pontosAtuais) {
+        await this.pontoService.removerPontos(this.pontosRemover);
+        alert(`${this.pontosRemover} pontos removidos!`);
+        this.mostrarPontos();
+      } else {
+        alert('Pontos insuficientes!');
+      }
     } else {
       alert('Por favor, insira um valor válido para remover.');
     }
