@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Sistema de Pontos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-button expand="block" (click)="mostrarPontos()">
+    Ver Meus Pontos
+  </ion-button>
+  <br>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Adicionar Pontos</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="floating">Valor Total da Compra (R$)</ion-label>
+        <ion-input type="number" [(ngModel)]="valorCompra"></ion-input>
+      </ion-item>
+      <ion-button expand="block" class="ion-margin-top" (click)="adicionarPontos()">
+        Adicionar Pontos
+      </ion-button>
+      <ion-item>
+        <ion-label position="floating">Pontos a Retirar</ion-label>
+        <ion-input type="number" [(ngModel)]="pontosRemover"></ion-input>
+      </ion-item>
+      <ion-button expand="block" (click)="removerPontos()">
+        Remover Pontos
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

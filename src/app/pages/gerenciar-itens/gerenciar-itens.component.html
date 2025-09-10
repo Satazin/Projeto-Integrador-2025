@@ -1,0 +1,73 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Gerenciar Itens</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Adicionar Novo Item</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-label position="floating">Categoria</ion-label>
+          <ion-input [(ngModel)]="item.categoria"></ion-input>
+        </ion-item>
+        
+        <ion-item>
+          <ion-label position="floating">Nome</ion-label>
+          <ion-input [(ngModel)]="item.nome"></ion-input>
+        </ion-item>
+        
+        <ion-item>
+          <ion-label position="floating">Descrição</ion-label>
+          <ion-textarea [(ngModel)]="item.descricao"></ion-textarea>
+        </ion-item>
+        
+        <ion-item>
+          <ion-label position="floating">Serve</ion-label>
+          <ion-input [(ngModel)]="item.serve"></ion-input>
+        </ion-item>
+        
+        <ion-item>
+          <ion-label position="floating">Preço</ion-label>
+          <ion-input type="number" [(ngModel)]="item.preco"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <input type="file" #fileInput (change)="onFileSelected($event)" style="display: none;">
+          <ion-button expand="block" (click)="fileInput.click()">
+            <ion-icon name="cloud-upload-outline" slot="start"></ion-icon>
+            Selecionar Imagem
+          </ion-button>
+        </ion-item>
+        
+        <ion-item *ngIf="selectedImageUrl">
+          <img [src]="selectedImageUrl" style="max-width: 100%; height: auto;"/>
+        </ion-item>
+      </ion-list>
+
+      <ion-button expand="block" (click)="salvarItem()">
+        Salvar Item
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngFor="let item of itensCadastrados" class="ion-margin-top">
+    <img *ngIf="item.imagem" [src]="item.imagem" />
+    <ion-card-header>
+      <ion-card-subtitle>{{ item.categoria }}</ion-card-subtitle>
+      <ion-card-title>{{ item.nome }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>{{ item.descricao }}</p>
+      <p>Serve: {{ item.serve }}</p>
+      <p>Preço: R$ {{ item.preco | number:'1.2-2' }}</p>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

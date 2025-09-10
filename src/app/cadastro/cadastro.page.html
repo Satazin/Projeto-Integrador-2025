@@ -1,0 +1,21 @@
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+  </ion-header>
+  <ion-card>
+    <ion-card-title>Faça o <br> seu cadastro!</ion-card-title>
+
+    <ion-card-content>
+      <ion-input label="Nome" [(ngModel)]="nome"></ion-input>
+      <ion-input label="E-mail" [(ngModel)]="email"></ion-input>
+      <ion-input type="Password" label="Password" [(ngModel)]="senha">
+        <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+      </ion-input>
+      <ion-input label="Telefone" [(ngModel)]="telefone"></ion-input>
+      <ion-button expand="block" color="dark" (click)="fazerCadastro()">Cadastrar-se</ion-button>
+      <div class="secondary-button-container">
+        <ion-button class="btn-account" expand="block" color="light" routerLink="/login">Já tenho conta</ion-button>
+        <ion-button class="btn-guest" expand="block" color="light" routerLink="/pedidos">Continuar sem login</ion-button>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
