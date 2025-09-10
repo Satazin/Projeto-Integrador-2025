@@ -7,6 +7,7 @@
     border: 2px solid #a2591c;
 
 }
+
 ion-title {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     text-align: left;
@@ -108,24 +109,6 @@ ion-avatar {
 
 }
 
-.poketitulo {
-    text-align: center;
-    margin: 3px 0;
-    font-weight: bold;
-    color: #ffffff;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin-top: 40px;
-
-}
-
-.temakititulo {
-    text-align: center;
-    margin: 3px 0;
-    font-weight: bold;
-    color: #ffffff;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin-top: 40px;
-}
 
 .bemvindo {
     text-align: center;
@@ -137,6 +120,7 @@ ion-avatar {
         font-size: 3em;
         margin: 0;
     }
+
     font-family: 'chinese';
     margin-top: 20px;
     margin-bottom: 10px;
@@ -146,9 +130,83 @@ ion-avatar {
         src: url('/assets/fonte.ttf') format('truetype');
     }
 }
+
 .produto-botao {
-  background: #393939;
-  width: 90%;
-  text-align: left;cursor: pointer;
-  display: flex;
+    background: #393939;
+    width: 90%;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+}
+
+.barra-carrinho {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 99;
+    width: 100vw;
+}
+
+ion-tab-bar {
+    background: #fff8f0;
+    border-top: 2px solid #e63946;
+    box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.08);
+    height: 62px;
+}
+
+ion-tab-button {
+    color: #c0392b;
+    font-family: 'Noto Sans JP', Arial, sans-serif;
+    font-weight: 600;
+    font-size: 1em;
+}
+
+ion-tab-button ion-icon {
+    font-size: 1.6em;
+}
+
+ion-badge {
+    margin-left: 6px;
+    font-size: 0.9em;
+}
+
+
+
+
+
+.slider {
+    box-shadow: 0 10px 20px -5px rgba(0, 0, 0, .125);
+    height: 120px;
+    margin: auto;
+    overflow-x: auto;         /* scroll horizontal */
+    overflow-y: hidden;
+    position: relative;
+    width: 90%;
+    scroll-snap-type: x mandatory; /* efeito de snap */
+    -webkit-overflow-scrolling: touch; /* suave no mobile */
+    font-size: 1.3em;
+}
+
+.slide-track {
+    display: flex;
+    width: max-content; /* ajusta ao conteúdo */
+}
+
+.slide {
+    flex: 0 0 auto;
+    height: 100px;
+    width: max-content;
+    scroll-snap-align: start;
+    scroll-margin-top: 80px; // Ajuste positivo para descer 80px abaixo do topo
+}
+
+.categoria-titulo {
+    text-align: center;
+    margin: auto;
+    font-weight: bold;
+    color: #ffffff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-top: 40px;
+    font-size: 1.4em;
 }
