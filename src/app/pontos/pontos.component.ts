@@ -5,6 +5,11 @@ import { CommonModule } from '@angular/common';
 
 import { PontoService } from '../ponto/pontos-recom';
 
+interface Produto {
+  nome: string;
+  pontos: number;
+}
+
 @Component({
   selector: 'app-pontos',
   templateUrl: './pontos.component.html',
@@ -15,7 +20,16 @@ import { PontoService } from '../ponto/pontos-recom';
 export class PontosPage {
   valorCompra: number = 0;
   pontosUsuario: number = 0;
-  pontosRemover: number = 0;
+  
+  // Lista de produtos para o select
+  produtosDisponiveis: Produto[] = [
+    { nome: 'Produto A', pontos: 50 },
+    { nome: 'Produto B', pontos: 100 },
+    { nome: 'Produto C', pontos: 200 }
+  ];
+  
+  // Variável para armazenar o produto selecionado
+  produtoSelecionado: Produto | null = null;
 
   constructor(private pontoService: PontoService) { }
 
@@ -35,17 +49,20 @@ export class PontosPage {
   }
 
   async removerPontos() {
+    if (!this.produtoSelecionado) {
+      alert('Por favor, selecione um produto para remover pontos.');
+      return;
+    }
+
     const pontosAtuais = await this.pontoService.lerPontos();
-    if (this.pontosRemover > 0) {
-      if (this.pontosRemover <= pontosAtuais) {
-        await this.pontoService.removerPontos(this.pontosRemover);
-        alert(`${this.pontosRemover} pontos removidos!`);
-        this.mostrarPontos();
-      } else {
-        alert('Pontos insuficientes!');
-      }
+    const pontosParaRemover = this.produtoSelecionado.pontos;
+    
+    if (pontosParaRemover <= pontosAtuais) {
+      await this.pontoService.removerPontos(pontosParaRemover);
+      alert(`${pontosParaRemover} pontos removidos pela troca de ${this.produtoSelecionado.nome}!`);
+      this.mostrarPontos(); // Atualiza a exibição dos pontos
     } else {
-      alert('Por favor, insira um valor válido para remover.');
+      alert('Pontos insuficientes!');
     }
   }
 }
