@@ -35,8 +35,6 @@ export class PedidosPage implements OnInit, AfterViewInit {
   ];
 
 
-  
-
   itens = [
     // POKE
     { categoria: 'poke', id: '1', nome: 'Poke Nepal (G)', descricao: 'Arroz japonês ou mix de folhas, salmão furai, cream cheese, cebola roxa, tomate cereja, mix de gergelim...', serve: '1 pessoa', preco: '55,91', imagem: 'assets/pokenepal.jpg' },
