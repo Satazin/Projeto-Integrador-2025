@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonInput, IonButton, IonList, IonItem, IonLabel } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonInput, IonButton, IonItem, IonSelect, IonSelectOption } from '@ionic/angular/standalone';
 import { RealtimeDatabaseService } from '../firebase/realtime-databse';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -14,7 +14,10 @@ import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
   templateUrl: './pedidos-test.page.html',
   styleUrls: ['./pedidos-test.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonInput, IonButton, IonList, IonItem, IonLabel]
+  imports: [
+    IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule,
+    IonInput, IonButton, IonItem, IonSelect, IonSelectOption
+  ]
 })
 export class PedidosTestPage implements OnInit {
   public id: number = 0;
@@ -22,9 +25,25 @@ export class PedidosTestPage implements OnInit {
   public descricao: string = '';
   public serve: number = 1;
   public preco: number = 0;
-  public imagem: string = ''; // campo da imagem
+  public categoria: string = '';
+  public imagem: string = ''; 
 
   public pedidos: any[] = [];
+
+  // 🔥 Categorias fixas
+  public categorias = [
+    { id: 'poke', nome: 'POKE' },
+    { id: 'temaki', nome: 'TEMAKI' },
+    { id: 'yakisoba', nome: 'YAKISOBA' },
+    { id: 'sushi', nome: 'SUSHI' },
+    { id: 'niguiris', nome: 'NIGUIRIS' },
+    { id: 'hot', nome: 'PORÇÕES HOT' },
+    { id: 'urumakis', nome: 'URUMAKIS' },
+    { id: 'acompanhamentos', nome: 'ACOMPANHAMENTOS' },
+    { id: 'combos', nome: 'COMBOS' },
+    { id: 'bebidas', nome: 'BEBIDAS' },
+    { id: 'sobremesas', nome: 'SOBREMESAS' }
+  ];
 
   constructor(
     private rt: RealtimeDatabaseService,
@@ -48,8 +67,9 @@ export class PedidosTestPage implements OnInit {
       descricao: this.descricao,
       serve: this.serve,
       preco: this.preco,
+      categoria: this.categoria,
       imagem: this.imagem
-    }, this.id)
+    }, this.id.toString())
     .then((res: any) => {
       console.log('Salvo com sucesso', res);
       this.listar(); // atualiza lista
@@ -81,6 +101,7 @@ export class PedidosTestPage implements OnInit {
     this.descricao = '';
     this.serve = 1;
     this.preco = 0;
+    this.categoria = '';
     this.imagem = '';
   }
 

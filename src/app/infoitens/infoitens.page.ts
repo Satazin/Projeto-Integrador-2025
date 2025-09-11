@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonicModule} from '@ionic/angular';
+import { IonicModule } from '@ionic/angular';
+import { RealtimeDatabaseService } from '../firebase/realtime-databse';
 
 @Component({
   selector: 'app-infoitens',
@@ -12,135 +13,52 @@ import { IonicModule} from '@ionic/angular';
   imports: [IonicModule, CommonModule, FormsModule]
 })
 export class InfoitensPage implements OnInit {
-  item: any;
+  item: any = null;
   quantidade = 1;
+  loading = true;
+  errorMessage: string | null = null;
 
-  itens = [
-    // POKE
-    {
-      categoria: 'poke',
-      id: '1',
-      nome: 'Poke Nepal (G)',
-      descricao: 'Arroz japonês ou mix de folhas, salmão furai, cream cheese, cebola roxa, tomate cereja, mix de gergelim...',
-      serve: '1 pessoa',
-      preco: '55,91',
-      imagem: 'assets/pokenepal.jpg'
-    },
-    {
-      categoria: 'poke',
-      id: '2',
-      nome: 'Poke Palau (G)',
-      descricao: 'Arroz japonês ou mix de folhas, barriga de salmão selado, azeite trufado, tomate cereja, chips de banana...',
-      serve: '1 pessoa',
-      preco: '57,90',
-      imagem: 'assets/pokepalau.jpg'
-    },
-    {
-      categoria: 'poke',
-      id: '3',
-      nome: 'Poke Haiti (G)',
-      descricao: 'Base de arroz gohan, salmão grelhado, molho tarê, sunomono, couve crispy, ervilha wasabi, chips de batata doce...',
-      serve: '1 pessoa',
-      preco: '56,90',
-      imagem: 'assets/pokehaiti.jpg'
-    },
-    {
-      categoria: 'poke',
-      id: '4',
-      nome: 'Poke Vietnã (G)',
-      descricao: 'Arroz japonês, camarão empanado, cenoura ralada, tomate cereja, sunomono, cream cheese, chips de mandioquinha...',
-      serve: '1 pessoa',
-      preco: '57,90',
-      imagem: 'assets/pokevietna.jpg'
-    },
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private rt: RealtimeDatabaseService
+  ) {}
 
-    // TEMAKI
-    {
-      categoria: 'temaki',
-      id:'5',
-      nome: 'Temaki Índia',
-      descricao: 'Cone de alga recheado com arroz japonês, salmão fresco e cebolinha.',
-      serve: '1 pessoa',
-      preco: '28,90',
-      imagem: 'assets/temakiindia.jpg'
-    },
-    {
-      categoria: 'temaki',
-      id: '6',
-      nome: 'Temaki Bali',
-      descricao: 'Cone de alga recheado com arroz japonês, pele de salmão grelhada e molho tarê.',
-      serve: '1 pessoa',
-      preco: '26,90',
-      imagem: 'assets/temakibali.jpg'
-    },
-    {
-      categoria: 'temaki',
-      id: '7',
-      nome: 'Temaki Congo',
-      descricao: 'Cone de alga recheado com arroz japonês, kani, manga e gergelim.',
-      serve: '1 pessoa',
-      preco: '25,90',
-      imagem: 'assets/temakicongo.jpg'
-    },
-    {
-      categoria: 'temaki',
-      id: '8',
-      nome: 'Temaki Etiópia',
-      descricao: 'Cone de alga recheado com arroz japonês, camarão empanado e cream cheese.',
-      serve: '1 pessoa',
-      preco: '29,90',
-      imagem: 'assets/temakietiopia.jpg'
-    },
+  async ngOnInit() {
+    // tenta pegar do state
+    const nav = this.router.getCurrentNavigation();
+    this.item = nav?.extras?.state?.['item'];
 
-    // YAKISOBA
-    {
-      categoria: 'yakisoba',
-      id:'9',
-      nome: 'Yakisoba Tailândia',
-      descricao: 'Macarrão oriental com carne bovina, frango, legumes frescos e molho especial.',
-      serve: '1 pessoa',
-      preco: '32,90',
-      imagem: 'assets/yakisobatailandia.jpg'
-    },
-    {
-      categoria: 'yakisoba',
-      id:'10',
-      nome: 'Yakisoba Cuba',
-      descricao: 'Macarrão oriental com frango grelhado, legumes frescos e molho yakisoba.',
-      serve: '1 pessoa',
-      preco: '30,90',
-      imagem: 'assets/yakisobacuba.jpg'
-    },
-    {
-      categoria: 'yakisoba',
-      id: '11',
-      nome: 'Yakisoba Bangladesh',
-      descricao: 'Macarrão oriental com legumes frescos, cogumelos e molho especial.',
-      serve: '1 pessoa',
-      preco: '29,90',
-      imagem: 'assets/yakisobabangladesh.jpg'
-    },
-    {
-      categoria: 'yakisoba',
-      id: '12',
-      nome: 'Yakisoba Finlândia',
-      descricao: 'Macarrão oriental com camarão, legumes frescos e molho yakisoba.',
-      serve: '1 pessoa',
-      preco: '36,90',
-      imagem: 'assets/yakisobafinlandia.jpg'
+    if (this.item) {
+      this.loading = false;
+      return;
     }
-  ];
 
-  constructor(private route: ActivatedRoute) {}
-
-  ngOnInit() {
+    // fallback: busca no Firebase pelo id da rota
     const id = this.route.snapshot.paramMap.get('id');
-    this.item = this.itens.find(i => i.id === id);
+    if (!id) {
+      this.errorMessage = 'ID do item não informado.';
+      this.loading = false;
+      return;
+    }
+
+    try {
+      const snapshot: any = await this.rt.get(`/pedidos/${id}`);
+      if (snapshot.exists()) {
+        this.item = { id, ...snapshot.val() };
+      } else {
+        this.errorMessage = 'Item não encontrado.';
+      }
+    } catch (err) {
+      console.error('Erro ao buscar item:', err);
+      this.errorMessage = 'Erro ao carregar item.';
+    } finally {
+      this.loading = false;
+    }
   }
 
   get valorTotal() {
-    // Converte o preço para número e multiplica pela quantidade
-    return (parseFloat(this.item?.preco.replace(',', '.')) || 0) * this.quantidade;
+    return (parseFloat(this.item?.preco?.toString().replace(',', '.')) || 0) * this.quantidade;
   }
 
   alterarQtd(valor: number) {
@@ -150,6 +68,6 @@ export class InfoitensPage implements OnInit {
   }
 
   adicionarAoCarrinho() {
-    // Sua lógica para adicionar ao carrinho
+    console.log('Adicionado ao carrinho:', { ...this.item, quantidade: this.quantidade });
   }
 }

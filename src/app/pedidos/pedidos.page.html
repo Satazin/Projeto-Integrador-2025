@@ -37,7 +37,7 @@
 
 <ion-content id="main-content" [fullscreen]="true">
   <div class="bemvindo">
-    <h1 color="#ffffff">Seja bem-vindo ao <br>Casa Bonsai!</h1>
+    <h1>Seja bem-vindo ao <br>Casa Bonsai!</h1>
   </div>
   <img src="assets/lights.jpg" alt="Lanternas japonesas" class="banner-lanternas" />
 
@@ -48,15 +48,13 @@
     </button>
   </div>
 
-
-
   <div class="produtos-lista">
     <ng-container *ngFor="let cat of categorias">
       <div [id]="cat.id" class="categoria-titulo">{{cat.nome}}</div>
       <button
         *ngFor="let item of itensPorCategoria(cat.id)"
         class="produto-card produto-botao"
-        [routerLink]="['/infoitens', item.id]"
+        (click)="abrirInfoItem(item)"
       >
         <img [src]="item.imagem" alt="{{item.nome}}" class="produto-img" />
         <div class="produto-info">
@@ -68,5 +66,4 @@
       </button>
     </ng-container>
   </div>
-
 </ion-content>

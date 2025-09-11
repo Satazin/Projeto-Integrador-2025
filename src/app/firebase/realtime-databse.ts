@@ -1,6 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { Database, ref, list, set, onValue, remove } from '@angular/fire/database';
-import { firstValueFrom, from } from 'rxjs';
+import { Database, ref, set, onValue, remove, get } from '@angular/fire/database';
 
 @Injectable({
   providedIn: 'root'
@@ -15,25 +14,14 @@ export class RealtimeDatabaseService {
     return ref(this.db, url);
   }
 
-  list(url: string) {
-    return list(this.ref(url));
+  async get(url: string) {
+    const snapshot = await get(this.ref(url));
+    return snapshot;
   }
 
-  add(url: string, data: any, id: number = 0) {
-    return (async () => {
-      let indice = 1;
-      const snapshot: any = await firstValueFrom(this.list(url));
-
-      if (snapshot !== undefined) {
-        indice = snapshot.length + 1;
-      }
-
-      const url_indice = id === 0 ? indice : id;
-      const url_full = `${url}/${url_indice}`;
-      const refPath = this.ref(url_full);
-
-      return set(refPath, data);
-    })();
+  async add(url: string, data: any, id: string) {
+    const refPath = this.ref(`${url}/${id}`);
+    return set(refPath, data);
   }
 
   query(url: string, callback: any) {

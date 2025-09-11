@@ -25,10 +25,26 @@
     <p>Preço</p>
     <ion-input type="number" placeholder="Digite o preço" [(ngModel)]="preco"></ion-input>
 
-    <p>Imagem (URL)</p>
-    <ion-input placeholder="Cole o link da imagem" [(ngModel)]="imagem"></ion-input>
+    <!-- SELECT DE CATEGORIA -->
+    <p>Categoria</p>
+    <ion-item>
+      <ion-select placeholder="Selecione a categoria" [(ngModel)]="categoria">
+        <ion-select-option *ngFor="let cat of categorias" [value]="cat.id">
+          {{cat.nome}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
 
-    <ion-button expand="block" (click)="salvar()">Cadastrar</ion-button> 
+    <!-- BOTÃO PARA SELECIONAR IMAGEM -->
+    <p>Imagem</p>
+    <ion-button expand="block" (click)="selecionarImagem()">Selecionar Imagem</ion-button>
+
+    <!-- PRÉVIA DA IMAGEM -->
+    <div *ngIf="imagem" class="preview-img">
+      <img [src]="imagem" alt="Prévia" />
+    </div>
+
+    <ion-button expand="block" (click)="salvar()">Cadastrar</ion-button>
   </div>
 
   <hr>
@@ -46,6 +62,7 @@
         <div class="produto-desc">{{item.descricao}}</div>
         <div class="produto-serve">Serve {{item.serve}} pessoa{{item.serve > 1 ? 's' : ''}}</div>
         <div class="produto-preco">R$ {{item.preco}}</div>
+        <div class="produto-cat">Categoria: {{item.categoria}}</div>
       </div>
     </button>
   </div>
