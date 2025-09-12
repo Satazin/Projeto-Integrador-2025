@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ElementRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink, Router } from '@angular/router';
@@ -91,6 +91,7 @@ export class PedidosPage implements OnInit, AfterViewInit {
       el.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   }
+
 
   // MARCAR QUAL CATEGORIA ESTÁ EM FOCO
   onScroll() {

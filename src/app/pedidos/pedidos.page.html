@@ -6,6 +6,8 @@
       </ion-avatar>
     </ion-buttons>
 
+
+
     <ion-title>Casa Bonsai</ion-title>
     <ion-buttons slot="end">
       <ion-button fill="clear" color="dark">
@@ -28,9 +30,11 @@
   <ion-content class="ion-padding">
     <ion-list>
       <ion-item routerLink="/perfil">Perfil</ion-item>
+      <ion-item routerLink="/brindes">Brindes</ion-item>
+      <ion-item routerLink="/localizacao">Nosso Espaço</ion-item>
       <ion-item routerLink="/sobre-nos">Sobre nós</ion-item>
       <ion-item routerLink="/contato">Fale Conosco</ion-item>
-      <ion-item routerLink="/localizacao">Nosso Espaço</ion-item>
+
     </ion-list>
   </ion-content>
 </ion-menu>
@@ -41,11 +45,17 @@
   </div>
   <img src="assets/lights.jpg" alt="Lanternas japonesas" class="banner-lanternas" />
 
-  <div class="categorias-menu">
-    <button *ngFor="let cat of categorias" [class.selected]="categoriaEmFoco === cat.id"
-      (click)="scrollToCategoria(cat.id)">
-      {{cat.nome}}
-    </button>
+  <div class="categorias-menu-scroll">
+    <div class="slider">
+      <div class="slide-track">
+        <div class="categorias-menu item slide" #categoriasMenu>
+          <button *ngFor="let cat of categorias" 
+            (click)="scrollToCategoria(cat.id)">
+            {{cat.nome}}
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="produtos-lista">

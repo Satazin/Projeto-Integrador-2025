@@ -1,13 +1,9 @@
-@font-face {
-  font-family: 'chinese';
-  src: url('/assets/fonte.ttf') format('truetype');
-}
+
 .titulo {
   text-align: center;
   font-weight: bold;
-  font-size: 50px;
-  font-family: 'chinese';
- 
+  font-size: 2rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .brinde-card {
@@ -63,5 +59,9 @@
   margin: 20px 0;
   font-size: 18px;
   font-weight: bold;
+}
+
+ion-toolbar {
+  width: 100%;
 }
 
