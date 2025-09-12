@@ -1,0 +1,42 @@
+<ion-content [fullscreen]="true" class="perfil-content">
+  <ng-container *ngIf="usuarioLogado; else loginBox">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Seu Perfil</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-avatar class="perfil-avatar">
+          <img src="assets/logoo.png" alt="Avatar" />
+        </ion-avatar>
+        <ion-card-subtitle>{{usuario.nome}}</ion-card-subtitle>
+        <ion-list lines="none">
+          <ion-item>
+            <ion-label>Email</ion-label>
+            <ion-note slot="end">{{usuario.email}}</ion-note>
+          </ion-item>
+          <ion-item>
+            <ion-label>Telefone</ion-label>
+            <ion-note slot="end">{{usuario.telefone}}</ion-note>
+          </ion-item>
+          <ion-item>
+            <ion-label>Endereço</ion-label>
+            <ion-note slot="end">{{usuario.endereco}}</ion-note>
+          </ion-item>
+          <ion-item>
+            <ion-label>Pontos</ion-label>
+            <ion-note slot="end">{{usuario.pontos}}</ion-note>
+          </ion-item>
+        </ion-list>
+        <ion-button expand="block" color="danger" (click)="logout()">Sair</ion-button>
+      </ion-card-content>
+    </ion-card>
+  </ng-container>
+
+  <ng-template #loginBox>
+    <div class="perfil-login-box">
+      <ion-icon name="person-circle-outline" size="large"></ion-icon>
+      <h2>Faça login para acessar seu perfil</h2>
+      <ion-button expand="block" color="primary" routerLink="/login">Entrar</ion-button>
+    </div>
+  </ng-template>
+</ion-content>

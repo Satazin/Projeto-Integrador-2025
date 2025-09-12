@@ -1,0 +1,37 @@
+.infoitens-content {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 50px 0;
+}
+
+ion-card {
+  width: 90%;
+  max-width: 700px;
+  margin: 20px 20px 20px 20px;
+  border-radius: 12px;
+ 
+}
+
+.infoitens-img {
+  width: 100%;
+  border-radius: 12px 12px 0 0;
+  object-fit: cover;
+  
+}
+
+.infoitens-preco {
+  font-size: 1.3em;
+  font-weight: bold;
+  color: #c0392b;
+  margin: 18px 0 12px 0;
+}
+
+.infoitens-qtd {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  margin-bottom: 18px;
+  font-size: 1.2em;
+}

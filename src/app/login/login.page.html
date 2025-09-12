@@ -16,4 +16,21 @@
       <ion-button expand="block" color="light" routerLink="/cadastro" class="botao-cadastro">Voltar ao cadastro</ion-button>
     </div>
   </ion-card>
+  <ion-header collapse="condense">
+      </ion-header>
+
+    <ion-card>
+      <ion-card-title>Faça o <br> seu login!</ion-card-title>
+
+      <ion-card-content>
+        <ion-input label="E-mail" [(ngModel)]="email"></ion-input>
+        <ion-input type="Password" label="Senha" [(ngModel)]="senha"></ion-input>
+      </ion-card-content>
+      <ion-button expand="block" color="dark" routerLink="/pedidos">Entrar</ion-button>
+      <div class="secondary-button-container">
+        <ion-button expand="block" color="light" routerLink="/forgot-password">Esqueceu a Senha?</ion-button>
+        <ion-button expand="block" color="light" routerLink="/cadastro" class="botao-cadastro">Voltar ao cadastro</ion-button>
+      </div>
+
+    </ion-card>
 </ion-content>

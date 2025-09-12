@@ -27,6 +27,47 @@ export const routes: Routes = [
     path: 'forgot-password',
     loadComponent: () => import('./forgot-password/forgot-password.page').then( m => m.ForgotPasswordPage)
   },
+  {
+    path: 'carrinho',
+    loadComponent: () => import('./carrinho/carrinho.page').then( m => m.CarrinhoPage)
+  },
+
+  {
+    path: 'forgot-password',
+    loadComponent: () => import('./forgot-password/forgot-password.page').then( m => m.ForgotPasswordPage)
+  },
+  {
+    path: 'sobre-nos',
+    loadComponent: () => import('./sobre-nos/sobre-nos.page').then( m => m.SobreNosPage)
+  },
+  {
+    path: 'localizacao',
+    loadComponent: () => import('./localizacao/localizacao.page').then( m => m.LocalizacaoPage)
+  },
+  {
+    path: 'contato',
+    loadComponent: () => import('./contato/contato.page').then( m => m.ContatoPage)
+  },
+  {
+    path: 'infoitens',
+    loadComponent: () => import('./infoitens/infoitens.page').then( m => m.InfoitensPage)
+  },
+  {
+    path: 'infoitens/:id',
+    loadComponent: () => import('./infoitens/infoitens.page').then(m => m.InfoitensPage)
+  },
+  {
+    path: 'perfil',
+    loadComponent: () => import('./perfil/perfil.page').then( m => m.PerfilPage)
+  },
+  {
+    path: 'pedidos-test',
+    loadComponent: () => import('./pedidos-test/pedidos-test.page').then( m => m.PedidosTestPage)
+  },
+  {
+    path: 'brindes',
+    loadComponent: () => import('./brindes/brindes.page').then( m => m.BrindesPage)
+  },
 
   {
     path: 'ponto',

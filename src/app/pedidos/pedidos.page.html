@@ -1,13 +1,79 @@
-<ion-header [translucent]="true">
+<ion-header [translucent]="false">
   <ion-toolbar>
-    <ion-title>pedidos</ion-title>
+    <ion-buttons slot="start">
+      <ion-avatar>
+        <img alt="Perfil" src="../../assets/png-removebg-preview.png" routerLink="/home" />
+      </ion-avatar>
+    </ion-buttons>
+
+
+
+    <ion-title>Casa Bonsai</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" color="dark">
+        <ion-icon slot="icon-only" name="pin"></ion-icon>
+      </ion-button>
+      <ion-button fill="clear" color="dark" routerLink="/carrinho">
+        <ion-icon slot="icon-only" name="cart-outline"></ion-icon>
+      </ion-button>
+      <ion-menu-button color="dark" menu="rightMenu"></ion-menu-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
+<ion-menu side="end" contentId="main-content" menuId="rightMenu">
+  <ion-header>
     <ion-toolbar>
-      <ion-title size="large">pedidos</ion-title>
+      <ion-title>Menu</ion-title>
     </ion-toolbar>
   </ion-header>
+  <ion-content class="ion-padding">
+    <ion-list>
+      <ion-item routerLink="/perfil">Perfil</ion-item>
+      <ion-item routerLink="/brindes">Brindes</ion-item>
+      <ion-item routerLink="/localizacao">Nosso Espaço</ion-item>
+      <ion-item routerLink="/sobre-nos">Sobre nós</ion-item>
+      <ion-item routerLink="/contato">Fale Conosco</ion-item>
+
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<ion-content id="main-content" [fullscreen]="true">
+  <div class="bemvindo">
+    <h1>Seja bem-vindo ao <br>Casa Bonsai!</h1>
+  </div>
+  <img src="assets/lights.jpg" alt="Lanternas japonesas" class="banner-lanternas" />
+
+  <div class="categorias-menu-scroll">
+    <div class="slider">
+      <div class="slide-track">
+        <div class="categorias-menu item slide" #categoriasMenu>
+          <button *ngFor="let cat of categorias" 
+            (click)="scrollToCategoria(cat.id)">
+            {{cat.nome}}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="produtos-lista">
+    <ng-container *ngFor="let cat of categorias">
+      <div [id]="cat.id" class="categoria-titulo">{{cat.nome}}</div>
+      <button
+        *ngFor="let item of itensPorCategoria(cat.id)"
+        class="produto-card produto-botao"
+        (click)="abrirInfoItem(item)"
+      >
+        <img [src]="item.imagem" alt="{{item.nome}}" class="produto-img" />
+        <div class="produto-info">
+          <div class="produto-nome">{{item.nome}}</div>
+          <div class="produto-desc">{{item.descricao}}</div>
+          <div class="produto-serve">Serve {{item.serve}}</div>
+          <div class="produto-preco">R$ {{item.preco}}</div>
+        </div>
+      </button>
+    </ng-container>
+  </div>
 </ion-content>

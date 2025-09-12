@@ -90,6 +90,7 @@ export class PerfilComponent implements OnInit {
       }
     });
 
+    // puxar o endereco do Realtime Database
     const enderecoRef = ref(this.dbRT, 'usuarios/' + this.userId + '/endereco');
     onValue(enderecoRef, (snapshot) => {
       const enderecoDoRealtime = snapshot.val();
@@ -98,7 +99,7 @@ export class PerfilComponent implements OnInit {
       }
     });
   
-    // puxar o restante dos dados do Firestore)
+    // puxar o restante dos dados do Firestore/ Auth
     try {
       const userDocRef = doc(this.db, 'usuarios', this.userId);
       const userDocSnap = await getDoc(userDocRef);

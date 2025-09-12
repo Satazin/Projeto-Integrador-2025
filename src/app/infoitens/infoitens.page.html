@@ -1,0 +1,39 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/pedidos" color="dark" text="Voltar"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Detalhes do Item</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="infoitens-content">
+  <div class="ion-padding" *ngIf="loading">
+    <ion-spinner name="crescent"></ion-spinner>
+  </div>
+
+  <div class="ion-padding" *ngIf="!loading && errorMessage">
+    <p>{{ errorMessage }}</p>
+  </div>
+
+  <ion-card *ngIf="!loading && item">
+    <img [src]="item.imagem" alt="{{item.nome}}" class="infoitens-img" />
+    <ion-card-header>
+      <ion-card-title>{{item.nome}}</ion-card-title>
+      <ion-card-subtitle>{{item.serve}}</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <p>{{item.descricao}}</p>
+      <div class="infoitens-preco">R$ {{item.preco}}</div>
+      <div class="infoitens-qtd">
+        <ion-button fill="outline" size="small" (click)="alterarQtd(-1)" [disabled]="quantidade <= 1">-</ion-button>
+        <span>{{quantidade}}</span>
+        <ion-button fill="outline" size="small" (click)="alterarQtd(1)">+</ion-button>
+      </div>
+      <div class="infoitens-total">R$ {{valorTotal | number:'1.2-2'}}</div>
+      <ion-button expand="block" color="primary" (click)="adicionarAoCarrinho()">
+        Adicionar ao Carrinho
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

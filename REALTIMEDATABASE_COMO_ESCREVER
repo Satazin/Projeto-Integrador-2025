@@ -1,10 +1,10 @@
-EU ESCREVI ERRADO DATABASE ENTAO É DATABSE
+// EU ESCREVI ERRADO DATABASE ENTAO É DATABSE
 
 
 
-{
- "rules": {
-   ".read": true,
-     ".write": true
- }
-}
+// {
+//  "rules": {
+//    ".read": true,
+//      ".write": true
+//  }
+// }

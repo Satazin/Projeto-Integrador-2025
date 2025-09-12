@@ -1,0 +1,213 @@
+/* filepath: c:\Users\laura.apolinario\Documents\Projeto-Integrador-2025\src\app\pedidos\pedidos.page.scss */
+.banner-lanternas {
+    display: block;
+    margin: 24px auto 0 auto;
+    max-width: 90%;
+    border-radius: 12px;
+    border: 2px solid #a2591c;
+
+}
+
+ion-title {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: left;
+    font-size: 1.5em;
+    color: #ffffff;
+}
+
+ion-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+
+.categorias-menu {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    margin: 32px 0 18px 0;
+}
+
+.categorias-menu button {
+    background: none;
+    border: none;
+    font-size: 1em;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #ffffff;
+    padding: 6px 18px;
+    border-radius: 3px;
+
+}
+
+.categorias-menu button.selected,
+.categorias-menu button:hover {
+    background: #444343;
+    color: #fff;
+    height: 80px;
+}
+
+.produtos-lista {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 32px;
+    margin-top: 30px;
+}
+
+.produto-card {
+    display: flex;
+    background: #4d4d4d;
+    border: 2px solid #393939;
+    border-radius: 12px;
+    padding: 15px;
+    width: 350px;
+    height: 200px;
+    gap: 16px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.produto-img {
+    width: 140px;
+    height: 140px;
+    border-radius: 8px;
+    object-fit: cover;
+    margin-top: 15px;
+    border: 1.5px solid #ffffff;
+}
+
+.produto-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+
+.produto-nome {
+    font-weight: bold;
+    font-size: 1.5em;
+    margin-bottom: 8px;
+}
+
+.produto-desc {
+    font-size: 1em;
+    color: #fff6f6;
+    margin-bottom: 8px;
+}
+
+.produto-serve {
+    font-size: 1em;
+    font-weight: bold;
+    color: #ffffff;
+    margin-top: auto;
+}
+
+.produto-preco {
+    font-weight: bold;
+    font-size: 1.7em;
+    color: #ffffff;
+    margin-top: auto;
+
+}
+
+
+.bemvindo {
+    text-align: center;
+    margin: 16px 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #ffffff;
+
+    h1 {
+        font-size: 3em;
+        margin: 0;
+    }
+
+    font-family: 'chinese';
+    margin-top: 20px;
+    margin-bottom: 10px;
+
+    @font-face {
+        font-family: 'chinese';
+        src: url('/assets/fonte.ttf') format('truetype');
+    }
+}
+
+.produto-botao {
+    background: #393939;
+    width: 90%;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+}
+
+.barra-carrinho {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 99;
+    width: 100vw;
+}
+
+ion-tab-bar {
+    background: #fff8f0;
+    border-top: 2px solid #e63946;
+    box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.08);
+    height: 62px;
+}
+
+ion-tab-button {
+    color: #c0392b;
+    font-family: 'Noto Sans JP', Arial, sans-serif;
+    font-weight: 600;
+    font-size: 1em;
+}
+
+ion-tab-button ion-icon {
+    font-size: 1.6em;
+}
+
+ion-badge {
+    margin-left: 6px;
+    font-size: 0.9em;
+}
+
+
+
+
+
+.slider {
+    box-shadow: 0 10px 20px -5px rgba(0, 0, 0, .125);
+    height: 120px;
+    margin: auto;
+    overflow-x: auto;         /* scroll horizontal */
+    overflow-y: hidden;
+    position: relative;
+    width: 90%;
+    scroll-snap-type: x mandatory; /* efeito de snap */
+    -webkit-overflow-scrolling: touch; /* suave no mobile */
+    font-size: 1.3em;
+}
+
+.slide-track {
+    display: flex;
+    width: max-content; /* ajusta ao conteúdo */
+}
+
+.slide {
+    flex: 0 0 auto;
+    height: 100px;
+    width: max-content;
+    scroll-snap-align: start;
+    scroll-margin-top: 80px; // Ajuste positivo para descer 80px abaixo do topo
+}
+
+.categoria-titulo {
+    text-align: center;
+    margin: auto;
+    font-weight: bold;
+    color: #ffffff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-top: 40px;
+    font-size: 1.4em;
+}
