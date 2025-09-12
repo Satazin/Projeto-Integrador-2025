@@ -69,7 +69,7 @@ export class PedidosTestPage implements OnInit {
       preco: this.preco,
       categoria: this.categoria,
       imagem: this.imagem
-    }, this.id.toString())
+    }, this.id)
     .then((res: any) => {
       console.log('Salvo com sucesso', res);
       this.listar(); // atualiza lista

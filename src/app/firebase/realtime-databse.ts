@@ -6,6 +6,9 @@ import { firstValueFrom, from } from 'rxjs';
   providedIn: 'root'
 })
 export class RealtimeDatabaseService {
+  get(arg0: string): any {
+    throw new Error('Method not implemented.');
+  }
 
   private db: Database = inject(Database);
 
