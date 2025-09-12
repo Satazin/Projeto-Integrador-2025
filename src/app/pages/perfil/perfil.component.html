@@ -38,6 +38,10 @@
         <ion-input label="Telefone" [(ngModel)]="usuario.telefone" labelPlacement="stacked" type="tel"></ion-input>
       </ion-item>
       
+      <ion-item>
+        <ion-input label="Endereço" [(ngModel)]="usuario.endereco" labelPlacement="stacked"></ion-input>
+      </ion-item>
+      
       <ion-button expand="block" class="ion-margin-top" (click)="salvarPerfil()">
         Salvar Alterações
       </ion-button>

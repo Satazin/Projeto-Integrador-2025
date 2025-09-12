@@ -46,6 +46,7 @@ export class GerenciarItensComponent implements OnInit {
     }
   }
 
+  // Salva o item no banco de dados
   async salvarItem() {
     try {
       if (this.selectedFile) {
@@ -72,6 +73,7 @@ export class GerenciarItensComponent implements OnInit {
     }
   }
 
+  // Converte arquivo para base64
   private fileToBase64(file: File): Promise<string> {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();

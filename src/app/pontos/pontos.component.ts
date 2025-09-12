@@ -21,23 +21,23 @@ export class PontosPage {
   valorCompra: number = 0;
   pontosUsuario: number = 0;
   
-  // Lista de produtos para o select
+  // Lista de produtos disponíveis para troca
   produtosDisponiveis: Produto[] = [
     { nome: 'Produto A', pontos: 50 },
     { nome: 'Produto B', pontos: 100 },
     { nome: 'Produto C', pontos: 200 }
   ];
   
-  // Variável para armazenar o produto selecionado
   produtoSelecionado: Produto | null = null;
-
   constructor(private pontoService: PontoService) { }
 
+  // Mostra os pontos atuais do usuário
   async mostrarPontos() {
     this.pontosUsuario = await this.pontoService.lerPontos();
     alert(`Você tem ${this.pontosUsuario} pontos.`);
   }
 
+  // Adiciona pontos com base no valor da compra
   async adicionarPontos() {
     if (this.valorCompra > 0) {
       await this.pontoService.adicionarPontos(this.valorCompra);
@@ -48,6 +48,7 @@ export class PontosPage {
     }
   }
 
+  // Remove os pontos ao trocar por um produto
   async removerPontos() {
     if (!this.produtoSelecionado) {
       alert('Por favor, selecione um produto para remover pontos.');
@@ -60,7 +61,7 @@ export class PontosPage {
     if (pontosParaRemover <= pontosAtuais) {
       await this.pontoService.removerPontos(pontosParaRemover);
       alert(`${pontosParaRemover} pontos removidos pela troca de ${this.produtoSelecionado.nome}!`);
-      this.mostrarPontos(); // Atualiza a exibição dos pontos
+      this.mostrarPontos();
     } else {
       alert('Pontos insuficientes!');
     }

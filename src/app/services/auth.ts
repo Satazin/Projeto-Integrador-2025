@@ -16,7 +16,7 @@ export class AuthService {
   }
 
   // Método de Cadastro
-  async cadastrar(email: string, password: string, nome: string, telefone: string): Promise<any> {
+  async cadastrar(email: string, password: string, nome: string, telefone: string, endereco: string): Promise<any> {
     try {
       // 1. Cria a conta no Firebase Authentication
       const userCredential = await createUserWithEmailAndPassword(this.auth, email, password);
@@ -26,7 +26,8 @@ export class AuthService {
       await set(ref(this.db, 'usuarios/' + user.uid), {
         email: email,
         nome: nome,
-        telefone: telefone
+        telefone: telefone,
+        endereco: endereco
       });
 
       return {

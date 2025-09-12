@@ -20,17 +20,20 @@ export class CadastroPage {
   senha = '';
   nome = '';
   telefone = '';
+  endereco = '';
 
   constructor(private authService: AuthService, private router: Router) {}
 
+
+  // Realiza o cadastro do usuário
   async fazerCadastro() {
-    if (!this.email || !this.senha || !this.nome || !this.telefone) {
+    if (!this.email || !this.senha || !this.nome || !this.telefone || !this.endereco) {
       alert('Preencha todos os campos!');
       return;
     }
 
     try {
-      const resultado = await this.authService.cadastrar(this.email, this.senha, this.nome, this.telefone);
+      const resultado = await this.authService.cadastrar(this.email, this.senha, this.nome, this.telefone, this.endereco);
       console.log('Usuário cadastrado:', resultado.authUser);
       console.log('Dados salvos no Realtime Database:', resultado.realtimeData);
       

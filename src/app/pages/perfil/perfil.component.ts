@@ -12,6 +12,7 @@ interface Usuario {
   email: string;
   telefone: string;
   fotoUrl?: string;
+  endereco: string;
 }
 
 @Component({
@@ -26,7 +27,8 @@ export class PerfilComponent implements OnInit {
     nomeUsuario: '',
     email: '',
     telefone: '',
-    fotoUrl: ''
+    fotoUrl: '',
+    endereco: ''
   };
 
   private userId: string | null = null;
@@ -43,6 +45,7 @@ export class PerfilComponent implements OnInit {
     this.dbRT = getDatabase(); 
   }
 
+  // Carrega os dados do perfil
   async ngOnInit() {
     onAuthStateChanged(this.auth, async (user) => {
       if (user) {
@@ -52,6 +55,7 @@ export class PerfilComponent implements OnInit {
     });
   }
 
+  // Pega imagem e ccoloca no perfil
   onFileSelected(event: Event) {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
@@ -63,6 +67,7 @@ export class PerfilComponent implements OnInit {
       reader.readAsDataURL(this.selectedFile);
     }
   }
+
 
   async carregarPerfil() {
     if (!this.userId) return;
@@ -82,6 +87,14 @@ export class PerfilComponent implements OnInit {
       const telefoneDoRealtime = snapshot.val();
       if (telefoneDoRealtime) {
         this.usuario.telefone = telefoneDoRealtime;
+      }
+    });
+
+    const enderecoRef = ref(this.dbRT, 'usuarios/' + this.userId + '/endereco');
+    onValue(enderecoRef, (snapshot) => {
+      const enderecoDoRealtime = snapshot.val();
+      if (enderecoDoRealtime) {
+        this.usuario.endereco = enderecoDoRealtime;
       }
     });
   
@@ -104,6 +117,7 @@ export class PerfilComponent implements OnInit {
     }
   }
 
+  // Cria documento no firestore se nao tivesse (Provavel exclusão)
   async criarDocumentoPadrao(user: User | null) {
     if (!this.userId || !user) return;
     const userDocRef = doc(this.db, 'usuarios', this.userId);
@@ -115,6 +129,7 @@ export class PerfilComponent implements OnInit {
     await this.carregarPerfil();
   }
 
+  // Salva as alterações do perfil
   async salvarPerfil() {
     if (!this.userId) return;
     try {

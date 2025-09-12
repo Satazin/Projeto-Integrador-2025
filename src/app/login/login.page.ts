@@ -21,6 +21,7 @@ export class LoginPage {
 
   constructor(private authService: AuthService, private router: Router) {}
 
+  // Realiza o login do usuário
   async fazerLogin() {
     if (!this.email || !this.senha) {
       alert('Preencha email e senha!');
