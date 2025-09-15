@@ -45,6 +45,18 @@
   </div>
   <img src="assets/lights.jpg" alt="Lanternas japonesas" class="banner-lanternas" />
 
+
+  <div class="search-bar-container">
+  <ion-searchbar
+    [(ngModel)]="termoBusca"
+    placeholder="Buscar produto..."
+    color="light"
+    showCancelButton="focus"
+    animated="true"
+    class="search-bar-custom"
+  ></ion-searchbar>
+</div>
+
   <div class="categorias-menu-scroll">
     <div class="slider">
       <div class="slide-track">
