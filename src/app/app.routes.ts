@@ -57,10 +57,6 @@ export const routes: Routes = [
     loadComponent: () => import('./infoitens/infoitens.page').then(m => m.InfoitensPage)
   },
   {
-    path: 'perfil',
-    loadComponent: () => import('./perfil/perfil.page').then( m => m.PerfilPage)
-  },
-  {
     path: 'pedidos-test',
     loadComponent: () => import('./pedidos-test/pedidos-test.page').then( m => m.PedidosTestPage)
   },
@@ -68,4 +64,25 @@ export const routes: Routes = [
     path: 'brindes',
     loadComponent: () => import('./brindes/brindes.page').then( m => m.BrindesPage)
   },
+
+  {
+    path: 'ponto',
+    loadComponent: () => import('./pontos/pontos.component').then(m => m.PontosPage)
+  },
+
+  {
+    path: 'perfil',
+    loadComponent: () => import('./pages/perfil/perfil.component').then(m => m.PerfilComponent)
+  },
+  
+  {
+    path: 'itens',
+    loadComponent: () => import('./pages/gerenciar-itens/gerenciar-itens.component').then(m => m.GerenciarItensComponent)
+  },
+
+  {
+    path: '**',
+    redirectTo: 'login',
+    pathMatch: 'full'
+  }
 ];

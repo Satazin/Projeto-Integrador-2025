@@ -1,20 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+// src/app/pages/cadastro/cadastro.page.ts
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from '../services/auth';
+import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import {
-  IonContent,
-  IonHeader,
-  IonTitle,
-  IonToolbar,
-  IonCard,
-  IonCardHeader,
-  IonCardContent,
-  IonCardTitle,
-  IonInput,
-  IonInputPasswordToggle,
-  IonButton,
-} from '@ionic/angular/standalone';
-import { Requisicao } from '../service/requisicao';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -22,43 +12,34 @@ import { RouterLink } from '@angular/router';
   templateUrl: './cadastro.page.html',
   styleUrls: ['./cadastro.page.scss'],
   standalone: true,
-  imports: [IonInput,
-    IonContent,
-    IonHeader,
-    CommonModule,
-    FormsModule,
-    IonCard,
-    IonCardContent,
-    IonCardTitle,
-    IonInputPasswordToggle,
-    IonButton,
-    RouterLink
-  ]
+  imports: [IonicModule, CommonModule, FormsModule, RouterLink]
+
 })
+export class CadastroPage {
+  email = '';
+  senha = '';
+  nome = '';
+  telefone = '';
+  endereco = '';
 
-export class CadastroPage implements OnInit {
-  public telefone: string = "";
-  public nome: string = "";
-  public email: string = "";
-  public senha: string = "";
+  constructor(private authService: AuthService, private router: Router) {}
 
-  constructor(
-    public rs: Requisicao
-  ) { }
 
-  ngOnInit() {
+  // Realiza o cadastro do usuário
+  async fazerCadastro() {
+    if (!this.email || !this.senha || !this.nome || !this.telefone || !this.endereco) {
+      alert('Preencha todos os campos!');
+      return;
+    }
 
-  }
-
-  post() {
-    const fd = new FormData();
-    fd.append('controller', 'cadastro-usuario');
-    fd.append('nome', this.nome);
-    fd.append('telefone', this.telefone);
-    fd.append('email', this.email);
-    fd.append('senha', this.senha);
-
-    this.rs.post(fd)
-      .subscribe();
+    try {
+      const resultado = await this.authService.cadastrar(this.email, this.senha, this.nome, this.telefone, this.endereco);
+      console.log('Usuário cadastrado:', resultado.authUser);
+      console.log('Dados salvos no Realtime Database:', resultado.realtimeData);
+      
+      this.router.navigate(['/pedidos']);
+    } catch (erro: any) {
+      alert('Falha ao cadastrar. ' + erro.message);
+    }
   }
 }

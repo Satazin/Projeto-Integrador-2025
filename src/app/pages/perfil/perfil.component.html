@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Meu Perfil</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Informações do Perfil</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label>Foto de Perfil</ion-label>
+        <input type="file" #fileInput (change)="onFileSelected($event)" style="display: none;">
+        <ion-button (click)="fileInput.click()">
+          <ion-icon name="camera-outline" slot="start"></ion-icon>
+          Selecionar Imagem
+        </ion-button>
+      </ion-item>
+      
+      <ion-item>
+        <img [src]="fotoUrl || placeholderUrl" alt="Foto de Perfil" class="perfil-img"/>
+      </ion-item>
+
+      <ion-item>
+        <ion-input label="Nome de usuário" [(ngModel)]="usuario.nomeUsuario" labelPlacement="stacked"></ion-input>
+      </ion-item>
+      
+      <ion-item>
+        <ion-input label="E-mail" [(ngModel)]="usuario.email" labelPlacement="stacked" type="email"></ion-input>
+      </ion-item>
+      
+      <ion-item>
+        <ion-input label="Telefone" [(ngModel)]="usuario.telefone" labelPlacement="stacked" type="tel"></ion-input>
+      </ion-item>
+      
+      <ion-item>
+        <ion-input label="Endereço" [(ngModel)]="usuario.endereco" labelPlacement="stacked"></ion-input>
+      </ion-item>
+      
+      <ion-button expand="block" class="ion-margin-top" (click)="salvarPerfil()">
+        Salvar Alterações
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

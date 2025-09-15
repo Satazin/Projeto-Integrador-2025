@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+// src/app/pages/login/login.page.ts
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from '../services/auth';
+import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonInput, IonImg, IonButton, IonCard } from '@ionic/angular/standalone';
 import { RouterLink } from '@angular/router';
-import { Autenticacao } from '../service/autenticacao';
-import { IonicModule } from '@ionic/angular'
 
 @Component({
   selector: 'app-login',
@@ -12,31 +13,30 @@ import { IonicModule } from '@ionic/angular'
   styleUrls: ['./login.page.scss'],
   standalone: true,
   imports: [IonicModule, CommonModule, FormsModule, RouterLink]
+
 })
-export class LoginPage implements OnInit {
-  public email: string = '';
-  public senha: string = '';
+export class LoginPage {
+  email = '';
+  senha = '';
 
-  constructor(
-    public Autenticacao_Service: Autenticacao,
-  ) { }
+  constructor(private authService: AuthService, private router: Router) {}
 
-  ngOnInit() {
-  }
-  login() {
-    let email = this.email;
-    let senha = this.senha;
+  // Realiza o login do usuário
+  async fazerLogin() {
+    if (!this.email || !this.senha) {
+      alert('Preencha email e senha!');
+      return;
+    }
 
-    this.Autenticacao_Service
-      .login(email, senha)
-      .subscribe(
-        (_res: any) => {
-          if (_res.status == 'success') {
-            sessionStorage.setItem('token', _res.token);
-          } else {
+    try {
+      const resultado = await this.authService.login(this.email, this.senha);
+      console.log('Usuário autenticado:', resultado.authUser);
+      console.log('Dados do Realtime Database:', resultado.realtimeData);
 
-          }
-        }
-      );
+      this.router.navigate(['/pedidos']);
+    } catch (erro: any) {
+      console.error('Erro no login:', erro.message);
+      alert('Falha ao logar, Credenciais inválidas');
+    }
   }
 }
