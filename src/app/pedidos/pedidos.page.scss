@@ -7,13 +7,6 @@
     border: 2px solid #a2591c;
 
 }
-ion-header {
-    
-    border-bottom: 2px solid #e63946;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-    height: 56px;
-    background: #000000;
-}
 
 ion-title {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -50,8 +43,6 @@ ion-avatar {
 .categorias-menu button:hover {
     background: #444343;
     color: #fff;
-    height: 80px;
-
 }
 
 .produtos-lista {
@@ -160,7 +151,7 @@ ion-avatar {
 ion-tab-bar {
     background: #fff8f0;
     border-top: 2px solid #e63946;
-    box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 -2px 12px rgb(0, 0, 0);
     height: 62px;
 }
 
@@ -182,10 +173,8 @@ ion-badge {
 
 
 
-
-
 .slider {
-    box-shadow: 0 10px 20px -5px rgba(0, 0, 0, .125);
+    box-shadow: 0 10px 20px -5px rgb(0, 0, 0);
     margin: auto;
     overflow-x: auto;         /* scroll horizontal */
     overflow-y: hidden;
@@ -194,6 +183,9 @@ ion-badge {
     scroll-snap-type: x mandatory; /* efeito de snap */
     -webkit-overflow-scrolling: touch; /* suave no mobile */
     font-size: 1.3em;
+}
+ion-content {
+    --background: #000000;
 }
 
 .slide-track {
@@ -217,7 +209,7 @@ ion-badge {
 
 .categorias-menu-scroll {
   position: sticky;
-  top: 56px; // Altura da barra de pesquisa (ajuste se necessário)
+  top:40px; // Altura da barra de pesquisa (ajuste se necessário)
   z-index: 19;
   background: #000000;
   padding-bottom: 8px;
@@ -238,11 +230,9 @@ ion-badge {
 }
 
 .search-bar-custom {
-  width: 95vw;
-  max-width: 420px;
-  border-radius: 18px;
+
   --background: #fff8f0;
   --color: #c0392b;
   --placeholder-color: #c0392b;
-  --box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  --box-shadow: 0 2px 12px rgb(0, 0, 0);
 }
