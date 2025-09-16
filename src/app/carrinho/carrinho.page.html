@@ -1,58 +1,37 @@
 <ion-header>
-  <ion-toolbar color="dark">
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/pedidos" text="" color="light"></ion-back-button>
-    </ion-buttons>
-    <ion-title>Carrinho</ion-title>
+  <ion-toolbar>
+    <ion-title>Meu Carrinho</ion-title>
     <ion-buttons slot="end">
-      <ion-button fill="clear" (click)="fecharCarrinho()">
-        <ion-icon name="close" color="light"></ion-icon>
-      </ion-button>
+      <ion-back-button defaultHref="/home"></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="carrinho-content">
-  <div *ngFor="let item of itens" class="carrinho-item">
-    <img [src]="item.imagem" alt="{{item.nome}}" class="carrinho-img" />
-    <div class="carrinho-info">
-      <div class="carrinho-top">
-        <span class="carrinho-qtd">{{item.quantidade}}X</span>
-        <span class="carrinho-nome">{{item.nome}}</span>
-        <span class="carrinho-preco">R$ {{item.preco}}</span>
-      </div>
-      <div class="carrinho-actions">
-        <ion-button fill="clear" size="small" (click)="removerItem(item)">
-          <ion-icon name="trash-outline"></ion-icon>
-        </ion-button>
-        <ion-button fill="clear" size="small" (click)="editarItem(item)">
-          <ion-icon name="create-outline"></ion-icon>
-        </ion-button>
-        <ion-badge color="medium">Novo</ion-badge>
-        <div class="carrinho-qtd-control">
-          <ion-button fill="clear" size="small" (click)="alterarQtd(item, -1)" [disabled]="item.quantidade <= 1">-</ion-button>
-          <span>{{item.quantidade}}</span>
-          <ion-button fill="clear" size="small" (click)="alterarQtd(item, 1)">+</ion-button>
-        </div>
-      </div>
-    </div>
-  </div>
+<ion-content>
+<ion-list *ngIf="(carrinhoItens$ | async) as itens; else noItems">
+  <ion-item *ngFor="let item of itens">
+    <ion-label>
+      <h2>{{ item.nome }}</h2>
+      <p>Preço: R$ {{ item.preco | number:'1.2-2' }}</p>
+      <p>Descrição: {{ item.descricao }}</p>
+      <p>Quantidade: {{ item.quantidade }}</p>
+      <p>Subtotal: R$ {{ item.preco * item.quantidade | number:'1.2-2' }}</p>
+    </ion-label>
+   <ion-button slot="end" color="danger" (click)="removerItem(item)">
+        Remover
+      </ion-button>
+  </ion-item>
+</ion-list>
 
-  <div class="carrinho-footer">
-    <ion-button expand="block" color="warning" (click)="adicionarMaisProdutos()">
-      Adicionar mais produtos
-    </ion-button>
-    <div class="carrinho-subtotal">
-      <span>subtotal</span>
-      <span>R$ {{subtotal | number:'1.2-2'}}</span>
-    </div>
-    <div class="carrinho-total">
-      <span>Total</span>
-      <span>R$ {{total | number:'1.2-2'}}</span>
-    </div>
-    <div class="carrinho-botoes">
-      <ion-button expand="block" color="medium" (click)="voltar()" class="btn-voltar">Voltar</ion-button>
-      <ion-button expand="block" color="tertiary" (click)="continuar()" class="btn-continuar">Continuar</ion-button>
-    </div>
-  </div>
+  <ng-template #noItems>
+    <ion-item>
+      <ion-label>Seu carrinho está vazio.</ion-label>
+    </ion-item>
+  </ng-template>
+
+  <ion-card>
+    <ion-card-content>
+      <h3>Valor Total: R$ {{ valorTotalCarrinho | number:'1.2-2' }}</h3>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

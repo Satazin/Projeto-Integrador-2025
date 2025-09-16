@@ -1,60 +1,47 @@
 import { Component, OnInit } from '@angular/core';
-import { CarrinhoService } from '../services/carrinho.service';
+import { Observable } from 'rxjs';
+import { CarrinhoService, CartItem } from '../services/carrinho';
+import { CommonModule } from '@angular/common';
+import { IonicModule } from '@ionic/angular';
 
 @Component({
   selector: 'app-carrinho',
   templateUrl: './carrinho.page.html',
   styleUrls: ['./carrinho.page.scss'],
   standalone: true,
+  imports: [IonicModule, CommonModule]
 })
 export class CarrinhoPage implements OnInit {
-  itens: any[] = [];
-  subtotal = 0;
-  total = 0;
+  carrinhoItens$: Observable<CartItem[]>;
 
-  constructor(private carrinhoService: CarrinhoService) {}
+  constructor(private carrinhoService: CarrinhoService) {
+    this.carrinhoItens$ = new Observable<CartItem[]>();
+  }
 
   ngOnInit() {
-    this.itens = this.carrinhoService.getItens();
-    this.atualizarTotais();
+    this.carrinhoItens$ = this.carrinhoService.cartItems$;
+    this.carrinhoItens$.subscribe(itens => {
+    console.log('Dados do carrinho recebidos:', itens);
+    });
   }
 
-  alterarQtd(item: any, delta: number) {
-    item.quantidade += delta;
-    if (item.quantidade < 1) item.quantidade = 1;
-    this.atualizarTotais();
+  async removerItem(item: CartItem) {
+    try {
+      await this.carrinhoService.removeFromCart(item.id);
+      console.log('Item removido do carrinho com sucesso!');
+    } catch (error) {
+      console.error('Erro ao remover item:', error);
+      alert('Erro ao remover item do carrinho. Tente novamente.');
+    }
   }
 
-  removerItem(item: any) {
-    this.itens = this.itens.filter(i => i !== item);
-    this.carrinhoService.limpar();
-    this.itens.forEach(i => this.carrinhoService.adicionar(i, i.quantidade));
-    this.atualizarTotais();
-  }
-
-  editarItem(item: any) {
-    // Implemente se quiser editar detalhes do item
-  }
-
-  adicionarMaisProdutos() {
-    // Navegue para pedidos
-    window.location.href = '/pedidos';
-  }
-
-  voltar() {
-    window.history.back();
-  }
-
-  continuar() {
-    // Navegue para checkout ou próxima etapa
-  }
-
-  atualizarTotais() {
-    this.subtotal = this.itens.reduce((sum, i) => sum + (parseFloat(i.preco.replace(',', '.')) * i.quantidade), 0);
-    this.total = this.subtotal; // Adicione taxas se necessário
-  }
-
-  fecharCarrinho() {
-    window.history.back();
+  get valorTotalCarrinho(): number {
+    let total = 0;
+    this.carrinhoItens$.subscribe(itens => {
+      itens.forEach(item => {
+        total += item.preco * item.quantidade;
+      });
+    }).unsubscribe();
+    return total;
   }
 }
