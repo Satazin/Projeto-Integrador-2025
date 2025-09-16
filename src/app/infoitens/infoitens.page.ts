@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { RealtimeDatabaseService } from '../firebase/realtime-databse';
+import { CarrinhoService } from '../services/carrinho';
 
 @Component({
   selector: 'app-infoitens',
@@ -21,11 +22,11 @@ export class InfoitensPage implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private rt: RealtimeDatabaseService
-  ) {}
+    private rt: RealtimeDatabaseService,
+    private carrinhoService: CarrinhoService
+  ) { }
 
   async ngOnInit() {
-    // tenta pegar do state
     const nav = this.router.getCurrentNavigation();
     this.item = nav?.extras?.state?.['item'];
 
@@ -34,7 +35,6 @@ export class InfoitensPage implements OnInit {
       return;
     }
 
-    // fallback: busca no Firebase pelo id da rota
     const id = this.route.snapshot.paramMap.get('id');
     if (!id) {
       this.errorMessage = 'ID do item não informado.';
@@ -43,7 +43,7 @@ export class InfoitensPage implements OnInit {
     }
 
     try {
-      const snapshot: any = await this.rt.get(`/pedidos/${id}`);
+      const snapshot: any = await this.rt.get(`pedidos/${id}`);
       if (snapshot.exists()) {
         this.item = { id, ...snapshot.val() };
       } else {
@@ -67,7 +67,17 @@ export class InfoitensPage implements OnInit {
     }
   }
 
-  adicionarAoCarrinho() {
-    console.log('Adicionado ao carrinho:', { ...this.item, quantidade: this.quantidade });
+ async adicionarAoCarrinho() {
+  if (this.item) {
+    try {
+      await this.carrinhoService.adicionarAoCarrinho(this.item, this.quantidade);
+      alert(`${this.item.name} adicionado ao carrinho!`);
+    } catch (error) {
+      console.error('Erro ao adicionar item ao carrinho:', error);
+      alert('Erro ao adicionar item ao carrinho. Tente novamente.');
+    }
+  } else {
+    alert('Não foi possível adicionar o item ao carrinho.');
   }
+}
 }
