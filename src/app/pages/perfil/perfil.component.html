@@ -13,34 +13,28 @@
       <ion-card-title>Informações do Perfil</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <ion-item>
-        <ion-label>Foto de Perfil</ion-label>
-        <input type="file" #fileInput (change)="onFileSelected($event)" style="display: none;">
-        <ion-button (click)="fileInput.click()">
-          <ion-icon name="camera-outline" slot="start"></ion-icon>
-          Selecionar Imagem
-        </ion-button>
-      </ion-item>
-      
-      <ion-item>
-        <img [src]="fotoUrl || placeholderUrl" alt="Foto de Perfil" class="perfil-img"/>
-      </ion-item>
 
-      <ion-item>
+              <ion-avatar><img [src]="fotoUrl || placeholderUrl" alt="Foto de Perfil" class="perfil-img"/></ion-avatar>
+        <input type="file" #fileInput (change)="onFileSelected($event)" style="display: none;">
+        <ion-button (click)="fileInput.click()" fill="clear" color="dark">
+          <ion-icon name="camera-outline" slot="start"></ion-icon>
+          <ion-icon name="create"></ion-icon>
+        </ion-button>
+    
+    
         <ion-input label="Nome de usuário" [(ngModel)]="usuario.nomeUsuario" labelPlacement="stacked"></ion-input>
-      </ion-item>
-      
-      <ion-item>
+   
+
         <ion-input label="E-mail" [(ngModel)]="usuario.email" labelPlacement="stacked" type="email"></ion-input>
-      </ion-item>
+     
       
-      <ion-item>
+  
         <ion-input label="Telefone" [(ngModel)]="usuario.telefone" labelPlacement="stacked" type="tel"></ion-input>
-      </ion-item>
+    
       
-      <ion-item>
+   
         <ion-input label="Endereço" [(ngModel)]="usuario.endereco" labelPlacement="stacked"></ion-input>
-      </ion-item>
+
       
       <ion-button expand="block" class="ion-margin-top" (click)="salvarPerfil()">
         Salvar Alterações
