@@ -5,14 +5,13 @@ import { AuthService } from '../services/auth';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   templateUrl: './adm-login.page.html',
   styleUrls: ['./adm-login.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule, RouterLink]
+  imports: [IonicModule, CommonModule, FormsModule]
 
 })
 export class AdmLoginPage {
