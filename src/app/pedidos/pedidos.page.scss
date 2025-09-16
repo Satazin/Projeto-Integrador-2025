@@ -11,7 +11,7 @@
 ion-title {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     text-align: left;
-    font-size: 1.5em;
+    font-size: 1.2em;
     color: #ffffff;
 }
 
@@ -230,9 +230,7 @@ ion-content {
 }
 
 .search-bar-custom {
-
-  --background: #fff8f0;
-  --color: #c0392b;
-  --placeholder-color: #c0392b;
-  --box-shadow: 0 2px 12px rgb(0, 0, 0);
+    margin-left: 10px;
+    margin-right: 10px;
 }
+

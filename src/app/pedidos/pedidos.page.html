@@ -1,22 +1,11 @@
-<ion-header [translucent]="false">
+<ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-avatar>
-        <img alt="Perfil" src="../../assets/png-removebg-preview.png" routerLink="/home" />
-      </ion-avatar>
-    </ion-buttons>
-
-
-
     <ion-title>Casa Bonsai</ion-title>
     <ion-buttons slot="end">
-      <ion-button fill="clear" color="dark">
-        <ion-icon slot="icon-only" name="pin"></ion-icon>
-      </ion-button>
-      <ion-button fill="clear" color="dark" routerLink="/carrinho">
+      <ion-button fill="clear" routerLink="/carrinho">
         <ion-icon slot="icon-only" name="cart-outline"></ion-icon>
+        <ion-badge *ngIf="quantidadeCarrinho > 0" color="danger">{{ quantidadeCarrinho }}</ion-badge>
       </ion-button>
-      <ion-menu-button color="dark" menu="rightMenu"></ion-menu-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -35,7 +24,6 @@
       <ion-item routerLink="/localizacao">Nosso Espaço</ion-item>
       <ion-item routerLink="/sobre-nos">Sobre nós</ion-item>
       <ion-item routerLink="/contato">Fale Conosco</ion-item>
-
     </ion-list>
   </ion-content>
 </ion-menu>
