@@ -46,6 +46,7 @@ export class PedidosPage implements OnInit, AfterViewInit {
     { id: 'sobremesas', nome: 'SOBREMESAS' }
   ];
   public categoriaEmFoco: string = 'poke';
+  termoBusca: string = '';
 
   constructor(
     private rt: RealtimeDatabaseService,
@@ -81,7 +82,12 @@ export class PedidosPage implements OnInit, AfterViewInit {
 
   // FILTRAR POR CATEGORIA
   itensPorCategoria(cat: string) {
-    return this.pedidos.filter(i => i.categoria === cat);
+    return this.pedidos.filter(i => i.categoria === cat)
+    .filter(i =>
+      !this.termoBusca ||
+      i.nome.toLowerCase().includes(this.termoBusca.toLowerCase()) ||
+      i.descricao.toLowerCase().includes(this.termoBusca.toLowerCase())
+    );
   }
 
   // SCROLL SUAVE PARA A CATEGORIA
@@ -117,4 +123,6 @@ export class PedidosPage implements OnInit, AfterViewInit {
   abrirInfoItem(item: any) {
     this.router.navigate(['/infoitens', item.id], { state: { item } });
   }
+
+  
 }
