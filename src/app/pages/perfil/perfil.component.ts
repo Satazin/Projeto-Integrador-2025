@@ -3,9 +3,13 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 
+
+
+
 import { Auth, onAuthStateChanged, User } from '@angular/fire/auth';
 import { Firestore, doc, getDoc, setDoc } from '@angular/fire/firestore';
 import { getDatabase, ref, onValue, set } from "firebase/database";
+
 
 interface Usuario {
   nomeUsuario: string;
