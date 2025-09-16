@@ -29,6 +29,7 @@
     "@capacitor/keyboard": "7.0.2",
     "@capacitor/status-bar": "7.0.2",
     "@ionic/angular": "^8.0.0",
+    "@ionic/storage-angular": "^4.0.0",
     "firebase": "^11.10.0",
     "glob": "^11.0.3",
     "ionicons": "^8.0.13",

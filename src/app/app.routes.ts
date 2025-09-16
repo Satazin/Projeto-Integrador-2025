@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { AdminGuard } from './guards/admin-guard';
 
 export const routes: Routes = [
   {
@@ -58,7 +59,8 @@ export const routes: Routes = [
   },
   {
     path: 'pedidos-test',
-    loadComponent: () => import('./pedidos-test/pedidos-test.page').then( m => m.PedidosTestPage)
+    loadComponent: () => import('./pedidos-test/pedidos-test.page').then( m => m.PedidosTestPage),
+    canActivate: [AdminGuard] // 🔒 só admin acessa
   },
   {
     path: 'brindes',
@@ -81,7 +83,7 @@ export const routes: Routes = [
   },
   {
     path: 'adm-login',
-    loadComponent: () => import('./adm-login/adm-login.page').then( m => m.AdmLoginPage)
+    loadComponent: () => import('./adm-login/adm-login.page').then( m => m.AdmLoginPage),
   },
 
 
