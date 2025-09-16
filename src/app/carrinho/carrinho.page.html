@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Meu Carrinho</ion-title>
+    <ion-buttons slot="end">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<ion-list *ngIf="(carrinhoItens$ | async) as itens; else noItems">
+  <ion-item *ngFor="let item of itens">
+    <ion-label>
+      <h2>{{ item.nome }}</h2>
+      <p>Preço: R$ {{ item.preco | number:'1.2-2' }}</p>
+      <p>Descrição: {{ item.descricao }}</p>
+      <p>Quantidade: {{ item.quantidade }}</p>
+      <p>Subtotal: R$ {{ item.preco * item.quantidade | number:'1.2-2' }}</p>
+    </ion-label>
+   <ion-button slot="end" color="danger" (click)="removerItem(item)">
+        Remover
+      </ion-button>
+  </ion-item>
+</ion-list>
+
+  <ng-template #noItems>
+    <ion-item>
+      <ion-label>Seu carrinho está vazio.</ion-label>
+    </ion-item>
+  </ng-template>
+
+  <ion-card>
+    <ion-card-content>
+      <h3>Valor Total: R$ {{ valorTotalCarrinho | number:'1.2-2' }}</h3>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

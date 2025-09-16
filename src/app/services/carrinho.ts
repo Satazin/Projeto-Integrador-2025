@@ -1,62 +1,71 @@
+// src/app/services/carrinho.service.ts
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { getAuth, User, onAuthStateChanged } from 'firebase/auth';
+import { Observable, of, BehaviorSubject } from 'rxjs';
 import { RealtimeDatabaseService } from '../firebase/realtime-databse';
 
-// Centraliza a interface para que todos os arquivos usem a mesma
-export interface Produtos {
+export interface Product {
   id: string;
-  name: string;
-  price: number;
-  description?: string;
+  nome: string;
+  preco: number;
+  descricao?: string;
   imageUrl?: string;
   servings?: string;
 }
 
-export interface CartItem extends Produtos {
-  quantity: number;
+export interface CartItem extends Product {
+  quantidade: number;
 }
 
 @Injectable({
   providedIn: 'root'
 })
-export class carrinho {
-  private basePath = 'carrinhos'; 
-  private userId = 'usuario-123'; 
+export class CarrinhoService {
+  private user: User | null = null;
+  private auth = getAuth();
+  private cartItemsSubject = new BehaviorSubject<CartItem[]>([]);
+  public cartItems$: Observable<CartItem[]> = this.cartItemsSubject.asObservable();
 
-  constructor(private rtdb: RealtimeDatabaseService) {}
-
-  addToCart(item: Produtos, quantity: number): Promise<void> {
-    const cartItemPath = `${this.basePath}/${this.userId}/itens/${item.id}`;
-    const cartItem: CartItem = { ...item, quantity };
-    
-    // O seu serviço RealtimeDatabaseService precisa ter um método 'set'
-    // que aceite o path e os dados.
-    return this.rtdb.set(cartItemPath, cartItem);
+  constructor(private rtdb: RealtimeDatabaseService) {
+    onAuthStateChanged(this.auth, (user) => {
+      this.user = user;
+      if (user) {
+        this.fetchCartItems();
+      } else {
+        this.cartItemsSubject.next([]);
+      }
+    });
   }
 
-  getCartItems(): Observable<CartItem[]> {
-    const cartPath = `${this.basePath}/${this.userId}/itens`;
-    
-    // Usa o pipe() com map() para transformar os dados da query
-    return this.rtdb.list(cartPath).pipe(
-        map(queryChanges => {
-            // Itera sobre os resultados e extrai o valor real
-            return queryChanges.map(change => {
-                const item = change as any; // Usamos 'any' para evitar erros de tipagem
-                return item.payload.val() as CartItem;
-            });
-        })
-    );
+  private fetchCartItems(): void {
+    if (!this.user) {
+      this.cartItemsSubject.next([]);
+      return;
+    }
+    const cartPath = `carrinhos/${this.user.uid}/itens`;
+    this.rtdb.list(cartPath).subscribe(itens => {
+      this.cartItemsSubject.next(itens);
+    });
   }
 
-  removeFromCart(productId: string): Promise<void> {
-    const itemPath = `${this.basePath}/${this.userId}/itens/${productId}`;
-    return this.rtdb.remove(itemPath);
+  async adicionarAoCarrinho(item: Product, quantidade: number): Promise<void> {
+    const user = this.user;
+    if (!user) {
+      alert('Faça login para adicionar itens ao carrinho.');
+      return;
+    }
+    const userId = user.uid;
+    const itemRef = `carrinhos/${userId}/itens/${item.id}`;
+    const cartItem: CartItem = { ...item, quantidade };
+    await this.rtdb.set(itemRef, cartItem);
   }
 
-  clearCart(): Promise<void> {
-    const cartPath = `${this.basePath}/${this.userId}/itens`;
-    return this.rtdb.remove(cartPath);
+  async removeFromCart(itemId: string): Promise<void> {
+    if (!this.user) {
+      alert('Faça login para remover itens do carrinho.');
+      return;
+    }
+    const itemPath = `carrinhos/${this.user.uid}/itens/${itemId}`;
+    await this.rtdb.remove(itemPath);
   }
 }
