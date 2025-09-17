@@ -30,7 +30,7 @@ async fazerLogin() {
   try {
     const resultado = await this.authService.login(this.email, this.senha);
 
-    // 🔥 aqui você define qual usuário é o admin
+    //aqui você define qual usuário é o admin
     const adminEmail = 'admin@gmail.com'; // coloca o email do seu adm
     const usuario = resultado.authUser;
 

@@ -72,6 +72,7 @@ export class InfoitensPage implements OnInit {
       try {
         await this.carrinhoService.adicionarAoCarrinho(this.item, this.quantidade);
         alert(`${this.item.name} adicionado ao carrinho!`);
+        this.router.navigate(['/carrinho']);
       } catch (error) {
         console.error('Erro ao adicionar item ao carrinho:', error);
         alert('Erro ao adicionar item ao carrinho. Tente novamente.');
@@ -81,7 +82,4 @@ export class InfoitensPage implements OnInit {
     }
   }
 
-  abrirCarrinho(item: any) {
-    this.router.navigate(['/carrinho'], { state: { item } });
-  }
 }
