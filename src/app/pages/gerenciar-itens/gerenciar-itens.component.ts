@@ -1,4 +1,4 @@
-// src/app/pages/gerenciar-itens/gerenciar-itens.component.ts
+/*// src/app/pages/gerenciar-itens/gerenciar-itens.component.ts
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
@@ -82,4 +82,4 @@ export class GerenciarItensComponent implements OnInit {
       reader.onerror = error => reject(error);
     });
   }
-}
+}*/
