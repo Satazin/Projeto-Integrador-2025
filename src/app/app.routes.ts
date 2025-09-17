@@ -79,10 +79,4 @@ export const routes: Routes = [
     path: 'itens',
     loadComponent: () => import('./pages/gerenciar-itens/gerenciar-itens.component').then(m => m.GerenciarItensComponent)
   },
-
-  {
-    path: '**',
-    redirectTo: 'login',
-    pathMatch: 'full'
-  }
 ];
