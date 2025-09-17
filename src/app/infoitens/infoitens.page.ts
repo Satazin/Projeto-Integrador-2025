@@ -67,17 +67,21 @@ export class InfoitensPage implements OnInit {
     }
   }
 
- async adicionarAoCarrinho() {
-  if (this.item) {
-    try {
-      await this.carrinhoService.adicionarAoCarrinho(this.item, this.quantidade);
-      alert(`${this.item.name} adicionado ao carrinho!`);
-    } catch (error) {
-      console.error('Erro ao adicionar item ao carrinho:', error);
-      alert('Erro ao adicionar item ao carrinho. Tente novamente.');
+  async adicionarAoCarrinho() {
+    if (this.item) {
+      try {
+        await this.carrinhoService.adicionarAoCarrinho(this.item, this.quantidade);
+        alert(`${this.item.name} adicionado ao carrinho!`);
+      } catch (error) {
+        console.error('Erro ao adicionar item ao carrinho:', error);
+        alert('Erro ao adicionar item ao carrinho. Tente novamente.');
+      }
+    } else {
+      alert('Não foi possível adicionar o item ao carrinho.');
     }
-  } else {
-    alert('Não foi possível adicionar o item ao carrinho.');
   }
-}
+
+  abrirCarrinho(item: any) {
+    this.router.navigate(['/carrinho'], { state: { item } });
+  }
 }

@@ -113,7 +113,6 @@ export class PedidosPage implements OnInit, AfterViewInit {
     }
   }
 
-  // ABRIR ITEM COM STATE
   abrirInfoItem(item: any) {
     this.router.navigate(['/infoitens', item.id], { state: { item } });
   }

@@ -31,7 +31,7 @@
         <ion-button fill="outline" size="small" (click)="alterarQtd(1)">+</ion-button>
       </div>
       <div class="infoitens-total">R$ {{valorTotal | number:'1.2-2'}}</div>
-      <ion-button expand="block" color="primary" (click)="adicionarAoCarrinho()">
+      <ion-button expand="block" color="primary" (click)="adicionarAoCarrinho()" (click)="abrirCarrinho(item)">
         Adicionar ao Carrinho
       </ion-button>
     </ion-card-content>
