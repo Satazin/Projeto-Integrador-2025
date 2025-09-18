@@ -74,7 +74,7 @@
           <div class="produto-nome">{{item.nome}}</div>
           <div class="produto-desc">{{item.descricao}}</div>
           <div class="produto-serve">Serve {{item.serve}}</div>
-          <div class="produto-preco">R$ {{item.preco}}</div>
+          <div class="produto-preco">R$ {{item.preco | number:'1.2-2'}}</div>
         </div>
       </button>
     </ng-container>
