@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-list *ngIf="historicoDeCompras$ | async as compras; else noCompras">
+  <ion-list *ngIf="compras.length > 0; else noCompras">
     <ion-card *ngFor="let compra of compras">
       <ion-card-header>
         <ion-card-title>Compra realizada em: {{ compra.data }}</ion-card-title>
@@ -16,11 +16,11 @@
 
       <ion-card-content>
         <ion-list>
-          <ion-item *ngFor="let item of compra.itens | keyvalue">
+          <ion-item *ngFor="let item of compra.itens">
             <ion-label>
-              <h2>{{ getItem(item).nome }}</h2>
-              <p>Quantidade: {{ getItem(item).quantidade }}</p>
-              <p>Preço: R$ {{ getItem(item).preco }}</p>
+              <h2>{{ item.nome }}</h2>
+              <p>Quantidade: {{ item.quantidade }}</p>
+              <p>Preço: R$ {{ item.preco }}</p>
             </ion-label>
           </ion-item>
         </ion-list>

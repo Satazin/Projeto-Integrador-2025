@@ -32,17 +32,17 @@ export class PedidosTestPage implements OnInit {
 
   // 🔥 Categorias fixas
   public categorias = [
-    { id: 'poke', nome: 'POKE' },
-    { id: 'temaki', nome: 'TEMAKI' },
-    { id: 'yakisoba', nome: 'YAKISOBA' },
-    { id: 'sushi', nome: 'SUSHI' },
-    { id: 'niguiris', nome: 'NIGUIRIS' },
-    { id: 'hot', nome: 'PORÇÕES HOT' },
-    { id: 'urumakis', nome: 'URUMAKIS' },
-    { id: 'acompanhamentos', nome: 'ACOMPANHAMENTOS' },
-    { id: 'combos', nome: 'COMBOS' },
-    { id: 'bebidas', nome: 'BEBIDAS' },
-    { id: 'sobremesas', nome: 'SOBREMESAS' }
+    { id: 1, slug: 'poke', nome: 'POKE' },
+    { id: 2, slug: 'temaki', nome: 'TEMAKI' },
+    { id: 3, slug: 'yakisoba', nome: 'YAKISOBA' },
+    { id: 4, slug: 'sushi', nome: 'SUSHI' },
+    { id: 5, slug: 'niguiris', nome: 'NIGUIRIS' },
+    { id: 6, slug: 'hot', nome: 'PORÇÕES HOT' },
+    { id: 7, slug: 'urumakis', nome: 'URUMAKIS' },
+    { id: 8, slug: 'acompanhamentos', nome: 'ACOMPANHAMENTOS' },
+    { id: 9, slug: 'combos', nome: 'COMBOS' },
+    { id: 10, slug: 'bebidas', nome: 'BEBIDAS' },
+    { id: 11, slug: 'sobremesas', nome: 'SOBREMESAS' }
   ];
 
   constructor(
