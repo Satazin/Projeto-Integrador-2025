@@ -4,8 +4,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule, AlertController, ModalController } from '@ionic/angular';
 import { Observable } from 'rxjs';
-import { getAuth } from 'firebase/auth';
 import { CarrinhoService, CartItem } from '../services/carrinho';
+import { getAuth } from 'firebase/auth';
 
 @Component({
   selector: 'app-carrinho',
@@ -68,7 +68,7 @@ export class CarrinhoPage implements OnInit {
 
     await alert.present();
 
-    await this.carrinhoService.clearCartFromDatabase(user.uid);
+    await this.carrinhoService.finalizarCompra();
     this.modalController.dismiss();
   }
 }

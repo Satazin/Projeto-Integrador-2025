@@ -68,7 +68,9 @@ export class CarrinhoService {
     const itemPath = `carrinhos/${this.user.uid}/itens/${itemId}`;
     await this.rtdb.remove(itemPath);
   }
-  async clearCartFromDatabase(uid: string): Promise<void> {
+
+  // Corrigido para remover o parâmetro 'uid'
+  private async clearCartFromDatabase(): Promise<void> {
     if (!this.user) {
       console.error('Nenhum usuário logado para limpar o carrinho.');
       return;
@@ -77,5 +79,36 @@ export class CarrinhoService {
     await this.rtdb.remove(cartPath);
     this.cartItemsSubject.next([]);
     console.log('Carrinho limpo localmente e no banco de dados.');
+  }
+
+  async finalizarCompra(): Promise<void> {
+    if (!this.user) {
+      console.error('Nenhum usuário logado para finalizar a compra.');
+      return;
+    }
+
+    const userId = this.user.uid;
+    const cartItems = this.cartItemsSubject.getValue();
+
+    if (cartItems.length === 0) {
+      console.log('Carrinho está vazio. Nenhuma compra para finalizar.');
+      return;
+    }
+
+    const brasilTime = new Date().toLocaleString('pt-BR', {
+      timeZone: 'America/Sao_Paulo'
+    });
+
+    const purchase = {
+      data: brasilTime, 
+      itens: cartItems
+    };
+
+    const purchasePath = `usuarios/${userId}/compras/${Date.now()}`;
+    await this.rtdb.set(purchasePath, purchase);
+
+    await this.clearCartFromDatabase();
+
+    console.log('Compra finalizada e histórico salvo.');
   }
 }
