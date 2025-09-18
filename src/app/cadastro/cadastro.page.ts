@@ -1,4 +1,3 @@
-// src/app/pages/cadastro/cadastro.page.ts
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth';
@@ -13,7 +12,6 @@ import { RouterLink } from '@angular/router';
   styleUrls: ['./cadastro.page.scss'],
   standalone: true,
   imports: [IonicModule, CommonModule, FormsModule, RouterLink]
-
 })
 export class CadastroPage {
   email = '';
@@ -24,8 +22,6 @@ export class CadastroPage {
 
   constructor(private authService: AuthService, private router: Router) {}
 
-
-  // Realiza o cadastro do usuário
   async fazerCadastro() {
     if (!this.email || !this.senha || !this.nome || !this.telefone || !this.endereco) {
       alert('Preencha todos os campos!');

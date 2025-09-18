@@ -1,9 +1,9 @@
 // src/app/pages/gerenciar-itens/gerenciar-itens.component.ts
-import { Component, OnInit } from '@angular/core';
+/*import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
-import { Item, ItemService } from '../../services/item.service';
+import { Item, ItemService } from 'src/app/services/item.service';
 
 @Component({
   selector: 'app-gerenciar-itens',
@@ -29,7 +29,7 @@ export class GerenciarItensComponent implements OnInit {
   constructor(private itemService: ItemService) {}
 
   ngOnInit() {
-    this.itemService.getItems().subscribe(itens => {
+    this.itemService.getItems().subscribe((itens: Item[]) => {
       this.itensCadastrados = itens;
     });
   }
@@ -82,4 +82,4 @@ export class GerenciarItensComponent implements OnInit {
       reader.onerror = error => reject(error);
     });
   }
-}
+}*/

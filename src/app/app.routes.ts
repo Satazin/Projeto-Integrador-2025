@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { AuthGuard } from './guards/auth-guard';
 import { AdminGuard } from './guards/admin-guard';
 
 export const routes: Routes = [
@@ -39,7 +40,8 @@ export const routes: Routes = [
   },
   {
     path: 'sobre-nos',
-    loadComponent: () => import('./sobre-nos/sobre-nos.page').then( m => m.SobreNosPage)
+    loadComponent: () => import('./sobre-nos/sobre-nos.page').then( m => m.SobreNosPage),
+    canActivate: [AuthGuard]
   },
   {
     path: 'localizacao',
@@ -75,11 +77,6 @@ export const routes: Routes = [
   {
     path: 'perfil',
     loadComponent: () => import('./pages/perfil/perfil.component').then(m => m.PerfilComponent)
-  },
-  
-  {
-    path: 'itens',
-    loadComponent: () => import('./pages/gerenciar-itens/gerenciar-itens.component').then(m => m.GerenciarItensComponent)
   },
   {
     path: 'adm-login',

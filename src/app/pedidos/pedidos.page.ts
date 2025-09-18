@@ -14,8 +14,7 @@ import {
   IonButton, 
   IonAvatar,
   IonMenuButton,
-  IonMenu, 
-} from '@ionic/angular/standalone';
+  IonMenu, IonBadge } from '@ionic/angular/standalone';
 import { RealtimeDatabaseService } from '../firebase/realtime-databse';
 
 @Component({
@@ -23,7 +22,7 @@ import { RealtimeDatabaseService } from '../firebase/realtime-databse';
   templateUrl: './pedidos.page.html',
   styleUrls: ['./pedidos.page.scss'],
   standalone: true,
-  imports: [
+  imports: [IonBadge, 
    IonAvatar, IonButton, IonIcon,
     CommonModule, FormsModule, RouterLink,
     IonContent, IonHeader, IonTitle, IonToolbar,
