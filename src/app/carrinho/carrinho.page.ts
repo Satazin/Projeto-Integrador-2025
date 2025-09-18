@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
   imports: [IonicModule, CommonModule]
 })
 export class CarrinhoPage implements OnInit {
+
   carrinhoItens$: Observable<CartItem[]>;
   valorTotalCarrinho$: Observable<number>;
 
@@ -73,7 +74,7 @@ export class CarrinhoPage implements OnInit {
 
   voltar() {
     // Navega para a página anterior
-    this.router.navigate(['/home']);
+    this.router.navigate(['/pedidos']);
   }
 
   continuar() {
