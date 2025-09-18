@@ -78,5 +78,9 @@ export const routes: Routes = [
   {
     path: 'itens',
     loadComponent: () => import('./pages/gerenciar-itens/gerenciar-itens.component').then(m => m.GerenciarItensComponent)
+  },  {
+    path: 'minhas-compras',
+    loadComponent: () => import('./minhas-compras/minhas-compras.page').then( m => m.MinhasComprasPage)
   },
+
 ];

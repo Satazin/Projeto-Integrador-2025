@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>Meu Perfil</ion-title>
-    <ion-buttons slot="start">
+     <ion-buttons slot="start">
       <ion-back-button routerLink="/pedidos"></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
@@ -23,7 +23,7 @@
       <ion-input label="E-mail" [(ngModel)]="usuario.email" labelPlacement="stacked" type="email"></ion-input>
       <ion-input label="Telefone" [(ngModel)]="usuario.telefone" labelPlacement="stacked" type="tel"></ion-input>
       <ion-input label="Endereço" [(ngModel)]="usuario.endereco" labelPlacement="stacked"></ion-input>
-      <ion-button expand="block" class="ion-margin-top" (click)="salvarPerfil()">
+      <ion-button expand="block" class="ion-margin-top" (click)="salvarPerfil()" routerLink="/pedidos">
         Salvar Alterações
       </ion-button>
     </ion-card-content>

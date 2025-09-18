@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, RouterLinkActive, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
@@ -11,7 +11,7 @@ import { CarrinhoService } from '../services/carrinho';
   templateUrl: './infoitens.page.html',
   styleUrls: ['./infoitens.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule]
+  imports: [IonicModule, CommonModule, FormsModule, RouterLink]
 })
 export class InfoitensPage implements OnInit {
   item: any = null;
