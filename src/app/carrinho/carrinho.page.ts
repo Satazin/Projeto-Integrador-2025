@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { CarrinhoService, CartItem } from '../services/carrinho';
+import { CarrinhoService, CartItem } from '../services/carrinho.service';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 

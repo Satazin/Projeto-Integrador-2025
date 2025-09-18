@@ -26,6 +26,10 @@ export class CarrinhoService {
   private cartItemsSubject = new BehaviorSubject<CartItem[]>([]);
   public cartItems$: Observable<CartItem[]> = this.cartItemsSubject.asObservable();
 
+  private itens: any[] = [];
+  private quantidadeSubject = new BehaviorSubject<number>(0);
+  quantidade$ = this.quantidadeSubject.asObservable();
+
   constructor(private rtdb: RealtimeDatabaseService) {
     onAuthStateChanged(this.auth, (user) => {
       this.user = user;
@@ -67,5 +71,23 @@ export class CarrinhoService {
     }
     const itemPath = `carrinhos/${this.user.uid}/itens/${itemId}`;
     await this.rtdb.remove(itemPath);
+  }
+
+  adicionar(item: any, quantidade: number) {
+    const existente = this.itens.find(i => i.id === item.id);
+    if (existente) {
+      existente.quantidade += quantidade;
+    } else {
+      this.itens.push({ ...item, quantidade });
+    }
+    this.quantidadeSubject.next(this.getQuantidadeTotal());
+  }
+
+  getQuantidadeTotal() {
+    return this.itens.reduce((total, i) => total + i.quantidade, 0);
+  }
+
+  getItens() {
+    return this.itens;
   }
 }

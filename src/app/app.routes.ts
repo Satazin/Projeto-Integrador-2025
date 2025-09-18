@@ -77,10 +77,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/perfil/perfil.component').then(m => m.PerfilComponent)
   },
   
-  {
-    path: 'itens',
-    loadComponent: () => import('./pages/gerenciar-itens/gerenciar-itens.component').then(m => m.GerenciarItensComponent)
-  },
+  // {
+  //   path: 'itens',
+  //   loadComponent: () => import('./pages/gerenciar-itens/gerenciar-itens.component').then(m => m.GerenciarItensComponent)
+  // },
   {
     path: 'adm-login',
     loadComponent: () => import('./adm-login/adm-login.page').then( m => m.AdmLoginPage),

@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { RealtimeDatabaseService } from '../firebase/realtime-databse';
-import { CarrinhoService } from '../services/carrinho';
+import { CarrinhoService } from '../services/carrinho.service';
 
 @Component({
   selector: 'app-infoitens',
@@ -67,17 +67,8 @@ export class InfoitensPage implements OnInit {
     }
   }
 
- async adicionarAoCarrinho() {
-  if (this.item) {
-    try {
-      await this.carrinhoService.adicionarAoCarrinho(this.item, this.quantidade);
-      alert(`${this.item.name} adicionado ao carrinho!`);
-    } catch (error) {
-      console.error('Erro ao adicionar item ao carrinho:', error);
-      alert('Erro ao adicionar item ao carrinho. Tente novamente.');
-    }
-  } else {
-    alert('Não foi possível adicionar o item ao carrinho.');
+  adicionarAoCarrinho() {
+    this.carrinhoService.adicionar(this.item, this.quantidade);
+    // Opcional: feedback visual
   }
-}
 }

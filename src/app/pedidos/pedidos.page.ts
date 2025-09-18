@@ -2,21 +2,9 @@ import { Component, OnInit, AfterViewInit, ElementRef, ViewChild } from '@angula
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink, Router } from '@angular/router';
-import {
-  IonContent,
-  IonHeader,
-  IonTitle,
-  IonToolbar,
-  IonList,
-  IonItem,
-  IonButtons,
-  IonIcon, 
-  IonButton, 
-  IonAvatar,
-  IonMenuButton,
-  IonMenu, 
-} from '@ionic/angular/standalone';
+import { IonicModule} from '@ionic/angular';
 import { RealtimeDatabaseService } from '../firebase/realtime-databse';
+import { CarrinhoService } from '../services/carrinho.service';
 
 @Component({
   selector: 'app-pedidos',
@@ -24,10 +12,10 @@ import { RealtimeDatabaseService } from '../firebase/realtime-databse';
   styleUrls: ['./pedidos.page.scss'],
   standalone: true,
   imports: [
-   IonAvatar, IonButton, IonIcon,
-    CommonModule, FormsModule, RouterLink,
-    IonContent, IonHeader, IonTitle, IonToolbar,
-    IonList, IonItem, IonButtons, IonMenuButton, IonMenu
+    IonicModule,
+    CommonModule,
+    FormsModule,
+    RouterLink
   ]
 })
 export class PedidosPage implements OnInit, AfterViewInit {
@@ -47,15 +35,21 @@ export class PedidosPage implements OnInit, AfterViewInit {
   ];
   public categoriaEmFoco: string = 'poke';
   termoBusca: string = '';
+  quantidadeCarrinho = 0;
 
   constructor(
     private rt: RealtimeDatabaseService,
     private elRef: ElementRef,
-    private router: Router
+    private router: Router,
+    private carrinhoService: CarrinhoService
   ) {}
 
   ngOnInit() {
     this.listar();
+
+    this.carrinhoService.quantidade$.subscribe(qtd => {
+      this.quantidadeCarrinho = qtd;
+    });
   }
 
   ngAfterViewInit() {
