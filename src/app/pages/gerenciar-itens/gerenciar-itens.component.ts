@@ -1,9 +1,9 @@
-// // src/app/pages/gerenciar-itens/gerenciar-itens.component.ts
-// import { Component, OnInit } from '@angular/core';
-// import { FormsModule } from '@angular/forms';
-// import { IonicModule } from '@ionic/angular';
-// import { CommonModule } from '@angular/common';
-// import { Item, ItemService } from '../../services/item.service';
+// src/app/pages/gerenciar-itens/gerenciar-itens.component.ts
+import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { IonicModule } from '@ionic/angular';
+import { CommonModule } from '@angular/common';
+import { Item, ItemService } from '../../services/item.service';
 
 // @Component({
 //   selector: 'app-gerenciar-itens',
@@ -73,13 +73,13 @@
 //     }
 //   }
 
-//   // Converte arquivo para base64
-//   private fileToBase64(file: File): Promise<string> {
-//     return new Promise((resolve, reject) => {
-//       const reader = new FileReader();
-//       reader.readAsDataURL(file);
-//       reader.onload = () => resolve(reader.result as string);
-//       reader.onerror = error => reject(error);
-//     });
-//   }
-// }
+  // Converte arquivo para base64
+  private fileToBase64(file: File): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result as string);
+      reader.onerror = error => reject(error);
+    });
+  }
+}

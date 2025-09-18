@@ -1,37 +1,49 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Meu Carrinho</ion-title>
+  <ion-toolbar class="header-toolbar">
+    <ion-title class="header-title">Carrinho</ion-title>
     <ion-buttons slot="end">
       <ion-back-button defaultHref="/pedidos"></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-<ion-list *ngIf="(carrinhoItens$ | async) as itens; else noItems">
-  <ion-item *ngFor="let item of itens">
-    <ion-label>
-      <h2>{{ item.nome }}</h2>
-      <p>Preço: R$ {{ item.preco | number:'1.2-2' }}</p>
-      <p>Descrição: {{ item.descricao }}</p>
-      <p>Quantidade: {{ item.quantidade }}</p>
-      <p>Subtotal: R$ {{ item.preco * item.quantidade | number:'1.2-2' }}</p>
-    </ion-label>
-   <ion-button slot="end" color="danger" (click)="removerItem(item)">
-        Remover
+<ion-content class="carrinho-content">
+  <ion-list *ngIf="(carrinhoItens$ | async) as itens; else noItems" class="carrinho-list">
+    <ion-item *ngFor="let item of itens" class="carrinho-item">
+      <ion-thumbnail slot="start">
+        <img [src]="item.imagem" alt="{{ item.nome }}" />
+      </ion-thumbnail>
+      <ion-label>
+        <h2 class="item-nome">{{ item.nome }}</h2>
+        <p class="item-preco">R$ {{ item.preco | number:'1.2-2' }}</p>
+        <p class="item-descricao">{{ item.descricao }}</p>
+        <div class="item-quantidade">
+          <ion-button fill="outline" size="small" (click)="decrementarQuantidade(item)">-</ion-button>
+          <span>{{ item.quantidade }}</span>
+          <ion-button fill="outline" size="small" (click)="incrementarQuantidade(item)">+</ion-button>
+        </div>
+        <p class="item-subtotal">Subtotal: R$ {{ item.preco * item.quantidade | number:'1.2-2' }}</p>
+      </ion-label>
+      <ion-button slot="end" color="danger" fill="clear" (click)="removerItem(item)">
+        <ion-icon name="trash-outline"></ion-icon>
       </ion-button>
-  </ion-item>
-</ion-list>
+    </ion-item>
+  </ion-list>
 
   <ng-template #noItems>
-    <ion-item>
+    <ion-item class="no-items">
       <ion-label>Seu carrinho está vazio.</ion-label>
     </ion-item>
   </ng-template>
 
-  <ion-card>
+  <ion-card class="total-card">
     <ion-card-content>
-      <h3>Valor Total: R$ {{ valorTotalCarrinho | number:'1.2-2' }}</h3>
+      <h3 class="total-title">Total</h3>
+      <p class="total-value">R$ {{ (valorTotalCarrinho$ | async) | number:'1.2-2' }}</p>
+      <div class="total-actions">
+        <ion-button color="light" (click)="voltar()">Voltar</ion-button>
+        <ion-button color="primary" (click)="continuar()">Continuar</ion-button>
+      </div>
     </ion-card-content>
   </ion-card>
 </ion-content>

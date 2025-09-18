@@ -14,6 +14,7 @@ export interface Product {
 }
 
 export interface CartItem extends Product {
+imagem: any;
   quantidade: number;
 }
 
@@ -21,6 +22,9 @@ export interface CartItem extends Product {
   providedIn: 'root'
 })
 export class CarrinhoService {
+  updateCartItem(id: string, arg1: number) {
+    throw new Error('Method not implemented.');
+  }
   private user: User | null = null;
   private auth = getAuth();
   private cartItemsSubject = new BehaviorSubject<CartItem[]>([]);
@@ -60,7 +64,10 @@ export class CarrinhoService {
     }
     const userId = user.uid;
     const itemRef = `carrinhos/${userId}/itens/${item.id}`;
-    const cartItem: CartItem = { ...item, quantidade };
+    const cartItem: CartItem = {
+      ...item, quantidade,
+      imagem: undefined
+    };
     await this.rtdb.set(itemRef, cartItem);
   }
 
