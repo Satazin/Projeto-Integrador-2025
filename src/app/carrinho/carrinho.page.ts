@@ -4,8 +4,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule, AlertController, ModalController } from '@ionic/angular';
 import { Observable } from 'rxjs';
-import { getAuth } from 'firebase/auth';
 import { CarrinhoService, CartItem } from '../services/carrinho';
+import { getAuth } from 'firebase/auth';
 
 @Component({
   selector: 'app-carrinho',
@@ -19,7 +19,7 @@ export class CarrinhoPage implements OnInit {
   public metodoPagamento: string = '';
 
   constructor(
- private carrinhoService: CarrinhoService,
+    private carrinhoService: CarrinhoService,
     private alertController: AlertController,
     private modalController: ModalController
   ) {
@@ -52,14 +52,7 @@ export class CarrinhoPage implements OnInit {
     return total;
   }
   
-async finalizarPagamento(metodo: string) {
-    const user = getAuth().currentUser;
-
-    if (!user) {
-      console.error('Nenhum usuário logado.');
-      return;
-    }
-
+  async finalizarPagamento(metodo: string) {
     const alert = await this.alertController.create({
       header: 'Pagamento Finalizado!',
       message: `Você escolheu pagar com ${metodo}. Agradecemos a preferência!`,
@@ -68,7 +61,7 @@ async finalizarPagamento(metodo: string) {
 
     await alert.present();
 
-    await this.carrinhoService.clearCartFromDatabase(user.uid);
+    await this.carrinhoService.finalizarCompra();
     this.modalController.dismiss();
   }
 }
