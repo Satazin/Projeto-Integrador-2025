@@ -16,7 +16,7 @@ import { getAuth } from 'firebase/auth';
 })
 export class CarrinhoPage implements OnInit {
   carrinhoItens$: Observable<CartItem[]>;
-  public metodoPagamento: string = '';
+  public formaPagamento: string = '';
 
   constructor(
     private carrinhoService: CarrinhoService,
@@ -53,6 +53,13 @@ export class CarrinhoPage implements OnInit {
   }
   
   async finalizarPagamento(metodo: string) {
+    const user = getAuth().currentUser;
+
+    if (!user) {
+      console.error('Nenhum usuário logado.');
+      return;
+    }
+
     const alert = await this.alertController.create({
       header: 'Pagamento Finalizado!',
       message: `Você escolheu pagar com ${metodo}. Agradecemos a preferência!`,
