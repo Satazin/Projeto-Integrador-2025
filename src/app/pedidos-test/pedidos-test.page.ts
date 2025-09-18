@@ -57,7 +57,6 @@ export class PedidosTestPage implements OnInit {
   }
 
   ngOnInit() {
-    this.listar();
   }
 
   // SALVAR NO FIREBASE

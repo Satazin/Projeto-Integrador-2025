@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { getAuth, User, onAuthStateChanged } from 'firebase/auth';
 import { Observable, of, BehaviorSubject } from 'rxjs';
 import { RealtimeDatabaseService } from '../firebase/realtime-databse';
+import { map } from 'rxjs/operators';
 
 export interface Product {
   id: string;
@@ -69,7 +70,6 @@ export class CarrinhoService {
     await this.rtdb.remove(itemPath);
   }
 
-  // Corrigido para remover o parâmetro 'uid'
   private async clearCartFromDatabase(): Promise<void> {
     if (!this.user) {
       console.error('Nenhum usuário logado para limpar o carrinho.');
@@ -86,29 +86,36 @@ export class CarrinhoService {
       console.error('Nenhum usuário logado para finalizar a compra.');
       return;
     }
-
     const userId = this.user.uid;
     const cartItems = this.cartItemsSubject.getValue();
-
     if (cartItems.length === 0) {
       console.log('Carrinho está vazio. Nenhuma compra para finalizar.');
       return;
     }
-
     const brasilTime = new Date().toLocaleString('pt-BR', {
       timeZone: 'America/Sao_Paulo'
     });
-
     const purchase = {
       data: brasilTime, 
       itens: cartItems
     };
-
     const purchasePath = `usuarios/${userId}/compras/${Date.now()}`;
     await this.rtdb.set(purchasePath, purchase);
-
     await this.clearCartFromDatabase();
-
     console.log('Compra finalizada e histórico salvo.');
+  }
+
+ getHistoricoDeCompras(): Observable<any[]> {
+    if (!this.user) {
+      return of([]);
+    }
+    const historicoPath = `usuarios/${this.user.uid}/compras`;
+    return this.rtdb.list(historicoPath).pipe(
+      map(purchasesObject => {
+        if (!purchasesObject) return [];
+          const purchasesArray = Object.values(purchasesObject);
+        return purchasesArray;
+      })
+    );
   }
 }

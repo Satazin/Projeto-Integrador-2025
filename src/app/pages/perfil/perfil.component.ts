@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { Auth, onAuthStateChanged, User } from '@angular/fire/auth';
 import { Firestore, doc, getDoc, setDoc } from '@angular/fire/firestore';
 import { getDatabase, ref, onValue, set } from "firebase/database";
+import { RouterLink } from '@angular/router';
 
 
 interface Usuario {
@@ -20,7 +21,7 @@ interface Usuario {
   templateUrl: './perfil.component.html',
   styleUrls: ['./perfil.component.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule]
+  imports: [IonicModule, CommonModule, FormsModule, RouterLink]
 })
 export class PerfilComponent implements OnInit {
   usuario: Usuario = {
@@ -32,7 +33,7 @@ export class PerfilComponent implements OnInit {
   };
 
   private userId: string | null = null;
-  public fotoUrl: string = 'assets/icon/persona.png';
+  public fotoUrl: string = 'assets/img/default-profile.png';
   public placeholderUrl: string = 'assets/img/default-profile.png';
   private selectedFile: File | null = null;
   private dbRT; 

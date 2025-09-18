@@ -124,6 +124,21 @@ ion-modal ion-icon {
   color: #c46a1b;
 }
 
+.carrinho-content {
+  padding-bottom: 220px; // espaço para o bloco de pagamento não sobrepor a lista
+}
+
+.pagamento-fixo {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #181818;
+  padding: 18px 12px 24px 12px;
+  box-shadow: 0 -2px 16px rgba(0,0,0,0.12);
+  z-index: 99;
+}
+
 @media (max-width: 500px) {
   ion-card, ion-list, .carrinho-footer {
     max-width: 99vw;
