@@ -78,14 +78,6 @@ export const routes: Routes = [
     path: 'perfil',
     loadComponent: () => import('./pages/perfil/perfil.component').then(m => m.PerfilComponent)
   },
-<<<<<<< HEAD
-=======
-  
- /* {
-    path: 'itens',
-    loadComponent: () => import('./pages/gerenciar-itens/gerenciar-itens.component').then(m => m.GerenciarItensComponent)
-  },*/
->>>>>>> e0a7621b50251a7e65625b95e912fb482603e51a
   {
     path: 'adm-login',
     loadComponent: () => import('./adm-login/adm-login.page').then( m => m.AdmLoginPage),
