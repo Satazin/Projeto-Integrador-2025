@@ -1,27 +1,34 @@
+// src/app/carrinho/carrinho.page.ts
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { CarrinhoService, CartItem } from '../services/carrinho';
 import { CommonModule } from '@angular/common';
-import { IonicModule } from '@ionic/angular';
+import { FormsModule } from '@angular/forms';
+import { IonicModule, AlertController, ModalController } from '@ionic/angular';
+import { Observable } from 'rxjs';
+import { getAuth } from 'firebase/auth';
+import { CarrinhoService, CartItem } from '../services/carrinho';
 
 @Component({
   selector: 'app-carrinho',
   templateUrl: './carrinho.page.html',
   styleUrls: ['./carrinho.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule]
+  imports: [IonicModule, CommonModule, FormsModule]
 })
 export class CarrinhoPage implements OnInit {
   carrinhoItens$: Observable<CartItem[]>;
+  public metodoPagamento: string = '';
 
-  constructor(private carrinhoService: CarrinhoService) {
-    this.carrinhoItens$ = new Observable<CartItem[]>();
+  constructor(
+ private carrinhoService: CarrinhoService,
+    private alertController: AlertController,
+    private modalController: ModalController
+  ) {
+    this.carrinhoItens$ = this.carrinhoService.cartItems$;
   }
 
   ngOnInit() {
-    this.carrinhoItens$ = this.carrinhoService.cartItems$;
     this.carrinhoItens$.subscribe(itens => {
-    console.log('Dados do carrinho recebidos:', itens);
+      console.log('Dados do carrinho recebidos:', itens);
     });
   }
 
@@ -43,5 +50,25 @@ export class CarrinhoPage implements OnInit {
       });
     }).unsubscribe();
     return total;
+  }
+  
+async finalizarPagamento(metodo: string) {
+    const user = getAuth().currentUser;
+
+    if (!user) {
+      console.error('Nenhum usuário logado.');
+      return;
+    }
+
+    const alert = await this.alertController.create({
+      header: 'Pagamento Finalizado!',
+      message: `Você escolheu pagar com ${metodo}. Agradecemos a preferência!`,
+      buttons: ['OK']
+    });
+
+    await alert.present();
+
+    await this.carrinhoService.clearCartFromDatabase(user.uid);
+    this.modalController.dismiss();
   }
 }

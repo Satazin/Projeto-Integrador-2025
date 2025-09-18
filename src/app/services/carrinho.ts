@@ -68,4 +68,14 @@ export class CarrinhoService {
     const itemPath = `carrinhos/${this.user.uid}/itens/${itemId}`;
     await this.rtdb.remove(itemPath);
   }
+  async clearCartFromDatabase(uid: string): Promise<void> {
+    if (!this.user) {
+      console.error('Nenhum usuário logado para limpar o carrinho.');
+      return;
+    }
+    const cartPath = `carrinhos/${this.user.uid}/itens`;
+    await this.rtdb.remove(cartPath);
+    this.cartItemsSubject.next([]);
+    console.log('Carrinho limpo localmente e no banco de dados.');
+  }
 }
