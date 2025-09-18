@@ -40,10 +40,10 @@ export const routes: Routes = [
     path: 'sobre-nos',
     loadComponent: () => import('./sobre-nos/sobre-nos.page').then( m => m.SobreNosPage)
   },
-  {
-    path: 'localizacao',
-    loadComponent: () => import('./localizacao/localizacao.page').then( m => m.LocalizacaoPage)
-  },
+  // {
+  //   path: 'localizacao',
+  //   loadComponent: () => import('./localizacao/localizacao.page').then( m => m.LocalizacaoPage)
+  // },
   {
     path: 'contato',
     loadComponent: () => import('./contato/contato.page').then( m => m.ContatoPage)

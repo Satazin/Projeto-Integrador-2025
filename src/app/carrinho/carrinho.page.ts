@@ -16,10 +16,10 @@ import { CarrinhoService, CartItem } from '../services/carrinho';
 })
 export class CarrinhoPage implements OnInit {
   carrinhoItens$: Observable<CartItem[]>;
-  public metodoPagamento: string = '';
+  public formaPagamento: string = '';
 
   constructor(
- private carrinhoService: CarrinhoService,
+    private carrinhoService: CarrinhoService,
     private alertController: AlertController,
     private modalController: ModalController
   ) {
@@ -52,7 +52,7 @@ export class CarrinhoPage implements OnInit {
     return total;
   }
   
-async finalizarPagamento(metodo: string) {
+  async finalizarPagamento(metodo: string) {
     const user = getAuth().currentUser;
 
     if (!user) {
