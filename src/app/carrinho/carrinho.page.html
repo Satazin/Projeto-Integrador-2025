@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>Meu Carrinho</ion-title>
-    <ion-buttons slot="end">
+    <ion-buttons slot="start">
       <ion-back-button defaultHref="/pedidos"></ion-back-button>
     </ion-buttons>
   </ion-toolbar>
@@ -16,8 +16,8 @@
         <p>Quantidade: {{ item.quantidade }}</p>
         <p>Subtotal: R$ {{ item.preco * item.quantidade | number:'1.2-2' }}</p>
       </ion-label>
-      <ion-button slot="end" fill="solid" color="danger" (click)="removerItem(item)" style="--background: #e63946; --color: #000; border: 2px solid #000; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
-        <ion-icon name="trash-outline" style="color: #000; font-size: 1.3em;"></ion-icon>
+      <ion-button slot="end" fill="solid" color="danger" (click)="removerItem(item)">
+        <ion-icon name="trash-outline"></ion-icon>
       </ion-button>
     </ion-item>
   </ion-list>
@@ -37,7 +37,9 @@
   <!-- Opções de pagamento fixas na parte inferior -->
   <div class="pagamento-fixo">
     <ion-radio-group [(ngModel)]="formaPagamento" style="display: flex; flex-direction: column; gap: 16px;">
-      <ion-card button="true"  style="border-radius: 20px; display: flex; align-items: center;">
+      <ion-card 
+        style="border-radius: 20px; display: flex; align-items: center; cursor: pointer;"
+        (click)="formaPagamento = 'pix'">
         <ion-card-content style="display: flex; align-items: center; justify-content: flex-start; gap: 16px;">
           <ion-radio slot="start" value="pix"></ion-radio>
           <ion-icon name="qr-code-outline" size="large"></ion-icon>
@@ -48,7 +50,9 @@
         </ion-card-content>
       </ion-card>
 
-      <ion-card button="true"  style="border-radius: 20px; display: flex; align-items: center;">
+      <ion-card 
+        style="border-radius: 20px; display: flex; align-items: center; cursor: pointer;"
+        (click)="formaPagamento = 'cartao'">
         <ion-card-content style="display: flex; align-items: center; justify-content: flex-start; gap: 16px;">
           <ion-radio slot="start" value="cartao"></ion-radio>
           <ion-icon name="card-outline" size="large"></ion-icon>
