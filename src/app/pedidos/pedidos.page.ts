@@ -68,8 +68,8 @@ export class PedidosPage implements OnInit, AfterViewInit {
   // LISTAR PEDIDOS DO FIREBASE
   listar() {
     this.rt.query('/pedidos', (snapshot: any) => {
-      const dados = snapshot.val();
-      if (dados) {
+      const dados = snapshot.val();      
+      if (dados) {     
         this.pedidos = Object.keys(dados).map(key => ({
           id: key,
           ...dados[key]

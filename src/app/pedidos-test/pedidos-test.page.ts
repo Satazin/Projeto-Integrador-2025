@@ -52,7 +52,7 @@ export class PedidosTestPage implements OnInit {
     private actionSheetCtrl: ActionSheetController
   ){
     this.ar.params.subscribe((param: any) => {
-      this.id = param.id;
+     // this.id = param.id;
     });
   }
 
@@ -68,7 +68,7 @@ export class PedidosTestPage implements OnInit {
       preco: this.preco,
       categoria: this.categoria,
       imagem: this.imagem
-    }, this.id)
+    })
     .then((res: any) => {
       console.log('Salvo com sucesso', res);
       this.listar(); // atualiza lista
