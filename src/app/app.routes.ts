@@ -140,4 +140,14 @@ export const routes: Routes = [
     path: 'itens',
     loadComponent: () => import('./pages/gerenciar-itens/gerenciar-itens.component').then(m => m.GerenciarItensComponent)
   },
+
+  {
+    path: 'adm-login',
+    loadComponent: () => import('./adm-login/adm-login.page').then(m => m.AdmLoginPage)
+  },
+  {
+    path: 'pedidos-test',
+    loadComponent: () => import('./pedidos-test/pedidos-test.page').then( m => m.PedidosTestPage)
+    
+  }
 ];

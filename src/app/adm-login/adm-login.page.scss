@@ -1,88 +1,71 @@
 ion-content {
-  --background: #111; /* Fundo mais elegante */
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0;
+  --background: 
 }
 
 ion-card {
-  margin-top: 60px;
-  width: 95%;
-  max-width: 370px;
-  margin-left: auto;
-  margin-right: auto;
-  border-radius: 18px;
-  box-shadow: 0 6px 32px rgba(0,0,0,0.18);
-  background: #232323;
-  padding: 28px 22px 22px 22px;
+
+  padding: 28px 24px;
+  background: #1b1b1b;
+  border-radius: 20px;
+  margin-top: 230px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
+
+
 
 ion-card-title {
-  font-size: 2.1em;
-  text-align: center;
-  margin: 24px 0 18px 0;
-  color: #fff;
+  margin: 18px 0 28px;
+  font-size: 1.9em;
   font-weight: bold;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
   letter-spacing: 1px;
+  color: #fff;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
+
 ion-card-content {
-  padding: 0;
   width: 100%;
+  padding: 0;
 }
 
 ion-input {
-  margin-bottom: 28px;
-  --padding-start: 12px;
-  --padding-end: 12px;
-  border: none;
-  border-radius: 8px;
-  background: #181818;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  background: #2f2f2f;
+  font-size: 1.05em;
   color: #fff;
-  font-size: 1.08em;
-  box-shadow: 0 1px 8px rgba(0,0,0,0.07);
   --placeholder-color: #bbb;
+  --padding-start: 14px;
+  --padding-end: 14px;
+  
 }
 
-ion-input input {
-  color: #fff;
-}
 
 ion-button {
-  border-radius: 10px;
-  font-size: 1.1em;
-  margin-bottom: 18px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin-top: 10px;
+  border-radius: 12px;
+  font-size: 1.15em;
   font-weight: bold;
-  letter-spacing: 1px;
-  --background: #c46a1b;
   --color: #fff;
-  transition: background 0.2s, color 0.2s;
 }
 
 ion-button:hover {
   --background: #fff;
-  --color: #c46a1b;
 }
 
-.secondary-button-container {
+
+.card-header {
   display: flex;
-  gap: 12px;
-  margin-top: 18px;
-  width: 100%;
-  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }
 
-@media (max-width: 500px) {
-  ion-card {
-    width: 99vw;
-    max-width: 99vw;
-    padding: 18px 4vw 18px 4vw;
-  }
+.card-header ion-card-title {
+  flex: 1;
+  text-align: center;
+  color: #fff;
 }
