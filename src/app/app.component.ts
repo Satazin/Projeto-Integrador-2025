@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
 
 import { addIcons } from 'ionicons';
-import { cartOutline, pin, create, trashOutline, personCircleOutline} from 'ionicons/icons';
+import { cartOutline, pin, create, trashOutline, personCircleOutline, person} from 'ionicons/icons';
 
 
 
@@ -18,7 +18,8 @@ export class AppComponent {
       pin,
       create, 
       trashOutline,
-      personCircleOutline
+      personCircleOutline,
+      person
     });
   }
 }
