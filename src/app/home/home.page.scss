@@ -11,6 +11,7 @@
   font-family: 'chinese';
   src: url('/assets/fonte.ttf') format('truetype');
 }
+
 @font-face {
   font-family: 'japanese';
   src: url('/assets/sigokae.otf') format('truetype');
@@ -21,8 +22,9 @@
   position: absolute;
   height: 20%;
   width: 100%;
-  z-index: 2; /* coloca o container acima da imagem */
-  
+  z-index: 2;
+  /* coloca o container acima da imagem */
+
 }
 
 .titulo {
@@ -31,9 +33,11 @@
   font-weight: bold;
   color: #fff;
   text-align: center;
-  position: relative; /* necessário para o z-index funcionar */
-  z-index: 2; /* acima da imagem */
- 
+  position: relative;
+  /* necessário para o z-index funcionar */
+  z-index: 2;
+  /* acima da imagem */
+
 }
 
 .div-subtitulo {
@@ -53,18 +57,7 @@
   z-index: 2;
   text-shadow: #000000 1px 1px 1px;
 }
-.div-botao {
-  bottom: 40px;
-  position: absolute;
-  height: 20%;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.botao {
-  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
+
 .logo {
   max-width: 50%;
   height: auto;
@@ -73,10 +66,24 @@
   margin-left: 25%;
 }
 
-  .div-botao-admin{
-    height: 10%; //altura
-    width: 150%; //largura
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+.botoes-container {
+  position: absolute;
+  bottom: 40px;          /* Fica fixo perto do rodapé */
+  width: 100%;
+  display: flex;
+  flex-direction: column; /* empilha em coluna */
+  justify-content: center;
+  align-items: center;
+  gap: 10px;        /* espaço entre os botões */
+}
+
+.botao {
+  width: 50%; /* ocupa mais espaço */
+}
+
+.botao-adm {
+  --background: black; /* fundo preto */
+  --color: red;        /* ícone + texto vermelhos */
+  width: 60%;          /* menor que o de cima, se quiser */
+}
+
