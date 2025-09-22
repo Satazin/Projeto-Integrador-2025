@@ -123,8 +123,4 @@ export class PedidosPage implements OnInit, AfterViewInit {
     this.router.navigate(['/infoitens', item.id], { state: { item } });
   }
 
-  entrarComoAdm() {
-    this.router.navigate(['/adm-login']);
-  }
-
 }
