@@ -18,7 +18,6 @@ export class CarrinhoPage implements OnInit {
   carrinhoItens$: Observable<CartItem[]>;
   public formaPagamento: string = '';
   public compraFinalizada: boolean = false; // controla exibição do card finalizado
-  itens: any;
 
   constructor(
     private carrinhoService: CarrinhoService,
@@ -55,7 +54,7 @@ export class CarrinhoPage implements OnInit {
     }).unsubscribe();
     return total;
   }
-
+  
   async finalizarPagamento(metodo: string) {
     const user = getAuth().currentUser;
 

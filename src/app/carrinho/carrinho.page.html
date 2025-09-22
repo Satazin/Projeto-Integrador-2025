@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content class="ion-padding carrinho-content">
-  <ion-list ngIf="(carrinhoItens$ | async) as itens; else noItems">
+  <ion-list *ngIf="(carrinhoItens$ | async) as itens; else noItems">
     <ion-item *ngFor="let item of itens">
       <ion-label>
         <h2>{{ item.nome }}</h2>

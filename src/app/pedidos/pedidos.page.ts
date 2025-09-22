@@ -14,16 +14,16 @@ import {
   IonButton, 
   IonAvatar,
   IonMenuButton,
-  IonMenu, IonBadge } from '@ionic/angular/standalone';
+  IonMenu, 
+} from '@ionic/angular/standalone';
 import { RealtimeDatabaseService } from '../firebase/realtime-databse';
-import { CarrinhoService } from '../services/carrinho.service';
 
 @Component({
   selector: 'app-pedidos',
   templateUrl: './pedidos.page.html',
   styleUrls: ['./pedidos.page.scss'],
   standalone: true,
-  imports: [ 
+  imports: [
    IonAvatar, IonButton, IonIcon,
     CommonModule, FormsModule, RouterLink,
     IonContent, IonHeader, IonTitle, IonToolbar,
@@ -47,21 +47,15 @@ export class PedidosPage implements OnInit, AfterViewInit {
   ];
   public categoriaEmFoco: string = 'poke';
   termoBusca: string = '';
-  quantidadeCarrinho = 0;
 
   constructor(
     private rt: RealtimeDatabaseService,
     private elRef: ElementRef,
-    private router: Router,
-    private carrinhoService: CarrinhoService
+    private router: Router
   ) {}
 
   ngOnInit() {
     this.listar();
-
-    this.carrinhoService.quantidade$.subscribe(qtd => {
-      this.quantidadeCarrinho = qtd;
-    });
   }
 
   ngAfterViewInit() {
@@ -90,8 +84,8 @@ export class PedidosPage implements OnInit, AfterViewInit {
   itensPorCategoria(cat: string) {
     return this.pedidos.filter(i => i.categoria === cat)
     .filter(i =>
-      !this.termoBusca ||
-      i.nome.toLowerCase().includes(this.termoBusca.toLowerCase()) ||
+      !this.termoBusca || 
+      i.nome.toLowerCase().includes(this.termoBusca.toLowerCase()) || 
       i.descricao.toLowerCase().includes(this.termoBusca.toLowerCase())
     );
   }
@@ -127,6 +121,10 @@ export class PedidosPage implements OnInit, AfterViewInit {
 
   abrirInfoItem(item: any) {
     this.router.navigate(['/infoitens', item.id], { state: { item } });
+  }
+
+  entrarComoAdm() {
+    this.router.navigate(['/adm-login']);
   }
 
 }

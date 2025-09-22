@@ -1,13 +1,13 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Pedidos Test</ion-title>
+    <ion-title>Cadastrar pedidos - ADM</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Pedidos Test</ion-title>
+      <ion-title size="large"></ion-title>
     </ion-toolbar>
   </ion-header>
 
@@ -28,7 +28,7 @@
     <!-- SELECT DE CATEGORIA -->
     <p>Categoria</p>
     <ion-item>
-      <ion-select placeholder="Selecione a categoria" [(ngModel)]="categoria">
+      <ion-select placeholder="Selecione a categoria"  [(ngModel)]="categoria">
         <ion-select-option *ngFor="let cat of categorias" [value]="cat.id">
           {{cat.nome}}
         </ion-select-option>

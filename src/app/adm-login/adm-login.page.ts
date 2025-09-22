@@ -6,12 +6,14 @@ import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
+
+
 @Component({
   selector: 'app-login',
   templateUrl: './adm-login.page.html',
   styleUrls: ['./adm-login.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule]
+  imports: [IonicModule, CommonModule, FormsModule, ]
 
 })
 export class AdmLoginPage {
