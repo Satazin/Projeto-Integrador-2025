@@ -45,7 +45,7 @@ ion-input {
     border-radius: 50%;      /* Torna o contêiner circular */
     overflow: hidden;        /* Garante que a imagem não ultrapasse os limites */
     border: 3px solid #ffffff; /* Adiciona uma borda branca ao redor */
-    box-shadow: 0 0 20px rgba(250, 112, 0, 0.5);
+    box-shadow: 0 0 20px rgba(255, 252, 235, 0.5);
 }
 
 
@@ -55,5 +55,6 @@ ion-input {
 }
 .titulo{
     text-align: center;
+    font-size: 1.4em;
 }
   

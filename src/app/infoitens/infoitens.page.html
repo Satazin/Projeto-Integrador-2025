@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/pedidos" color="dark" text="Voltar"></ion-back-button>
     </ion-buttons>
-    <ion-title>Detalhes do Item</ion-title>
+    <ion-title class="titulo">Detalhes do Item</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -31,7 +31,7 @@
         <ion-button fill="outline" size="small" (click)="alterarQtd(1)">+</ion-button>
       </div>
       <div class="infoitens-total">R$ {{valorTotal | number:'1.2-2'}}</div>
-      <ion-button expand="block" color="primary" (click)="adicionarAoCarrinho()">
+      <ion-button expand="block" color="primary" (click)="adicionarAoCarrinho()"  >
         Adicionar ao Carrinho
       </ion-button>
     </ion-card-content>

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
 
 import { addIcons } from 'ionicons';
-import { cartOutline, pin, create} from 'ionicons/icons';
+import { cartOutline, pin, create,star} from 'ionicons/icons';
 
 
 
@@ -16,7 +16,8 @@ export class AppComponent {
         addIcons({
       cartOutline,
       pin,
-      create
+      create,
+      star
     });
   }
 }

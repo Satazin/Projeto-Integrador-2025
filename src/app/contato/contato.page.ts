@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule} from '@ionic/angular';
 import { RouterLink } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-contato',
@@ -13,9 +14,18 @@ import { RouterLink } from '@angular/router';
 })
 export class ContatoPage implements OnInit {
 
-  constructor() { }
+ constructor(private alertController: AlertController) {}
+
+  async exibirAlerta() {
+    const alert = await this.alertController.create({
+      header: 'Pedido Enviado',
+      message: 'Agradeçemos pela sua avalição!Respomderemos em breve.',
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
 
   ngOnInit() {
   }
-
 }

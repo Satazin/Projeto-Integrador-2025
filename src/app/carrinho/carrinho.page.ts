@@ -73,7 +73,7 @@ export class CarrinhoPage implements OnInit {
 
   voltar() {
     // Navega para a página anterior
-    this.router.navigate(['/home']);
+    this.router.navigate(['/pedidos']);
   }
 
   continuar() {
