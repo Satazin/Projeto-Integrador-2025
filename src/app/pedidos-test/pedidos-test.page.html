@@ -29,7 +29,7 @@
     <p>Categoria</p>
     <ion-item>
       <ion-select placeholder="Selecione a categoria"  [(ngModel)]="categoria">
-        <ion-select-option *ngFor="let cat of categorias" [value]="cat.id">
+        <ion-select-option *ngFor="let cat of categorias" [value]="cat.slug">
           {{cat.nome}}
         </ion-select-option>
       </ion-select>

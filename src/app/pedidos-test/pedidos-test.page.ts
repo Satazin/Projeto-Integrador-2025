@@ -50,6 +50,7 @@ export class PedidosTestPage implements OnInit {
     { id: 10, slug: 'bebidas', nome: 'BEBIDAS' },
     { id: 11, slug: 'sobremesas', nome: 'SOBREMESAS' }
   ];
+  
 
   constructor(
     private rt: RealtimeDatabaseService,
@@ -58,7 +59,7 @@ export class PedidosTestPage implements OnInit {
     private actionSheetCtrl: ActionSheetController
   ){
     this.ar.params.subscribe((param: any) => {
-     // this.id = param.id;
+     //this.id = param.id;
     });
   }
 
