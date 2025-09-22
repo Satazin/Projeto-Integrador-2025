@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 
 export interface Product {
   id: string;
+  imagem: string;
   nome: string;
   preco: number;
   descricao?: string;

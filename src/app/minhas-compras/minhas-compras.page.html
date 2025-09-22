@@ -1,8 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-       <ion-back-button defaultHref="/pedidos" text="Voltar" color="dark"></ion-back-button>
-
+      <ion-back-button text="Voltar" color="dark" routerLink="/pedidos"></ion-back-button>
     </ion-buttons>
     <ion-title>Minhas Compras</ion-title>
   </ion-toolbar>
@@ -18,7 +17,10 @@
       <ion-card-content>
         <ion-list>
           <ion-item *ngFor="let item of compra.itens">
-            <ion-label>
+              <ion-thumbnail slot="start">
+                <img [src]="item.imagem" alt="Imagem do produto" />
+                  </ion-thumbnail>
+              <ion-label>
               <h2>{{ item.nome }}</h2>
               <p>Quantidade: {{ item.quantidade }}</p>
               <p>Preço: R$ {{ item.preco }}</p>

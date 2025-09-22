@@ -1,27 +1,10 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title class="titulo"> Meu Perfil</ion-title>
-    <ion-buttons slot="start">
-
-      <ion-back-button defaultHref="/pedidos" text="" color="dark"></ion-back-button>
-
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content class="ion-padding" [fullscreen]="true" class="fundo">
   <div class="container">
     <ion-card>
-      <ion-card-header>
-        <ion-card-title></ion-card-title>
-      </ion-card-header>
-
-
       <ion-card-content>
-        
+        <ion-back-button defaultHref="/pedidos" text="" color="dark"></ion-back-button>
        <ion-avatar class="perfil-img" >
-        <img [src]="fotoUrl || placeholderUrl"  /> 
-         
+        <img [src]="fotoUrl || placeholderUrl"  />
         </ion-avatar>
 
         <input type="file" #fileInput (change)="onFileSelected($event)" style="display: none;">

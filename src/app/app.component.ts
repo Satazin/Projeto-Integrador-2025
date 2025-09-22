@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { cartOutline, pin, create,star, personCircleOutline} from 'ionicons/icons';
+import { cartOutline, pin, create, trashOutline, personCircleOutline, person} from 'ionicons/icons';
+
+
 
 @Component({
   selector: 'app-root',
@@ -13,9 +15,10 @@ export class AppComponent {
         addIcons({
       cartOutline,
       pin,
-      create,
-      star,
-      personCircleOutline
+      create, 
+      trashOutline,
+      personCircleOutline,
+      person
     });
   }
 }
