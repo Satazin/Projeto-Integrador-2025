@@ -56,23 +56,3 @@ ion-button {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 20px 0;
 }
-.star-rating {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-}
-
-.star {
-  font-size: 2.2em;
-  color: #ebe8e8; /* Cor padrão */
-  cursor: pointer;
-  transition: color 0.2s;
-}
-
-.star:hover,
-.star.selected {
-  color: #ffd700; /* Amarelo dourado */
-}
-
-
-
