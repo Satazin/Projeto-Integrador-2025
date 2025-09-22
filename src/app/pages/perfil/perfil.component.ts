@@ -3,9 +3,13 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 
+
+
+
 import { Auth, onAuthStateChanged, User } from '@angular/fire/auth';
 import { Firestore, doc, getDoc, setDoc } from '@angular/fire/firestore';
 import { getDatabase, ref, onValue, set } from "firebase/database";
+import { RouterLink } from '@angular/router';
 
 import { AuthService } from '../../services/auth';
 import { Router } from '@angular/router';
@@ -23,7 +27,7 @@ interface Usuario {
   templateUrl: './perfil.component.html',
   styleUrls: ['./perfil.component.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule]
+  imports: [IonicModule, CommonModule, FormsModule, RouterLink]
 })
 export class PerfilComponent implements OnInit {
   usuario: Usuario = {
@@ -35,10 +39,9 @@ export class PerfilComponent implements OnInit {
   };
 
   private userId: string | null = null;
-  public fotoUrl: string | null = null;
+  public fotoUrl: string = 'assets/img/default-profile.png';
   public placeholderUrl: string = 'assets/img/default-profile.png';
   private selectedFile: File | null = null;
-  
   private dbRT; 
 
   constructor(
@@ -98,23 +101,28 @@ export class PerfilComponent implements OnInit {
       }
     });
   
-    try {
-      const userDocRef = doc(this.db, 'usuarios', this.userId);
-      const userDocSnap = await getDoc(userDocRef);
-  
-      if (userDocSnap.exists()) {
-        const dados = userDocSnap.data() as Usuario;
-        this.usuario.email = dados.email || '';
-        this.fotoUrl = dados.fotoUrl && dados.fotoUrl.length > 0 ? dados.fotoUrl : this.placeholderUrl;
-      } else {
-        console.log("Documento do usuário não encontrado. Criando...");
-        await this.criarDocumentoPadrao(this.auth.currentUser as User);
+    // puxar o restante dos dados do Firestore/ Auth
+  try {
+    const userDocRef = doc(this.db, 'usuarios', this.userId);
+    const userDocSnap = await getDoc(userDocRef);
+
+    if (userDocSnap.exists()) {
+      const dados = userDocSnap.data() as Usuario;
+      this.usuario.email = dados.email || '';
+      // Se a fotoUrl existir e não for vazia, use-a.
+      // Caso contrário, o componente já estará usando a imagem padrão.
+      if (dados.fotoUrl && dados.fotoUrl.length > 0) {
+        this.fotoUrl = dados.fotoUrl;
       }
-    } catch (error) {
-      console.error('Erro ao carregar o perfil do Firestore:', error);
-      this.fotoUrl = this.placeholderUrl;
+    } else {
+      console.log("Documento do usuário não encontrado. Criando...");
+      await this.criarDocumentoPadrao(this.auth.currentUser as User);
     }
+  } catch (error) {
+    console.error('Erro ao carregar o perfil do Firestore:', error);
+    // Se houver um erro, a imagem padrão será exibida.
   }
+}
 
   async criarDocumentoPadrao(user: User | null) {
     if (!this.userId || !user) return;
