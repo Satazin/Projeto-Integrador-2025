@@ -13,9 +13,14 @@ import { AlertController } from '@ionic/angular';
   imports: [IonicModule, CommonModule, FormsModule, RouterLink]
 })
 export class ContatoPage implements OnInit {
+   public rating: number = 0;
 
  constructor(private alertController: AlertController) {}
-
+// Nova função para definir a nota
+  setRating(star: number) {
+    this.rating = star;
+  }
+  
   async exibirAlerta() {
     const alert = await this.alertController.create({
       header: 'Pedido Enviado',

@@ -89,9 +89,15 @@ ion-avatar {
 }
 
 .produto-desc {
-    font-size: 1em;
-    color: #fff6f6;
-    margin-bottom: 8px;
+   font-size: 0.9em;
+  color: #fff6f6;
+  margin-bottom: 8px;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 4; /* número de linhas visíveis */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .produto-serve {

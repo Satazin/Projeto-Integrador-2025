@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ion-header, ion-toolbar {
   --background: #181818;
   --color: #fff;
@@ -86,3 +87,124 @@ ion-list ion-item ion-label {
   font-size: 1.1em;
   color: #aaa;
 }
+=======
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+
+ion-content {
+  --background: #1a1a1a;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Header */
+ion-toolbar {
+  --background: #121212;
+  --color: #fff;
+  border-bottom: 1px solid #2a2a2a;
+}
+
+/* Lista de compras */
+.compras-list {
+  padding: 16px;
+}
+
+/* Card */
+.compra-card {
+  --background: #252525;
+  color: #fff;
+  border-radius: 14px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.6);
+  margin-bottom: 22px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.compra-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.8);
+}
+
+/* Data da compra */
+.data-compra {
+  color: #aaa;
+  font-size: 0.70rem;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+/* Itens */
+.item-compra {
+  --background: transparent;
+  --padding-start: 0;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.item-compra:last-child {
+  border-bottom: none;
+}
+
+/* Imagem */
+.thumbnail-produto img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+/* Infos */
+.item-info {
+  margin-left: 16px;
+}
+
+.item-nome {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.item-detalhe {
+  font-size: 0.9rem;
+  color: #bbb;
+  margin-bottom: 2px;
+}
+
+.item-detalhe.preco {
+  font-weight: 700;
+  color: #f4e299;
+}
+
+/* Nenhuma compra */
+.no-compras-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #888;
+  text-align: center;
+  padding: 50px 20px;
+}
+
+.no-compras-message ion-icon {
+  font-size: 4rem;
+  color: #666;
+  margin-bottom: 12px;
+}
+.item-container {
+  display: flex;
+  align-items: center;   /* centraliza verticalmente */
+  gap: 12px;             /* espaço entre imagem e texto */
+}
+
+.produto {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.item-info {
+  flex: 1;   /* ocupa o resto do espaço */
+}
+
+>>>>>>> 4f3e69da87d762bfd3051a42f77d5dfa87700b4d
