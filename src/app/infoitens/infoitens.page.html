@@ -33,7 +33,15 @@
           <span>{{quantidade}}</span>
           <ion-button fill="clear" size="small" (click)="alterarQtd(1)">+</ion-button>
         </div>
-
+<ion-item lines="none">
+  <ion-label position="stacked">Algum comentário?</ion-label>
+  <ion-textarea
+    placeholder="Ex: tirar a cebola, maionese à parte etc."
+    maxlength="140"
+    [(ngModel)]="observacao"
+    autoGrow="true"
+  ></ion-textarea>
+</ion-item>
         <ion-button expand="block" color="primary" (click)="adicionarAoCarrinho()" routerLink="/carrinho">
           Adicionar
           <span class="infoitens-total">R$ {{valorTotal | number:'1.2-2'}}</span>
