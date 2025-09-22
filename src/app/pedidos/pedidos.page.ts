@@ -14,16 +14,16 @@ import {
   IonButton, 
   IonAvatar,
   IonMenuButton,
-  IonMenu, 
-} from '@ionic/angular/standalone';
+  IonMenu, IonBadge } from '@ionic/angular/standalone';
 import { RealtimeDatabaseService } from '../firebase/realtime-databse';
+import { CarrinhoService } from '../services/carrinho.service';
 
 @Component({
   selector: 'app-pedidos',
   templateUrl: './pedidos.page.html',
   styleUrls: ['./pedidos.page.scss'],
   standalone: true,
-  imports: [
+  imports: [ 
    IonAvatar, IonButton, IonIcon,
     CommonModule, FormsModule, RouterLink,
     IonContent, IonHeader, IonTitle, IonToolbar,
@@ -47,15 +47,21 @@ export class PedidosPage implements OnInit, AfterViewInit {
   ];
   public categoriaEmFoco: string = 'poke';
   termoBusca: string = '';
+  quantidadeCarrinho = 0;
 
   constructor(
     private rt: RealtimeDatabaseService,
     private elRef: ElementRef,
-    private router: Router
+    private router: Router,
+    private carrinhoService: CarrinhoService
   ) {}
 
   ngOnInit() {
     this.listar();
+
+    this.carrinhoService.quantidade$.subscribe(qtd => {
+      this.quantidadeCarrinho = qtd;
+    });
   }
 
   ngAfterViewInit() {
@@ -123,5 +129,4 @@ export class PedidosPage implements OnInit, AfterViewInit {
     this.router.navigate(['/infoitens', item.id], { state: { item } });
   }
 
-  
 }

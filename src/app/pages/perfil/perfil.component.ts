@@ -2,11 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
+
+
+
+
 import { Auth, onAuthStateChanged, User } from '@angular/fire/auth';
 import { Firestore, doc, getDoc, setDoc } from '@angular/fire/firestore';
 import { getDatabase, ref, onValue, set } from "firebase/database";
 import { RouterLink } from '@angular/router';
 
+import { AuthService } from '../../services/auth';
+import { Router } from '@angular/router';
 
 interface Usuario {
   nomeUsuario: string;
@@ -40,12 +46,13 @@ export class PerfilComponent implements OnInit {
 
   constructor(
     private auth: Auth,
-    private db: Firestore
+    private db: Firestore,
+    private authService: AuthService,   // injeta o AuthService
+    private router: Router              // injeta o Router pra redirecionar
   ) {
     this.dbRT = getDatabase(); 
   }
 
-  // Carrega os dados do perfil
   async ngOnInit() {
     onAuthStateChanged(this.auth, async (user) => {
       if (user) {
@@ -55,7 +62,6 @@ export class PerfilComponent implements OnInit {
     });
   }
 
-  // Pega imagem e ccoloca no perfil
   onFileSelected(event: Event) {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
@@ -68,11 +74,9 @@ export class PerfilComponent implements OnInit {
     }
   }
 
-
   async carregarPerfil() {
     if (!this.userId) return;
   
-    // puxar o nome do Realtime Database
     const nomeRef = ref(this.dbRT, 'usuarios/' + this.userId + '/nome');
     onValue(nomeRef, (snapshot) => {
       const nomeDoRealtime = snapshot.val();
@@ -81,7 +85,6 @@ export class PerfilComponent implements OnInit {
       }
     });
   
-    // puxar o telefone do Realtime Database
     const telefoneRef = ref(this.dbRT, 'usuarios/' + this.userId + '/telefone');
     onValue(telefoneRef, (snapshot) => {
       const telefoneDoRealtime = snapshot.val();
@@ -90,7 +93,6 @@ export class PerfilComponent implements OnInit {
       }
     });
 
-    // puxar o endereco do Realtime Database
     const enderecoRef = ref(this.dbRT, 'usuarios/' + this.userId + '/endereco');
     onValue(enderecoRef, (snapshot) => {
       const enderecoDoRealtime = snapshot.val();
@@ -122,7 +124,6 @@ export class PerfilComponent implements OnInit {
   }
 }
 
-  // Cria documento no firestore se nao tivesse (Provavel exclusão)
   async criarDocumentoPadrao(user: User | null) {
     if (!this.userId || !user) return;
     const userDocRef = doc(this.db, 'usuarios', this.userId);
@@ -134,7 +135,6 @@ export class PerfilComponent implements OnInit {
     await this.carregarPerfil();
   }
 
-  // Salva as alterações do perfil
   async salvarPerfil() {
     if (!this.userId) return;
     try {
@@ -153,6 +153,16 @@ export class PerfilComponent implements OnInit {
     } catch (error) {
       console.error('Erro ao salvar o perfil:', error);
       alert('Falha ao salvar o perfil.');
+    }
+  }
+
+  // 🚀 Novo método de logout
+  async logout() {
+    try {
+      await this.authService.logout();
+      this.router.navigate(['/login']); // redireciona pro login
+    } catch (error) {
+      console.error('Erro no logout:', error);
     }
   }
 }

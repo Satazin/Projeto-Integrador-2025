@@ -48,22 +48,4 @@
   </div>
 
   <hr>
-
-  <!-- LISTAGEM DE PRODUTOS EM BOTÕES CLICÁVEIS -->
-  <div class="produtos-container">
-    <button
-      *ngFor="let item of pedidos"
-      class="produto-card produto-botao"
-    >
-      <img *ngIf="item.imagem" [src]="item.imagem" alt="{{item.nome}}" class="produto-img" />
-
-      <div class="produto-info">
-        <div class="produto-nome">{{item.nome}}</div>
-        <div class="produto-desc">{{item.descricao}}</div>
-        <div class="produto-serve">Serve {{item.serve}} pessoa{{item.serve > 1 ? 's' : ''}}</div>
-        <div class="produto-preco">R$ {{item.preco}}</div>
-        <div class="produto-cat">Categoria: {{item.categoria}}</div>
-      </div>
-    </button>
-  </div>
 </ion-content>

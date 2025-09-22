@@ -21,7 +21,6 @@
   </ion-toolbar>
 </ion-header>
 
-
 <ion-menu side="end" contentId="main-content" menuId="rightMenu">
   <ion-header>
     <ion-toolbar>
@@ -45,8 +44,7 @@
     <h1>Seja bem-vindo ao <br>Casa Bonsai!</h1>
   </div>
   <img src="assets/lights.jpg" alt="Lanternas japonesas" class="banner-lanternas" />
-
-
+  
   <div class="search-bar-container">
     <ion-searchbar ngDefaultControl [(ngModel)]="termoBusca" placeholder="Buscar produto..." color="light"
       showCancelButton="focus" class="search-bar-custom"></ion-searchbar>
@@ -56,7 +54,8 @@
     <div class="slider">
       <div class="slide-track">
         <div class="categorias-menu item slide" #categoriasMenu>
-          <button *ngFor="let cat of categorias" (click)="scrollToCategoria(cat.id)">
+          <button *ngFor="let cat of categorias" 
+            (click)="scrollToCategoria(cat.id)">
             {{cat.nome}}
           </button>
         </div>
@@ -67,8 +66,11 @@
   <div class="produtos-lista">
     <ng-container *ngFor="let cat of categorias">
       <div [id]="cat.id" class="categoria-titulo">{{cat.nome}}</div>
-      <button *ngFor="let item of itensPorCategoria(cat.id)" class="produto-card produto-botao"
-        (click)="abrirInfoItem(item)">
+      <button
+        *ngFor="let item of itensPorCategoria(cat.id)"
+        class="produto-card produto-botao"
+        (click)="abrirInfoItem(item)"
+      >
         <img [src]="item.imagem" alt="{{item.nome}}" class="produto-img" />
         <div class="produto-info">
           <div class="produto-nome">{{item.nome}}</div>

@@ -15,6 +15,7 @@ export interface Product {
 }
 
 export interface CartItem extends Product {
+imagem: any;
   quantidade: number;
 }
 
@@ -22,10 +23,17 @@ export interface CartItem extends Product {
   providedIn: 'root'
 })
 export class CarrinhoService {
+  updateCartItem(id: string, arg1: number) {
+    throw new Error('Method not implemented.');
+  }
   private user: User | null = null;
   private auth = getAuth();
   private cartItemsSubject = new BehaviorSubject<CartItem[]>([]);
   public cartItems$: Observable<CartItem[]> = this.cartItemsSubject.asObservable();
+
+  private itens: any[] = [];
+  private quantidadeSubject = new BehaviorSubject<number>(0);
+  quantidade$ = this.quantidadeSubject.asObservable();
 
   constructor(private rtdb: RealtimeDatabaseService) {
     onAuthStateChanged(this.auth, (user) => {
@@ -57,7 +65,10 @@ export class CarrinhoService {
     }
     const userId = user.uid;
     const itemRef = `carrinhos/${userId}/itens/${item.id}`;
-    const cartItem: CartItem = { ...item, quantidade };
+    const cartItem: CartItem = {
+      ...item, quantidade,
+      imagem: undefined
+    };
     await this.rtdb.set(itemRef, cartItem);
   }
 

@@ -1,6 +1,12 @@
-// src/app/services/auth.service.ts
 import { Injectable } from '@angular/core';
-import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, User, onAuthStateChanged } from '@angular/fire/auth';
+import { 
+  Auth, 
+  signInWithEmailAndPassword, 
+  createUserWithEmailAndPassword, 
+  signOut, 
+  User, 
+  onAuthStateChanged 
+} from '@angular/fire/auth';
 import { Database, ref, set, get } from '@angular/fire/database';
 
 @Injectable({
@@ -8,67 +14,66 @@ import { Database, ref, set, get } from '@angular/fire/database';
 })
 export class AuthService {
   public usuarioLogado: User | null = null;
+  private adminEmail = 'admin@gmail.com'; // único email de admin
 
   constructor(private auth: Auth, private db: Database) {
+    // Observa mudanças no estado de login
     onAuthStateChanged(this.auth, (user) => {
       this.usuarioLogado = user;
     });
   }
 
-  // Método de Cadastro
   async cadastrar(email: string, password: string, nome: string, telefone: string, endereco: string): Promise<any> {
-    try {
-      // 1. Cria a conta no Firebase Authentication
-      const userCredential = await createUserWithEmailAndPassword(this.auth, email, password);
-      const user = userCredential.user;
+    const userCredential = await createUserWithEmailAndPassword(this.auth, email, password);
+    const user = userCredential.user;
 
-      // 2. Salva os dados do usuário no Realtime Database usando o UID como chave
-      await set(ref(this.db, 'usuarios/' + user.uid), {
-        email: email,
-        nome: nome,
-        telefone: telefone,
-        endereco: endereco
-      });
+    await set(ref(this.db, 'usuarios/' + user.uid), {
+      email: email,
+      nome: nome,
+      telefone: telefone,
+      endereco: endereco
+    });
 
-      return {
-        authUser: user,
-        realtimeData: { email, nome }
-      };
-
-    } catch (erro: any) {
-      console.error('Erro no cadastro:', erro.message);
-      throw erro;
-    }
+    return {
+      authUser: user,
+      realtimeData: { email, nome }
+    };
   }
 
-  // Método de Login
   async login(email: string, password: string): Promise<any> {
-    try {
-      // 1. Autentica o usuário no Firebase Authentication
-      const userCredential = await signInWithEmailAndPassword(this.auth, email, password);
-      const user = userCredential.user;
+    const userCredential = await signInWithEmailAndPassword(this.auth, email, password);
+    const user = userCredential.user;
 
-      // 2. Busca os dados do Realtime Database usando o UID do usuário
-      const userRef = ref(this.db, 'usuarios/' + user.uid);
-      const snapshot = await get(userRef);
+    const userRef = ref(this.db, 'usuarios/' + user.uid);
+    const snapshot = await get(userRef);
 
-      return {
-        authUser: user,
-        realtimeData: snapshot.exists() ? snapshot.val() : null
-      };
-
-    } catch (erro: any) {
-      console.error('Erro no login:', erro.message);
-      throw erro;
-    }
+    return {
+      authUser: user,
+      realtimeData: snapshot.exists() ? snapshot.val() : null
+    };
   }
 
-  async logout() {
+  // logout → limpa o usuário e o token
+  async logout(): Promise<void> {
     await signOut(this.auth);
     this.usuarioLogado = null;
   }
 
+  // retorna true se o usuário está logado
   isLogged(): boolean {
     return this.usuarioLogado !== null;
+  }
+
+  // retorna true se o usuário logado for o admin
+  isAdmin(): boolean {
+    return this.usuarioLogado?.email === this.adminEmail;
+  }
+
+  // pega o token atual do Firebase (útil se precisar enviar pra backend)
+  async getToken(): Promise<string | null> {
+    if (this.usuarioLogado) {
+      return await this.usuarioLogado.getIdToken();
+    }
+    return null;
   }
 }

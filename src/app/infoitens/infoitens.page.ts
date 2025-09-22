@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { RealtimeDatabaseService } from '../firebase/realtime-databse';
-import { CarrinhoService } from '../services/carrinho';
+import { CarrinhoService } from '../services/carrinho.service';
 
 @Component({
   selector: 'app-infoitens',
