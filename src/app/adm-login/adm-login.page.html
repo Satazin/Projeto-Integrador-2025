@@ -9,7 +9,9 @@
 
     <ion-card-content>
       <ion-input placeholder="E-mail" [(ngModel)]="email"></ion-input>
-      <ion-input type="password" placeholder="Senha" [(ngModel)]="senha"></ion-input>
+      <ion-input type="password" placeholder="Senha" [(ngModel)]="senha">
+         <ion-input-password-toggle slot="end" color="dark"></ion-input-password-toggle>
+      </ion-input>
     </ion-card-content>
 
     <ion-button expand="block" color="dark" (click)="fazerLogin()">Entrar</ion-button>
