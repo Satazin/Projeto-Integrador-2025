@@ -29,7 +29,7 @@ ion-card {
 .infoitens-container {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 20px;
   margin-top: 18px;
 }
 
@@ -39,6 +39,7 @@ ion-card {
   justify-content: space-between;
   padding: 4px 12px;
   min-width: 90px;
+  gap: 12px;
 }
 
 .infoitens-qtd span {
@@ -55,4 +56,18 @@ ion-card {
 .titulo {
   text-align: center;
   font-size: 1.3em;
+}
+.adicionar{
+  font-weight: 600; 
+}
+.comentario-item {
+  --padding-start: 20px;
+  --inner-padding-end: 0;
+  --inner-padding-start: 0;
+  --padding-end: 0;
+    border: 1px solid #908484;   /* cor da borda */
+  border-radius: 8px;       /* cantos arredondados */
+  margin-top: 12px;
+ 
+
 }
