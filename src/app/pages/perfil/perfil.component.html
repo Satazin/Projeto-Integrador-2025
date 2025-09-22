@@ -1,10 +1,9 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title class="titulo">Meu Perfil</ion-title>
+    <ion-title class="titulo"> Meu Perfil</ion-title>
     <ion-buttons slot="start">
 
       <ion-back-button defaultHref="/pedidos" text="" color="dark"></ion-back-button>
-
 
     </ion-buttons>
   </ion-toolbar>
@@ -36,8 +35,9 @@
         <ion-input label="Telefone" [(ngModel)]="usuario.telefone" labelPlacement="stacked" type="tel"></ion-input>
         <ion-input label="Endereço" [(ngModel)]="usuario.endereco" labelPlacement="stacked"></ion-input>
         <ion-button expand="" class="ion-margin-top" (click)="salvarPerfil()" color="dark">
-          Salvar Alterações
+          Salvar
         </ion-button>
+        <ion-button color="danger" (click)="logout()">Logout</ion-button>
       </ion-card-content>
     </ion-card>
   </div>

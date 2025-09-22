@@ -1,9 +1,9 @@
 // src/app/pages/gerenciar-itens/gerenciar-itens.component.ts
-import { Component, OnInit } from '@angular/core';
+/*import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
-import { Item, ItemService } from '../../services/item.service';
+import { Item, ItemService } from 'src/app/services/item.service';
 
 // @Component({
 //   selector: 'app-gerenciar-itens',
@@ -28,11 +28,19 @@ import { Item, ItemService } from '../../services/item.service';
 
 //   constructor(private itemService: ItemService) {}
 
+<<<<<<< HEAD
+  ngOnInit() {
+    this.itemService.getItems().subscribe((itens: Item[]) => {
+      this.itensCadastrados = itens;
+    });
+  }
+=======
 //   ngOnInit() {
 //     this.itemService.getItems().subscribe(itens => {
 //       this.itensCadastrados = itens;
 //     });
 //   }
+>>>>>>> e0a7621b50251a7e65625b95e912fb482603e51a
   
 //   onFileSelected(event: Event) {
 //     const input = event.target as HTMLInputElement;
@@ -82,4 +90,4 @@ import { Item, ItemService } from '../../services/item.service';
       reader.onerror = error => reject(error);
     });
   }
-}
+}*/

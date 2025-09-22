@@ -23,7 +23,7 @@ ion-card {
 .infoitens-preco {
   font-size: 1.3em;
   font-weight: bold;
-  color: #c0392b;
+  color: #ffe0e0;
   margin: 18px 0 12px 0;
 }
 
@@ -34,4 +34,18 @@ ion-card {
   gap: 18px;
   margin-bottom: 18px;
   font-size: 1.2em;
+  
+}
+.infoitens-total {
+  font-size: 1.0em;
+  font-weight: bold;
+  color: #cacaca;
+
+  margin-bottom: 18px;
+}
+.titulo {
+  text-align: center;
+  font-size: 1.3em;
+  align-items: center;
+
 }

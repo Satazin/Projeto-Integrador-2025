@@ -1,5 +1,5 @@
 ion-content {
-  --background: url('/assets/fundo.loc.jpg');
+  --background: url('/assets/fundo.loc.jpg') no-repeat center center / cover; /* Imagem de fundo */
   display: flex;
   justify-content: center;
   align-items: center;
