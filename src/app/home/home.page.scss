@@ -82,8 +82,8 @@
 }
 
 .botao-adm {
-  --background: black; /* fundo preto */
-  --color: red;        /* ícone + texto vermelhos */
+  --background: rgb(255, 255, 255); /* fundo preto */
+  --color: rgb(0, 0, 0);        /* ícone + texto vermelhos */
   width: 60%;          /* menor que o de cima, se quiser */
 }
 

@@ -6,7 +6,8 @@
   justify-content: center;
 }
 
-ion-header, ion-toolbar {
+ion-header,
+ion-toolbar {
   --background: #181818;
   --color: #fff;
   border-bottom: 1px solid #393939;
@@ -33,7 +34,7 @@ ion-item {
   --background: #232323;
   border-radius: 14px;
   margin-bottom: 14px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.10);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.10);
   color: #fff;
 }
 
@@ -60,7 +61,7 @@ ion-button[color="danger"] {
 ion-card {
   background: #232323;
   border-radius: 16px;
-  box-shadow: 0 2px 16px rgba(0,0,0,0.10);
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.10);
   margin-top: 18px;
   margin-bottom: 18px;
 }
@@ -122,7 +123,23 @@ ion-modal ion-title {
 }
 
 @media (max-width: 500px) {
-  ion-card, ion-list, .carrinho-footer {
+
+  ion-card,
+  ion-list,
+  .carrinho-footer {
     max-width: 99vw;
+
   }
+
+  .pagamento-fixo {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #181818;
+    padding: 16px;
+    border-top: 1px solid #393939;
+    z-index: 100;
+  }
+
 }
