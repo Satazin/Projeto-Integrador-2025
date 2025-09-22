@@ -27,7 +27,7 @@ interface Usuario {
   templateUrl: './perfil.component.html',
   styleUrls: ['./perfil.component.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule, RouterLink]
+  imports: [IonicModule, CommonModule, FormsModule]
 })
 export class PerfilComponent implements OnInit {
   usuario: Usuario = {

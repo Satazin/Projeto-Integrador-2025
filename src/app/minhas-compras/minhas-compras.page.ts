@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
+import { RouterLink } from '@angular/router';
 
 // Importe os módulos do Firebase para a versão mais recente
 import { Auth, user } from '@angular/fire/auth';
@@ -17,6 +18,7 @@ import { Database, object, ref, get } from '@angular/fire/database';
     IonicModule,
     CommonModule,
     FormsModule,
+    RouterLink,
   ]
 })
 export class MinhasComprasPage implements OnInit {
