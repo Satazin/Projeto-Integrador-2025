@@ -7,13 +7,11 @@
       <h2>Tem alguma dúvida, sugestão ou deseja entrar em contato? <br> Envie-nos uma mensagem!</h2>
       <ion-textarea label="Mensagem" label-placement="floating" placeholder="Escreva sua mensagem aqui"></ion-textarea>
        <h3>Deixe sua avaliação:</h3>
-         <div class="star-rating">
-        <ion-icon name="star" class="star"></ion-icon>
-        <ion-icon name="star" class="star"></ion-icon>
-        <ion-icon name="star" class="star"></ion-icon>
-        <ion-icon name="star" class="star"></ion-icon>
-        <ion-icon name="star" class="star"></ion-icon>
-      </div>
+          <div class="star-rating">
+            @for (star of [1, 2, 3, 4, 5]; track star) {
+              <ion-icon name="star" class="star" [ngClass]="{'selected': star <= rating}" (click)="setRating(star)"></ion-icon>
+            }
+          </div>
 
       
       <ion-button expand="block" color="primary" (click)="exibirAlerta()">Enviar</ion-button>
