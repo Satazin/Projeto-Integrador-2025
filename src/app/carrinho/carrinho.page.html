@@ -1,12 +1,11 @@
-<ion-header> 
+<ion-header>
   <ion-toolbar>
-    <ion-title>Meu Carrinho</ion-title>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/pedidos" text="" color="dark"></ion-back-button>
+      <ion-back-button defaultHref="/pedidos" color="dark" text="Voltar"></ion-back-button>
     </ion-buttons>
+    <ion-title>Carrinho</ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content class="carrinho-content">
 
   <!-- Container para tratar vazio / cheio -->
@@ -42,7 +41,7 @@
       </ion-list>
 
       <!-- Valor total só aparece se houver itens -->
-  
+  <ion-card>
         <ion-card-content>
           <h3>Valor Total: R$ {{ valorTotalCarrinho | number:'1.2-2' }}</h3>
         </ion-card-content>

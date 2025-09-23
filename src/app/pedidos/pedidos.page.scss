@@ -197,6 +197,11 @@ ion-content {
 .slide-track {
     display: flex;
 }
+ion-toolbar {
+    background: #000000;
+    border-bottom: 1px solid #ffffff;
+    box-shadow: 0 2px 12px rgb(0, 0, 0);
+}
 
 .slide {
     scroll-snap-align: start;

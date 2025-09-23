@@ -19,6 +19,7 @@ export class AppComponent {
       trashOutline,
       personCircleOutline,
       person
+
     });
   }
 }
