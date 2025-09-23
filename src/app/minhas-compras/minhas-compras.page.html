@@ -21,7 +21,7 @@
               <ion-label class="item-info">
               <h2 class="item-nome">{{ item.nome }}</h2>
               <p class="item-detalhe">Quantidade: {{ item.quantidade }}</p>
-              <p class="item-detalhe preco">Preço: R$ {{ item.preco }}</p>
+              <p class="item-detalhe preco">Preço: R$ {{ item.preco | number:'1.2-2' }}</p>
             </ion-label>
         </div>
       </ion-card-content>

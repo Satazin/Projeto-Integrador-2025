@@ -1,8 +1,16 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/pedidos"  text=""></ion-back-button>
+    </ion-buttons>
+    <ion-title>Meu Perfil</ion-title>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content class="ion-padding" [fullscreen]="true" class="fundo">
   <div class="container">
     <ion-card>
       <ion-card-content>
-        <ion-back-button defaultHref="/pedidos" text="" color="dark"></ion-back-button>
        <ion-avatar class="perfil-img" >
         <img [src]="fotoUrl || placeholderUrl"  />
         </ion-avatar>

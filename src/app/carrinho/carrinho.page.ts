@@ -56,6 +56,17 @@ export class CarrinhoPage implements OnInit {
   }
   
   async finalizarPagamento(metodo: string) {
+    // Adição da validação: se o método for uma string vazia, exibe um alerta
+    if (!metodo) {
+      const alert = await this.alertController.create({
+        header: 'Atenção',
+        message: 'Por favor, selecione uma forma de pagamento.',
+        buttons: ['OK']
+      });
+      await alert.present();
+      return; // Interrompe a execução da função
+    }
+
     const user = getAuth().currentUser;
 
     if (!user) {
