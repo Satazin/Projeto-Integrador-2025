@@ -18,6 +18,8 @@ export class InfoitensPage implements OnInit {
   quantidade = 1;
   loading = true;
   errorMessage: string | null = null;
+  observacao: string = '';
+
 
   constructor(
     private route: ActivatedRoute,

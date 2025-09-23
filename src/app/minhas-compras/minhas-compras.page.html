@@ -1,38 +1,41 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+<<<<<<< HEAD
+      <ion-back-button text="Voltar" color="dark" routerLink="/pedidos"></ion-back-button>
+=======
+      <ion-back-button defaultHref="/pedidos" color="dark" text=""></ion-back-button>
+>>>>>>> 4f3e69da87d762bfd3051a42f77d5dfa87700b4d
     </ion-buttons>
     <ion-title>Minhas Compras</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-list *ngIf="compras.length > 0; else noCompras">
-    <ion-card *ngFor="let compra of compras">
+  <ion-list *ngIf="compras.length > 0; else noCompras"  class="compras-list">
+    <ion-card *ngFor="let compra of compras" class="compra-card">
       <ion-card-header>
-        <ion-card-title>Compra realizada em: {{ compra.data }}</ion-card-title>
+        <ion-card-subtitle class="data-compra">Compra realizada em: {{ compra.data }}</ion-card-subtitle>
       </ion-card-header>
 
-      <ion-card-content>
-        <ion-list>
-          <ion-item *ngFor="let item of compra.itens">
-            <ion-label>
-              <h2>{{ item.nome }}</h2>
-              <p>Quantidade: {{ item.quantidade }}</p>
-              <p>Preço: R$ {{ item.preco }}</p>
+      <ion-card-content *ngFor="let item of compra.itens">
+       
+             <div class="item-container">
+                <img [src]="item.imagem" alt="Imagem do produto" class="produto" slot="start"/>
+              <ion-label class="item-info">
+              <h2 class="item-nome">{{ item.nome }}</h2>
+              <p class="item-detalhe">Quantidade: {{ item.quantidade }}</p>
+              <p class="item-detalhe preco">Preço: R$ {{ item.preco }}</p>
             </ion-label>
-          </ion-item>
-        </ion-list>
+        </div>
       </ion-card-content>
     </ion-card>
   </ion-list>
 
-  <ng-template #noCompras>
-    <ion-list>
-      <ion-item>
-        <ion-label>Você ainda não fez nenhuma compra.</ion-label>
-      </ion-item>
-    </ion-list>
+ <ng-template #noCompras>
+    <div class="no-compras-message">
+      <ion-icon name="cart-outline"></ion-icon>
+      <p>Você ainda não fez nenhuma compra.</p>
+    </div>
   </ng-template>
 </ion-content>

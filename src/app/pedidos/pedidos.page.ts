@@ -38,12 +38,9 @@ export class PedidosPage implements OnInit, AfterViewInit {
     { id: 'yakisoba', nome: 'YAKISOBA' },
     { id: 'sushi', nome: 'SUSHI' },
     { id: 'niguiris', nome: 'NIGUIRIS' },
-    { id: 'hot', nome: 'PORÇÕES HOT' },
-    { id: 'urumakis', nome: 'URUMAKIS' },
-    { id: 'acompanhamentos', nome: 'ACOMPANHAMENTOS' },
-    { id: 'combos', nome: 'COMBOS' },
+    { id: 'hot', nome: 'HOT' },
     { id: 'bebidas', nome: 'BEBIDAS' },
-    { id: 'sobremesas', nome: 'SOBREMESAS' }
+
   ];
   public categoriaEmFoco: string = 'poke';
   termoBusca: string = '';
@@ -121,10 +118,6 @@ export class PedidosPage implements OnInit, AfterViewInit {
 
   abrirInfoItem(item: any) {
     this.router.navigate(['/infoitens', item.id], { state: { item } });
-  }
-
-  entrarComoAdm() {
-    this.router.navigate(['/adm-login']);
   }
 
 }

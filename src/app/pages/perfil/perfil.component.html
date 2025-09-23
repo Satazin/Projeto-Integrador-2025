@@ -1,25 +1,10 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Meu Perfil</ion-title>
-     <ion-buttons slot="start">
-      <ion-back-button routerLink="/pedidos"></ion-back-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content class="ion-padding" [fullscreen]="true" class="fundo">
   <div class="container">
     <ion-card>
-      <ion-card-header>
-        <ion-card-title></ion-card-title>
-      </ion-card-header>
-
-
       <ion-card-content>
-        
+        <ion-back-button defaultHref="/pedidos" text="" color="dark"></ion-back-button>
        <ion-avatar class="perfil-img" >
-        <img [src]="fotoUrl || placeholderUrl"  /> 
-         
+        <img [src]="fotoUrl || placeholderUrl"  />
         </ion-avatar>
 
         <input type="file" #fileInput (change)="onFileSelected($event)" style="display: none;">
@@ -33,7 +18,7 @@
         <ion-input label="Telefone" [(ngModel)]="usuario.telefone" labelPlacement="stacked" type="tel"></ion-input>
         <ion-input label="Endereço" [(ngModel)]="usuario.endereco" labelPlacement="stacked"></ion-input>
         <ion-button expand="" class="ion-margin-top" (click)="salvarPerfil()" color="dark">
-          Salvar Alterações
+          Salvar
         </ion-button>
         <ion-button color="danger" (click)="logout()">Logout</ion-button>
       </ion-card-content>

@@ -6,7 +6,8 @@
   justify-content: center;
 }
 
-ion-header, ion-toolbar {
+ion-header,
+ion-toolbar {
   --background: #181818;
   --color: #fff;
   border-bottom: 1px solid #393939;
@@ -33,7 +34,7 @@ ion-item {
   --background: #232323;
   border-radius: 14px;
   margin-bottom: 14px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.10);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.10);
   color: #fff;
 }
 
@@ -60,7 +61,7 @@ ion-button[color="danger"] {
 ion-card {
   background: #232323;
   border-radius: 16px;
-  box-shadow: 0 2px 16px rgba(0,0,0,0.10);
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.10);
   margin-top: 18px;
   margin-bottom: 18px;
 }
@@ -98,49 +99,47 @@ ion-modal ion-title {
   font-weight: bold;
 }
 
-ion-modal ion-card {
-  background: #232323;
-  color: #fff;
-  border-radius: 20px;
-  box-shadow: 0 2px 16px rgba(0,0,0,0.10);
+.total-card {
+  margin: 1rem;
+  background-color: #fff;
+  border-radius: 8px;
 }
 
-ion-modal ion-card-content {
-  color: #fff;
-}
-
-ion-modal ion-label h2 {
-  color: #fff;
-  font-size: 1.08em;
+.total-title {
+  font-size: 1.5rem;
   font-weight: bold;
+  margin-bottom: 0.5rem;
 }
 
-ion-modal ion-label p {
-  color: #e0e0e0;
-  font-size: 0.97em;
+.total-value {
+  font-size: 1.2rem;
+  color: #000;
 }
 
-ion-modal ion-icon {
-  color: #c46a1b;
-}
-
-.carrinho-content {
-  padding-bottom: 220px; // espaço para o bloco de pagamento não sobrepor a lista
-}
-
-.pagamento-fixo {
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: #181818;
-  padding: 18px 12px 24px 12px;
-  box-shadow: 0 -2px 16px rgba(0,0,0,0.12);
-  z-index: 99;
+.total-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
 }
 
 @media (max-width: 500px) {
-  ion-card, ion-list, .carrinho-footer {
+
+  ion-card,
+  ion-list,
+  .carrinho-footer {
     max-width: 99vw;
+
   }
+
+  .pagamento-fixo {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #181818;
+    padding: 16px;
+    border-top: 1px solid #393939;
+    z-index: 100;
+  }
+
 }

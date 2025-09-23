@@ -10,6 +10,9 @@
 <ion-content class="ion-padding carrinho-content">
   <ion-list *ngIf="(carrinhoItens$ | async) as itens; else noItems">
     <ion-item *ngFor="let item of itens">
+      <ion-thumbnail slot="start">
+        <img [src]="item.imagem" alt="Imagem do produto" />
+      </ion-thumbnail>
       <ion-label>
         <h2>{{ item.nome }}</h2>
         <p>Preço: R$ {{ item.preco | number:'1.2-2' }}</p>
