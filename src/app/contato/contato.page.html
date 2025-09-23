@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <ion-content [fullscreen]="true" class="fale-conosco-bg">
   <ion-header>
   <ion-toolbar>
@@ -20,4 +21,39 @@
     <ion-button expand="block" color="primary" (click)="exibirAlerta()">Enviar</ion-button>
     <ion-button expand="block" color="dark" routerLink="/pedidos">Voltar</ion-button>
   </div>
+=======
+<ion-content [fullscreen]="true">
+  <ion-card>
+    <ion-card-title>Fale Conosco</ion-card-title>
+ 
+    <ion-card-content>
+      <h2>
+        Tem alguma dúvida, sugestão ou deseja entrar em contato? <br>
+        Envie-nos uma mensagem!
+      </h2>
+
+      <ion-textarea 
+        [(ngModel)]="mensagem" 
+        label="Mensagem" 
+        label-placement="floating" 
+        placeholder=" Escreva sua mensagem aqui..." class="mensagem-card">
+      </ion-textarea>
+
+      <h3>Deixe sua avaliação:</h3>
+      <div class="star-rating">
+        <ion-icon 
+          *ngFor="let star of [1,2,3,4,5]" 
+          name="star" 
+          class="star" 
+          [ngClass]="{'selected': star <= rating}" 
+          (click)="setRating(star)">
+        </ion-icon>
+      </div>
+       <p *ngIf="rating > 0">Você avaliou com {{rating}} estrela(s) ⭐</p>
+
+      <ion-button expand="block" color="primary" (click)="exibirAlerta()">Enviar</ion-button>
+      <ion-button expand="block" color="dark" routerLink="/pedidos">Voltar</ion-button>
+    </ion-card-content>
+  </ion-card>
+>>>>>>> b4831ff9f392869b1c575d75c767915970eea4f1
 </ion-content>

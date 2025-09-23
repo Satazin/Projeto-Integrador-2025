@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule, AlertController, ModalController, LoadingController } from '@ionic/angular';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { CarrinhoService, CartItem } from '../services/carrinho.service';
 import { getAuth } from 'firebase/auth';
 import { Router, RouterModule } from '@angular/router'; // Adicione RouterModule aqui
@@ -13,49 +14,45 @@ import { take } from 'rxjs/operators';
   templateUrl: './carrinho.page.html',
   styleUrls: ['./carrinho.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule, RouterModule] // Mude de "Router" para "RouterModule"
+  imports: [IonicModule, CommonModule, FormsModule, RouterModule]
 })
 export class CarrinhoPage implements OnInit {
   carrinhoItens$: Observable<CartItem[]>;
+  valorTotalCarrinho$: Observable<number>;
   public formaPagamento: string = '';
-  public compraFinalizada: boolean = false; // controla exibição do card finalizado
+  public compraFinalizada: boolean = false;
 
   constructor(
     private carrinhoService: CarrinhoService,
     private alertController: AlertController,
     private modalController: ModalController,
-    private loadingController: LoadingController, // injetar LoadingController
+    private loadingController: LoadingController,
     private router: Router
   ) {
     this.carrinhoItens$ = this.carrinhoService.cartItems$;
+
+    this.valorTotalCarrinho$ = this.carrinhoItens$.pipe(
+      map(itens =>
+        itens.reduce((total, item) => total + item.preco * item.quantidade, 0)
+      )
+    );
   }
 
   ngOnInit() {
     this.carrinhoItens$.subscribe(itens => {
-      console.log('Dados do carrinho recebidos:', itens);
+      console.log('Itens no carrinho:', itens);
     });
   }
 
   async removerItem(item: CartItem) {
     try {
       await this.carrinhoService.removeFromCart(item.id);
-      console.log('Item removido do carrinho com sucesso!');
     } catch (error) {
       console.error('Erro ao remover item:', error);
       alert('Erro ao remover item do carrinho. Tente novamente.');
     }
   }
 
-  get valorTotalCarrinho(): number {
-    let total = 0;
-    this.carrinhoItens$.subscribe(itens => {
-      itens.forEach(item => {
-        total += item.preco * item.quantidade;
-      });
-    }).unsubscribe();
-    return total;
-  }
-  
   async finalizarPagamento(metodo: string) {
     if (!metodo) {
       const alert = await this.alertController.create({
@@ -68,7 +65,6 @@ export class CarrinhoPage implements OnInit {
     }
 
     const user = getAuth().currentUser;
-
     if (!user) {
       console.error('Nenhum usuário logado.');
       return;

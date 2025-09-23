@@ -18,24 +18,28 @@
       <ion-col size="6">
         <div class="brinde-card" (click)="toggleDescricao('chaveiro')">
           <img src="assets/chaveiro.png" alt="Chaveiro">
-          <h2>Chaveiros</h2>
-          <p class="descricao">
-            Chaveiros estilosos para manter suas chaves organizadas.
-          </p>
+          <ion-card-content>
+            <h2>Chaveiros</h2>
+             <p class="descricao" *ngIf="descricaoAtiva === 'chaveiro'">
+              Chaveiros estiloso para manter suas chaves organizadas.
+              </p>
+          </ion-card-content>
           <div class="coin">...</div>
-        </div>
+        </ion-card>
       </ion-col>
 
       <!-- Meias -->
       <ion-col size="6">
         <div class="brinde-card" (click)="toggleDescricao('meias')">
           <img src="assets/meias.png" alt="Meias">
-          <h2>Meias</h2>
-          <p class="descricao">
-            Meias confortáveis e estilosas representando o que você mais gosta.
-          </p>
+          <ion-card-content>
+            <h2>Meias</h2>
+              <p class="descricao" *ngIf="descricaoAtiva === 'meias'">
+              Meias confortaveis e estilosas representando oque voce mais gosta.
+              </p>
+          </ion-card-content>
           <div class="coin">...</div>
-        </div>
+        </ion-card>
       </ion-col>
     </ion-row>
 
@@ -44,24 +48,28 @@
       <ion-col size="6">
         <div class="brinde-card" (click)="toggleDescricao('caneca')">
           <img src="assets/caneca.png" alt="Caneca">
-          <h2>Xícara</h2>
-          <p class="descricao">
-            Pense em você tomando sua bebida favorita nesta xícara com a nossa logo.
-          </p>
+          <ion-card-content>
+            <h2>Xícara</h2>
+            <p class="descricao" *ngIf="descricaoAtiva === 'caneca'">
+             Pense em você tomando sua bebida favorita nesta xícara com a nossa logo
+              </p>
+          </ion-card-content>
           <div class="coin">...</div>
-        </div>
+        </ion-card>
       </ion-col>
 
       <!-- Gato -->
       <ion-col size="6">
         <div class="brinde-card" (click)="toggleDescricao('gato')">
           <img src="assets/gato.png" alt="gato">
-          <h2>Gatinho da sorte</h2>
-          <p class="descricao">
-            Gatinho dourado para trazer sorte para sua vida.
-          </p>
+          <ion-card-content>
+            <h2>Gatinho da sorte</h2>
+             <p class="descricao" *ngIf="descricaoAtiva === 'gato'">
+              Gatinho dourado para trazer a sorte para sua vida.
+              </p>
+          </ion-card-content>
           <div class="coin">...</div>
-        </div>
+        </ion-card>
       </ion-col>
     </ion-row>
 
@@ -70,24 +78,30 @@
       <ion-col size="6">
         <div class="brinde-card" (click)="toggleDescricao('totoro')">
           <img src="assets/totoro.png" alt="Totoro">
-          <h2>Totoro</h2>
-          <p class="descricao">
-            Brinde inspirado no personagem Totoro do filme "Meu Amigo Totoro" do Studio Ghibli.
-          </p>
+          <ion-card-content>
+            <h2>Totoro</h2>
+             <p class="descricao" *ngIf="descricaoAtiva === 'totoro'">
+                Brinde inspirado no personagem Totoro
+                 do filme 
+                "Meu Amigo Totoro" do Studio Ghibli.
+              </p>
+          </ion-card-content>
           <div class="coin">...</div>
-        </div>
+        </ion-card>
       </ion-col>
 
       <!-- Bonsai -->
       <ion-col size="6">
         <div class="brinde-card" (click)="toggleDescricao('bonsai')">
           <img src="assets/bonsai.png" alt="Bonsai">
-          <h2>Bonsai</h2>
-          <p class="descricao">
-            Bonsai, uma técnica de plantio pequena mas cheia de significado.
-          </p>
+          <ion-card-content>
+            <h2>Bonsai</h2>
+             <p class="descricao" *ngIf="descricaoAtiva === 'bonsai'">
+                Bonsai,uma tecnica de plantio pequena mas cheia de significado.
+              </p>
+          </ion-card-content>
           <div class="coin">...</div>
-        </div>
+        </ion-card>
       </ion-col>
     </ion-row>
   </ion-grid>
