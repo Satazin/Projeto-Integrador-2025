@@ -18,13 +18,8 @@ export class AppComponent {
       create, 
       trashOutline,
       personCircleOutline,
-<<<<<<< HEAD
-      person
-
-=======
       person,
       star
->>>>>>> b4831ff9f392869b1c575d75c767915970eea4f1
     });
   }
 }

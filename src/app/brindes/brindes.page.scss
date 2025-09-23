@@ -16,20 +16,12 @@ ion-grid {
 /* Brinde card container */
 .brinde-card {
   position: relative;
-<<<<<<< HEAD
-  background: #333333;
-=======
   background: #2a2828;
->>>>>>> b4831ff9f392869b1c575d75c767915970eea4f1
   border-radius: 16px;
   margin-bottom: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
-<<<<<<< HEAD
-  padding: 10px;
-  text-align: center;
-=======
   padding: 18px 10px 14px 10px;
   border: 3px solid #ffe96b;
 }
@@ -38,7 +30,6 @@ ion-grid {
 transform: translateY(-4px) scale(1.03);
  box-shadow: 0 6px 24px rgba(157, 0, 13, 0.13);
 
->>>>>>> b4831ff9f392869b1c575d75c767915970eea4f1
 }
 
 /* Image inside brinde card */

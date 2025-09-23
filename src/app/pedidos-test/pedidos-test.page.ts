@@ -56,18 +56,13 @@ export class PedidosTestPage implements OnInit {
     private rt: RealtimeDatabaseService,
     private ar: ActivatedRoute,
     private router: Router,
-<<<<<<< HEAD
     private actionSheetCtrl: ActionSheetController,
     private alertCtrl: AlertController
-  ) {}
-=======
-    private actionSheetCtrl: ActionSheetController
   ){
     this.ar.params.subscribe((param: any) => {
      //this.id = param.id;
     });
   }
->>>>>>> 84ac3260aa7745d0a25c615b0ab8188b0576af9e
 
   ngOnInit() {
   }
