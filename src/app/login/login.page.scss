@@ -1,5 +1,5 @@
 ion-content {
-  --background: url('/assets/fundo.loc.jpg');
+  --background: url('/assets/fundo.loc.jpg') no-repeat center center / cover; /* Imagem de fundo */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -9,7 +9,7 @@ ion-card {
   align-items: center; /* Centraliza o conteúdo do card */
   margin: 160px 30px 30px 30px;
   border-radius: 10px; /* Bordas arredondadas */
-  background: rgb(57, 57, 57); /* Cor de fundo do card */
+ background: #302f2f; /* Cor de fundo do card */
   padding: 20px; /* Espaçamento interno */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
   max-width: 400px; /* Largura máxima para telas maiores */

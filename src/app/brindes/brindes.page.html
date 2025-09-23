@@ -1,19 +1,22 @@
 <ion-header>
-  <ion-toolbar >
+  <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/pedidos" color="dark"></ion-back-button>
+      <ion-back-button defaultHref="/pedidos" color="dark" text="Voltar"></ion-back-button>
     </ion-buttons>
-    <ion-title class="titulo">Nossos Brindes</ion-title>
+    <ion-title>Nossos brindes</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="brindes-bg">
+  <div class="conteudo">
+    <h2>Descubra os brindes exclusivos da Casa Bonsai! <br> De chaveiros estilosos a totoros encantadores, troque seus pontos por itens cheios de personalidade e sorte!</h2>
+  </div>
+
   <ion-grid>
     <ion-row>
-    <!-- Chaveiro -->
+      <!-- Chaveiro -->
       <ion-col size="6">
-        <ion-card class="brinde-card"  (click)="toggleDescricao('chaveiro')">
-            <div class="card-content" [class.active]="descricaoAtiva === 'chaveiro'"></div>
+        <div class="brinde-card" (click)="toggleDescricao('chaveiro')">
           <img src="assets/chaveiro.png" alt="Chaveiro">
           <ion-card-content>
             <h2>Chaveiros</h2>
@@ -25,10 +28,9 @@
         </ion-card>
       </ion-col>
 
-   <!-- Meias -->
+      <!-- Meias -->
       <ion-col size="6">
-        <ion-card class="brinde-card" (click)="toggleDescricao('meias')">
-            <div class="card-content" [class.active]="descricaoAtiva === 'meias'"></div>
+        <div class="brinde-card" (click)="toggleDescricao('meias')">
           <img src="assets/meias.png" alt="Meias">
           <ion-card-content>
             <h2>Meias</h2>
@@ -42,10 +44,9 @@
     </ion-row>
 
     <ion-row>
-      <!-- xicara -->
+      <!-- Xícara -->
       <ion-col size="6">
-        <ion-card class="brinde-card" (click)="toggleDescricao('caneca')">
-            <div class="card-content" [class.active]="descricaoAtiva === 'caneca'"></div>
+        <div class="brinde-card" (click)="toggleDescricao('caneca')">
           <img src="assets/caneca.png" alt="Caneca">
           <ion-card-content>
             <h2>Xícara</h2>
@@ -56,10 +57,10 @@
           <div class="coin">...</div>
         </ion-card>
       </ion-col>
-  <!-- Gato -->
-        <ion-col size="6">
-        <ion-card class="brinde-card" (click)="toggleDescricao('gato')">
-            <div class="card-content" [class.active]="descricaoAtiva === 'gato'"></div>
+
+      <!-- Gato -->
+      <ion-col size="6">
+        <div class="brinde-card" (click)="toggleDescricao('gato')">
           <img src="assets/gato.png" alt="gato">
           <ion-card-content>
             <h2>Gatinho da sorte</h2>
@@ -70,15 +71,12 @@
           <div class="coin">...</div>
         </ion-card>
       </ion-col>
-
     </ion-row>
 
     <ion-row>
-     
-       <!-- Totoro -->
+      <!-- Totoro -->
       <ion-col size="6">
-        <ion-card class="brinde-card"  (click)="toggleDescricao('totoro')">
-          <div class="card-content" [class.active]="descricaoAtiva === 'totoro'"></div>
+        <div class="brinde-card" (click)="toggleDescricao('totoro')">
           <img src="assets/totoro.png" alt="Totoro">
           <ion-card-content>
             <h2>Totoro</h2>
@@ -92,10 +90,9 @@
         </ion-card>
       </ion-col>
 
-   <!-- Bonsai -->
+      <!-- Bonsai -->
       <ion-col size="6">
-        <ion-card class="brinde-card"  (click)="toggleDescricao('bonsai')">
-            <div class="card-content" [class.active]="descricaoAtiva === 'bonsai'"></div>
+        <div class="brinde-card" (click)="toggleDescricao('bonsai')">
           <img src="assets/bonsai.png" alt="Bonsai">
           <ion-card-content>
             <h2>Bonsai</h2>
@@ -106,8 +103,6 @@
           <div class="coin">...</div>
         </ion-card>
       </ion-col>
-
-
     </ion-row>
   </ion-grid>
 

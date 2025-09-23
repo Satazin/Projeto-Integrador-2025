@@ -14,7 +14,8 @@ import {
   IonButton, 
   IonAvatar,
   IonMenuButton,
-  IonMenu, IonBadge } from '@ionic/angular/standalone';
+  IonMenu, 
+} from '@ionic/angular/standalone';
 import { RealtimeDatabaseService } from '../firebase/realtime-databse';
 import { CarrinhoService } from '../services/carrinho.service';
 import { AuthService } from '../services/auth';
@@ -24,7 +25,7 @@ import { AuthService } from '../services/auth';
   templateUrl: './pedidos.page.html',
   styleUrls: ['./pedidos.page.scss'],
   standalone: true,
-  imports: [ 
+  imports: [
    IonAvatar, IonButton, IonIcon,
     CommonModule, FormsModule, RouterLink,
     IonContent, IonHeader, IonTitle, IonToolbar,
@@ -39,16 +40,12 @@ export class PedidosPage implements OnInit, AfterViewInit {
     { id: 'yakisoba', nome: 'YAKISOBA' },
     { id: 'sushi', nome: 'SUSHI' },
     { id: 'niguiris', nome: 'NIGUIRIS' },
-    { id: 'hot', nome: 'PORÇÕES HOT' },
-    { id: 'urumakis', nome: 'URUMAKIS' },
-    { id: 'acompanhamentos', nome: 'ACOMPANHAMENTOS' },
-    { id: 'combos', nome: 'COMBOS' },
+    { id: 'hot', nome: 'HOT' },
     { id: 'bebidas', nome: 'BEBIDAS' },
-    { id: 'sobremesas', nome: 'SOBREMESAS' }
+
   ];
   public categoriaEmFoco: string = 'poke';
   termoBusca: string = '';
-  quantidadeCarrinho = 0;
 
   constructor(
     private rt: RealtimeDatabaseService,
@@ -60,10 +57,6 @@ export class PedidosPage implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.listar();
-
-    this.carrinhoService.quantidade$.subscribe(qtd => {
-      this.quantidadeCarrinho = qtd;
-    });
   }
 
   ngAfterViewInit() {
@@ -92,8 +85,8 @@ export class PedidosPage implements OnInit, AfterViewInit {
   itensPorCategoria(cat: string) {
     return this.pedidos.filter(i => i.categoria === cat)
     .filter(i =>
-      !this.termoBusca ||
-      i.nome.toLowerCase().includes(this.termoBusca.toLowerCase()) ||
+      !this.termoBusca || 
+      i.nome.toLowerCase().includes(this.termoBusca.toLowerCase()) || 
       i.descricao.toLowerCase().includes(this.termoBusca.toLowerCase())
     );
   }
@@ -127,7 +120,6 @@ export class PedidosPage implements OnInit, AfterViewInit {
     }
   }
 
-  // ABRIR ITEM COM STATE
   abrirInfoItem(item: any) {
     this.router.navigate(['/infoitens', item.id], { state: { item } });
   }

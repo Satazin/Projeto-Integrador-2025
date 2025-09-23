@@ -9,12 +9,14 @@ import { initializeApp } from 'firebase/app';
 import { environment } from 'src/environments/environment'; // Importa o environment
 import { AuthService } from '../services/auth'; // Importa o AuthService
 
+
+
 @Component({
   selector: 'app-login',
   templateUrl: './adm-login.page.html',
   styleUrls: ['./adm-login.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule]
+  imports: [IonicModule, CommonModule, FormsModule, ]
 
 })
 export class AdmLoginPage {
@@ -46,7 +48,7 @@ async fazerLogin() {
   try {
     const resultado = await this.authService.login(this.email, this.senha);
 
-    // 🔥 aqui você define qual usuário é o admin
+    //aqui você define qual usuário é o admin
     const adminEmail = 'admin@gmail.com'; // coloca o email do seu adm
     const usuario = resultado.authUser;
 

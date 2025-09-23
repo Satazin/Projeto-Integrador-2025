@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, LoadingController } from '@ionic/angular';
 import { RealtimeDatabaseService } from '../firebase/realtime-databse';
 import { CarrinhoService } from '../services/carrinho.service';
 
@@ -18,13 +18,15 @@ export class InfoitensPage implements OnInit {
   quantidade = 1;
   loading = true;
   errorMessage: string | null = null;
+  observacao: string = '';
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private rt: RealtimeDatabaseService,
-    private carrinhoService: CarrinhoService
-  ) { }
+    private carrinhoService: CarrinhoService,
+    private loadingController: LoadingController
+  ) {}
 
   async ngOnInit() {
     const nav = this.router.getCurrentNavigation();
@@ -67,8 +69,29 @@ export class InfoitensPage implements OnInit {
     }
   }
 
-  adicionarAoCarrinho() {
-    this.carrinhoService.adicionar(this.item, this.quantidade);
-    // Opcional: feedback visual
+  async adicionarAoCarrinho() {
+    if (this.item) {
+      const loading = await this.loadingController.create({
+        message: 'Adicionando ao carrinho...',
+        spinner: 'crescent'
+      });
+      await loading.present();
+
+      try {
+        // Envia a observação junto com o item
+        await this.carrinhoService.adicionarAoCarrinho(
+          { ...this.item, observacao: this.observacao },
+          this.quantidade
+        );
+        console.log('Item adicionado ao carrinho com sucesso!');
+      } catch (error) {
+        console.error('Erro ao adicionar item ao carrinho:', error);
+        alert('Erro ao adicionar item ao carrinho. Tente novamente.');
+      } finally {
+        await loading.dismiss();
+      }
+    } else {
+      alert('Não foi possível adicionar o item ao carrinho.');
+    }
   }
 }

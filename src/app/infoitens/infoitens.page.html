@@ -1,9 +1,9 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/pedidos" color="dark" text="Voltar"></ion-back-button>
+      <ion-back-button defaultHref="/pedidos" color="dark" text=""></ion-back-button>
     </ion-buttons>
-    <ion-title>Detalhes do Item</ion-title>
+    <ion-title class="titulo">Detalhes do item</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -20,20 +20,35 @@
     <img [src]="item.imagem" alt="{{item.nome}}" class="infoitens-img" />
     <ion-card-header>
       <ion-card-title>{{item.nome}}</ion-card-title>
-      <ion-card-subtitle>{{item.serve}}</ion-card-subtitle>
+      <ion-card-subtitle>serve: {{item.serve}} pessoa/s</ion-card-subtitle>
     </ion-card-header>
     <ion-card-content>
       <p>{{item.descricao}}</p>
-      <div class="infoitens-preco">R$ {{item.preco}}</div>
-      <div class="infoitens-qtd">
-        <ion-button fill="outline" size="small" (click)="alterarQtd(-1)" [disabled]="quantidade <= 1">-</ion-button>
-        <span>{{quantidade}}</span>
-        <ion-button fill="outline" size="small" (click)="alterarQtd(1)">+</ion-button>
+      <div class="infoitens-preco">R$ {{item.preco | number:'1.2-2'}}</div>
+
+      <ion-item lines="none" class="comentario-item">
+  <ion-label position="stacked">Algum comentário?</ion-label>
+  <ion-textarea
+    placeholder="Ex: tirar a cebola,etc."
+    maxlength="140"
+    [(ngModel)]="observacao"
+    autoGrow="true"
+  ></ion-textarea>
+</ion-item>
+
+      <!-- CONTADOR + BOTÃO LADO A LADO -->
+      <div class="infoitens-container">
+        <div class="infoitens-qtd">
+          <ion-button fill="outline" size="small" (click)="alterarQtd(-1)" [disabled]="quantidade <= 1">-</ion-button>
+          <span>{{quantidade}}</span>
+          <ion-button fill="outline" size="small" (click)="alterarQtd(1)">+</ion-button>
+        </div>
+
+        <ion-button expand="block" color="warning" (click)="adicionarAoCarrinho()" class="adicionar">
+          Adicionar
+          <span class="infoitens-total">R$ {{valorTotal | number:'1.2-2'}}</span>
+        </ion-button>
       </div>
-      <div class="infoitens-total">R$ {{valorTotal | number:'1.2-2'}}</div>
-      <ion-button expand="block" color="primary" (click)="adicionarAoCarrinho()">
-        Adicionar ao Carrinho
-      </ion-button>
     </ion-card-content>
   </ion-card>
 </ion-content>

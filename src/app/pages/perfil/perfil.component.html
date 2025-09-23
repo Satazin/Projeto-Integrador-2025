@@ -1,45 +1,36 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title class="titulo">Meu Perfil</ion-title>
-    <ion-buttons slot="start">
+<ion-content class="fundo">
 
-      <ion-back-button defaultHref="/pedidos" text="" color="dark"></ion-back-button>
-
-
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content class="ion-padding" [fullscreen]="true" class="fundo">
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/pedidos" color="dark" text="Voltar"></ion-back-button>
+      </ion-buttons>
+      <ion-title>Editar Perfil</ion-title>
+    </ion-toolbar>
+  </ion-header>
   <div class="container">
-    <ion-card>
-      <ion-card-header>
-        <ion-card-title></ion-card-title>
-      </ion-card-header>
+    <!-- Foto e informações do usuário -->
+    <div class="foto-perfil">
+      <ion-avatar class="perfil-img">
+        <img [src]="fotoUrl || placeholderUrl" id="foto-perfil-img" />
+      </ion-avatar>
+      <div class="info-usuario">
+        <h2 class="nome">nome</h2>
+        <p class="usuario">nome de usuario</p>
+      </div>
+    </div>
 
 
-      <ion-card-content>
-        
-       <ion-avatar class="perfil-img" >
-        <img [src]="fotoUrl || placeholderUrl"  /> 
-         
-        </ion-avatar>
 
-        <input type="file" #fileInput (change)="onFileSelected($event)" style="display: none;">
-        <ion-button class="edicao" (click)="fileInput.click()" color="dark" fill="clear" >
-          
-          <ion-icon name="create" slot="start"></ion-icon>
-        
-        </ion-button>
-        <ion-input label="Nome de usuário" [(ngModel)]="usuario.nomeUsuario" labelPlacement="stacked" ></ion-input>
-        <ion-input label="E-mail" [(ngModel)]="usuario.email" labelPlacement="stacked" type="email"></ion-input>
-        <ion-input label="Telefone" [(ngModel)]="usuario.telefone" labelPlacement="stacked" type="tel"></ion-input>
-        <ion-input label="Endereço" [(ngModel)]="usuario.endereco" labelPlacement="stacked"></ion-input>
-        <ion-button expand="" class="ion-margin-top" (click)="salvarPerfil()" color="dark">
-          Salvar Alterações
-        </ion-button>
-        <ion-button color="danger" (click)="logout()">Logout</ion-button>
-      </ion-card-content>
-    </ion-card>
+    <!-- Inputs -->
+    <ion-input placeholder="Nome" [(ngModel)]="usuario.nomeUsuario"></ion-input>
+    <ion-input placeholder="Telefone" [(ngModel)]="usuario.telefone" type="tel"></ion-input>
+    <ion-input placeholder="Email" [(ngModel)]="usuario.email" type="email"></ion-input>
+    <ion-input placeholder="Endereço" [(ngModel)]="usuario.endereco"></ion-input>
+
+    <!-- Botões -->
+    <ion-button expand="block" color="dark" class="btn-salvar">Salvar Alterações</ion-button>
+    <ion-button expand="block" color="danger" class="btn-logout">Logout</ion-button>
+
   </div>
 </ion-content>

@@ -1,67 +1,69 @@
-ion-content {
-    --background: url('/assets/fundo.loc.jpg');
-    display: flex;
-    min-height: 100vh;
-    justify-content: center;
-    align-items: center;
-    padding: 0;
+.fundo {
+  --background: #000000; /* fundo sólido */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: 20px;
+}
+ion-toolbar {
+  background: #000000; /* Cor de fundo do toolbar */
 }
 
-ion-card {
-    background: #393939;
-    border-radius: 12px;
-    align-items: center;
-    justify-content: center;
-    margin: 100px 30px 30px 30px
-}
 
+/* Título */
 ion-card-title {
-    color: #ffffff;
-    font-size: 4em;
-    font-weight: bold;
-    font-family: 'chinese';
-    text-align: center;
-    margin-top: 20px;
+  color: #ffffff;
+  font-size: 3em;
+  font-weight: bold;
+  font-family: 'chinese';
+  text-align: center;
+  margin-top: 40px;
+  margin-bottom: 20px;
 }
 
-
+/* Texto */
 h2 {
-    font-size: 1.2em;
-    color: #ffffff;
+  font-size: 1em;
+  color: #ffffff;
+  text-align: center;
+  margin: 8px 0;
 }
 
-ion-card-content {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: #f5f5f5;
-    text-align: center;
+.conteudo {
+  text-align: center;
+  color: #f5f5f5;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-
+/* Mapa */
 iframe {
-    width: 100% !important;
-    height: 300px !important;
-    border-radius: 10px;
-    margin-top: 40px;
-    margin-bottom: 40px;
+  width: 90% !important;
+  height: 450px !important;
+  border-radius: 10px;
+  margin: 30px 0;
 }
 
+/* Botão */
 ion-button {
-    border-radius: 6px;
-    font-size: 1.1em;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin-bottom: 20px;
-
+  border-radius: 6px;
+  font-size: 1.1em;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin-bottom: 20px;
 }
 
-
+/* Container do botão */
 .secondary-button-container {
-    justify-content: center;
-    margin-left: 100px;
-    margin-right: 100px;
-    margin-bottom: 40px;
+  justify-content: center;
+  margin: 0 100px 40px 100px;
 }
 
 @font-face {
   font-family: 'chinese';
   src: url('/assets/fonte.ttf') format('truetype');
+}
+.back-button {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 10;
 }

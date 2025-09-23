@@ -1,7 +1,6 @@
 <ion-content [fullscreen]="true" class="background-image">
- <div class="div-botao-admin">
-    <ion-button class="botao" color="dark" routerLink="/adm-login">Entrar como ADM</ion-button>
-  </div>
+  <ion-header collapse="condense">
+  </ion-header>
 
   <img src="assets/logoo.png" class="logo" alt="Background Image">
   <div class="div-titulo">
@@ -11,7 +10,16 @@
     <h2 class="subtitulo">Tradicao e sabor em <br>
       cada pedaço.</h2>
   </div>
-  <div class="div-botao">
-    <ion-button class="botao" color="dark" routerLink="/cadastro">Começar</ion-button>
+  <div class="botoes-container">
+    <ion-button class="botao" color="warning" routerLink="/cadastro">
+      Começar
+    </ion-button>
+
+    <ion-button class="botao-adm" routerLink="/adm-login">
+      <ion-icon slot="start" name="person"></ion-icon>
+      Entrar como ADM
+    </ion-button>
   </div>
+
+
 </ion-content>

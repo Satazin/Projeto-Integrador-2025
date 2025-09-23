@@ -1,20 +1,19 @@
 <ion-header [translucent]="false">
-  <ion-toolbar>
+  <ion-toolbar >
     <ion-buttons slot="start">
       <ion-avatar>
-        <img alt="Perfil" src="../../assets/png-removebg-preview.png" routerLink="/home" />
+        <img alt="Perfil" src="../../assets/png-removebg-preview.png" />
       </ion-avatar>
     </ion-buttons>
 
-
-
     <ion-title>Casa Bonsai</ion-title>
-    <ion-buttons slot="end">
-      <ion-button fill="clear" color="dark">
-        <ion-icon slot="icon-only" name="pin"></ion-icon>
-      </ion-button>
+    <ion-buttons slot="end" class="casa-bonsai">
+       
       <ion-button fill="clear" color="dark" routerLink="/carrinho">
         <ion-icon slot="icon-only" name="cart-outline"></ion-icon>
+      </ion-button>
+      <ion-button fill="clear" color="dark" routerLink="/perfil">
+        <ion-icon slot="icon-only" name="person-circle-outline"></ion-icon>
       </ion-button>
       <ion-menu-button color="dark" menu="rightMenu"></ion-menu-button>
     </ion-buttons>
@@ -29,9 +28,10 @@
   </ion-header>
   <ion-content class="ion-padding">
     <ion-list>
-      <ion-item routerLink="/perfil">Perfil</ion-item>
+      
+      <ion-item routerLink="/minhas-compras">Minhas Compras</ion-item>
       <ion-item routerLink="/brindes">Brindes</ion-item>
-      <ion-item routerLink="/localizacao">Nosso Espaço</ion-item>
+      <ion-item routerLink="/localizacao">Nosso Espaço</ion-item> 
       <ion-item routerLink="/sobre-nos">Sobre nós</ion-item>
       <ion-item routerLink="/contato">Fale Conosco</ion-item>
        <ion-item *ngIf="authService.isAdmin()" routerLink="/pedidos-test">Painel Admin</ion-item>
@@ -76,7 +76,7 @@
           <div class="produto-nome">{{item.nome}}</div>
           <div class="produto-desc">{{item.descricao}}</div>
           <div class="produto-serve">Serve {{item.serve}}</div>
-          <div class="produto-preco">R$ {{item.preco}}</div>
+          <div class="produto-preco">R$ {{item.preco | number:'1.2-2'}}</div>
         </div>
       </button>
     </ng-container>

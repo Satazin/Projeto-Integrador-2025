@@ -1,17 +1,19 @@
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense"></ion-header>
-
   <ion-card>
-    <ion-card-title>Faça o <br> seu login!</ion-card-title>
+    <div class="card-header">
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/home" text="" color="dark"></ion-back-button>
+      </ion-buttons>
+      <ion-card-title>Entrar como ADM</ion-card-title>
+    </div>
 
     <ion-card-content>
       <ion-input placeholder="E-mail" [(ngModel)]="email"></ion-input>
-      <ion-input type="password" placeholder="Senha" [(ngModel)]="senha"></ion-input>
+      <ion-input type="password" placeholder="Senha" [(ngModel)]="senha">
+         <ion-input-password-toggle slot="end" color="dark"></ion-input-password-toggle>
+      </ion-input>
     </ion-card-content>
 
     <ion-button expand="block" color="dark" (click)="fazerLogin()">Entrar</ion-button>
   </ion-card>
-  <ion-header collapse="condense">
-      </ion-header>
 </ion-content>
-

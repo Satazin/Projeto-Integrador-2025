@@ -1,60 +1,102 @@
-ion-content {
-  --background: url('/assets/fundo.loc.jpg'); 
+.fale-conosco-bg {
+  background: 000000;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  padding: 24px;
+}
+ion-toolbar {
+  background: #000000; /* Cor de fundo do toolbar */
 }
 
-ion-card {
-  background: #393939; 
-  border-radius: 12px;
-  width: 90%;
-  margin-top: 50%;
-  margin-left: 5%;
-  padding: 20px;
-}
-
-ion-card-title {
-  color: #ffffff;
-  font-size: 2.4em;
-  font-weight: bold;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+.fale-conosco-container {
+  background: #000000;
+  padding: 30px;
   text-align: center;
-  margin-top: 20px;
+  color: #fff;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+<<<<<<< HEAD
+.titulo {
+  font-size: 1.8em;
+=======
+ion-card-title {
+  color: #fff;
+  font-size: 2.4em;
+>>>>>>> b4831ff9f392869b1c575d75c767915970eea4f1
+  font-weight: bold;
+  margin-bottom: 40px;
+}
+
+<<<<<<< HEAD
+.fale-conosco-container h2 {
+=======
 ion-card-content {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #f5f5f5;
+  color: #e8e8e8;
   font-size: 1.05em;
   text-align: center;
-  
 }
 
-ion-card-content h2{
+ion-card-content h2 {
+>>>>>>> b4831ff9f392869b1c575d75c767915970eea4f1
   margin-bottom: 30px;
-  margin-top: 20px;
-  font-size: 1.3em;
+  font-size: 1em;
   line-height: 1.5;
-  color: #dcdcdc;
+  color: #f1e9e9;
 }
 
+<<<<<<< HEAD
 
-ion-input, ion-textarea {
+
+ion-input,
+ion-textarea {
+  margin-top: 40px;
+  margin-bottom: 40px;
+=======
+ion-input,
+ion-textarea {
   margin-bottom: 30px;
+>>>>>>> b4831ff9f392869b1c575d75c767915970eea4f1
   --padding-start: 10px;
   --padding-end: 10px;
   border: 2px solid #c2c2c2;
   border-radius: 6px;
   background: #2a2a2a;
+  color: #fff;
 }
 
 ion-button {
   border-radius: 6px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 20px 0;
 }
+<<<<<<< HEAD
+=======
 
+.star-rating {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
 
+.star {
+  font-size: 2.2em;
+  color: #ebe8e8; /* cor padrão */
+  cursor: pointer;
+  transition: color 0.2s;
+}
+>>>>>>> b4831ff9f392869b1c575d75c767915970eea4f1
+
+.star:hover,
+.star.selected {
+  color: #ffd700; /* dourado */
+}
+.mensagem-card {
+  //margin-top: 70px;
+  font-size: 1.1em;
+  color: #d4d4d4;
+  text-align: start;
+      margin-top: 8px; /* move só o placeholder pra baixo */
+  display: block;
+ 
+}

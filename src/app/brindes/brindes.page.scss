@@ -1,5 +1,6 @@
-ion-content {
-  --background: url('/assets/fundo.loc.jpg');
+/* Main background container */
+.brindes-bg {
+  --background: #000000;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -7,119 +8,103 @@ ion-content {
   padding: 0;
 }
 
-.titulo {
-  text-align: center;
-  font-weight: bold;
-  font-size: 1.5em;
-  font-family: 'Noto Sans JP', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #fff;
-  align-items: center;
-
-}
-
+/* Grid layout */
 ion-grid {
-  width: 100%;
-  max-width: 420px;
-  margin: 0 auto;
+  width: 90%;
 }
 
+/* Brinde card container */
 .brinde-card {
   position: relative;
-  background: #232323;
+<<<<<<< HEAD
+  background: #333333;
+=======
+  background: #2a2828;
+>>>>>>> b4831ff9f392869b1c575d75c767915970eea4f1
   border-radius: 16px;
-  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.10);
-  overflow: hidden;
-  cursor: pointer;
-  transition: transform 0.18s, box-shadow 0.18s;
-  margin-bottom: 18px;
+  margin-bottom: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
+<<<<<<< HEAD
+  padding: 10px;
+  text-align: center;
+=======
   padding: 18px 10px 14px 10px;
-  border: 2px solid #393939;
+  border: 3px solid #ffe96b;
 }
 
 .brinde-card:hover {
-  transform: translateY(-4px) scale(1.03);
-  box-shadow: 0 6px 24px rgba(230, 57, 70, 0.13);
+transform: translateY(-4px) scale(1.03);
+ box-shadow: 0 6px 24px rgba(157, 0, 13, 0.13);
 
+>>>>>>> b4831ff9f392869b1c575d75c767915970eea4f1
 }
 
+/* Image inside brinde card */
 .brinde-card img {
-  width: 90px;
-  height: 90px;
-  object-fit: contain;
+  width: 130px;
+  height: 130px;
   margin: 0 auto 10px auto;
-  background: #fff;
   border-radius: 12px;
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.07);
+}
+h2 {
+  font-size: 1.2em;
+  color: #ffffff;
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  margin-left: 30px;
+  margin-right: 30px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+
+/* Title inside brinde card */
 .brinde-card h2 {
   font-size: 1.2em;
   font-weight: bold;
-  color: #fff;
+  color: #fff7f7;
   margin: 6px 0 0 0;
-  font-family: 'Noto Sans JP', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* Description paragraph */
 .descricao {
-  font-size: 0.98em;
-  color: #e0e0e0;
+  font-size: 0.9em;
+  color: #ffffff;
   margin-top: 4px;
   margin-bottom: 6px;
-  text-align: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* Coin badge */
 .coin {
   position: absolute;
   top: 10px;
   right: 10px;
-  background: linear-gradient(90deg, #ffd700 60%, #fffbe6 100%);
-  color: #a2591c;
+  background: #ffffff;
+  color: #000;
   font-weight: bold;
   border-radius: 50%;
   padding: 7px 11px;
   font-size: 1em;
-  border: 2px solid #fffbe6;
+  border: 2px solid #080807;
 }
 
+/* Points display section */
 .pontos {
   text-align: center;
-  margin-top: 40px;
-  margin-left: 30px;
-  margin-right: 30px;
+  margin: 20%;
   font-size: 1.3em;
   font-weight: bold;
   color: #ffffff;
-  background-color: #ab8c00;
+  background-color: #3c3c3c;
   padding: 15px;
   border-radius: 6px;
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.07);
-  border: 1.5px solid #ffffff;
   font-family: 'Noto Sans JP', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  
 }
-
-ion-toolbar {
-  width: 100%;
-  background: transparent;
-  box-shadow: none;
-}
-
-h2 {
-  font-family: 'Noto Sans JP', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #fff;
-  font-size: 1.1em;
-  margin-bottom: 0;
-}
-
-@media (max-width: 500px) {
-  ion-grid {
-    max-width: 99vw;
-  }
-
-  .brinde-card {
-    padding: 12px 4px 10px 4px;
-  }
+ion-col {
+  display: flex;
+  justify-content: center;
 }
