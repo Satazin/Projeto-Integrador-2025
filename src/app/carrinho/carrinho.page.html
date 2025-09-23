@@ -42,7 +42,7 @@
       </ion-list>
 
       <!-- Valor total só aparece se houver itens -->
-  
+      <ion-card *ngIf="itens.length > 0" style="margin: 16px; border-radius: 20px;">
         <ion-card-content>
           <h3>Valor Total: R$ {{ valorTotalCarrinho | number:'1.2-2' }}</h3>
         </ion-card-content>
