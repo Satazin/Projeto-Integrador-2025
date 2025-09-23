@@ -1,4 +1,4 @@
-<ion-header> 
+<ion-header>
   <ion-toolbar>
     <ion-title>Meu Carrinho</ion-title>
     <ion-buttons slot="start">
@@ -8,53 +8,54 @@
 </ion-header>
 
 <ion-content class="carrinho-content">
-
-  <!-- Container para tratar vazio / cheio -->
   <ng-container *ngIf="(carrinhoItens$ | async) as itens">
-    
-    <!-- Se o carrinho estiver vazio -->
-<ng-container *ngIf="itens.length === 0; else temItens">
-  <div class="carrinho-vazio">
-    <ion-icon name="cart-outline"></ion-icon>
-    <p>Seu carrinho está vazio.</p>
-  </div>
-</ng-container>
+    <!-- vazio -->
+    <ng-container *ngIf="itens.length === 0; else temItens">
+      <div class="carrinho-vazio">
+        <ion-icon name="cart-outline"></ion-icon>
+        <p>Seu carrinho está vazio.</p>
+      </div>
+    </ng-container>
 
-
-
-    <!-- Se o carrinho tiver itens -->
+    <!-- com itens -->
     <ng-template #temItens>
       <ion-list>
         <ion-item *ngFor="let item of itens">
           <ion-thumbnail slot="start">
             <img [src]="item.imagem" alt="Imagem do produto" />
           </ion-thumbnail>
+
           <ion-label>
             <h2>{{ item.nome }}</h2>
-            <p>Quantidade: {{ item.quantidade }}</p>
+            <p>Qtd: {{ item.quantidade }}</p>
             <p>Preço: R$ {{ item.preco | number:'1.2-2' }}</p>
             <p>Subtotal: R$ {{ item.preco * item.quantidade | number:'1.2-2' }}</p>
+
+            <!-- Observação -->
+            <p *ngIf="item.observacao" class="obs">
+              <ion-icon name="chatbubble-ellipses-outline"></ion-icon>
+              {{ item.observacao }}
+            </p>
           </ion-label>
+
           <ion-button slot="end" fill="solid" color="danger" (click)="removerItem(item)">
             <ion-icon name="trash-outline"></ion-icon>
           </ion-button>
         </ion-item>
       </ion-list>
 
-      <!-- Valor total só aparece se houver itens -->
-  
+      <!-- total -->
+      <ion-card>
         <ion-card-content>
-          <h3>Valor Total: R$ {{ valorTotalCarrinho | number:'1.2-2' }}</h3>
+          <h3>Valor Total: R$ {{ valorTotalCarrinho$ | async | number:'1.2-2' }}</h3>
         </ion-card-content>
       </ion-card>
 
-      <!-- Opções de pagamento fixas na parte inferior -->
+      <!-- formas de pagamento -->
       <div class="pagamento-fixo">
-        <ion-radio-group [(ngModel)]="formaPagamento" style="display: flex; flex-direction: column; gap: 16px;">
-          <ion-card 
-            style="border-radius: 20px; display: flex; align-items: center; cursor: pointer;"
-            (click)="formaPagamento = 'pix'">
-            <ion-card-content style="display: flex; align-items: center; justify-content: flex-start; gap: 16px;">
+        <ion-radio-group [(ngModel)]="formaPagamento">
+          <ion-card (click)="formaPagamento = 'pix'">
+            <ion-card-content>
               <ion-radio slot="start" value="pix"></ion-radio>
               <ion-icon name="qr-code-outline" size="large"></ion-icon>
               <ion-label>
@@ -64,25 +65,22 @@
             </ion-card-content>
           </ion-card>
 
-          <ion-card 
-            style="border-radius: 20px; display: flex; align-items: center; cursor: pointer;"
-            (click)="formaPagamento = 'cartao'">
-            <ion-card-content style="display: flex; align-items: center; justify-content: flex-start; gap: 16px;">
+          <ion-card (click)="formaPagamento = 'cartao'">
+            <ion-card-content>
               <ion-radio slot="start" value="cartao"></ion-radio>
               <ion-icon name="card-outline" size="large"></ion-icon>
               <ion-label>
                 <h2>Cartão</h2>
-                <p>Pagamento com cartão de crédito/débito</p>
+                <p>Crédito/Débito</p>
               </ion-label>
             </ion-card-content>
           </ion-card>
         </ion-radio-group>
 
-        <ion-button expand="block" color="primary" (click)="finalizarPagamento(formaPagamento)" style="margin-top: 18px;">
+        <ion-button expand="block" color="primary" (click)="finalizarPagamento(formaPagamento)">
           Finalizar Compra
         </ion-button>
       </div>
     </ng-template>
   </ng-container>
-
 </ion-content>

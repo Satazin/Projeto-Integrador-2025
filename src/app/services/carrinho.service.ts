@@ -12,6 +12,7 @@ export interface Product {
   descricao?: string;
   imageUrl?: string;
   servings?: string;
+  observacao?: string;
 }
 
 export interface CartItem extends Product {

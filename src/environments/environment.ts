@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  firebaseConfig: {
+ firebaseConfig: {
     apiKey: "AIzaSyB-HGkUTe_NDtsK015lILyq2-QwDf-s_Mw",
     authDomain: "projetointegrador-69272.firebaseapp.com",
     databaseURL: "https://projetointegrador-69272-default-rtdb.firebaseio.com",
