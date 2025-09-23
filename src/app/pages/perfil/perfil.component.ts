@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { IonicModule, AlertController, LoadingController } from '@ionic/angular'; // Adicione LoadingController aqui
+import { IonicModule, AlertController } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { Auth, onAuthStateChanged, User } from '@angular/fire/auth';
 import { Firestore, doc, getDoc, setDoc } from '@angular/fire/firestore';
@@ -38,13 +38,14 @@ export class PerfilComponent implements OnInit {
   private selectedFile: File | null = null;
   private dbRT;
 
+  public isUpdating: boolean = false; // Variável para controlar o status de atualização
+
   constructor(
     private auth: Auth,
     private db: Firestore,
     private authService: AuthService,
     private router: Router,
-    private alertController: AlertController,
-    private loadingController: LoadingController // Injete o LoadingController aqui
+    private alertController: AlertController
   ) {
     this.dbRT = getDatabase();
   }
@@ -73,7 +74,6 @@ export class PerfilComponent implements OnInit {
   async carregarPerfil() {
     if (!this.userId) return;
     
-    // Puxa nome, telefone e endereço do Realtime Database
     const nomeRef = ref(this.dbRT, 'usuarios/' + this.userId + '/nome');
     onValue(nomeRef, (snapshot) => {
       const nomeDoRealtime = snapshot.val();
@@ -98,7 +98,6 @@ export class PerfilComponent implements OnInit {
       }
     });
 
-    // Puxa email e fotoUrl do Firestore
     try {
       const userDocRef = doc(this.db, 'usuarios', this.userId);
       const userDocSnap = await getDoc(userDocRef);
@@ -132,15 +131,9 @@ export class PerfilComponent implements OnInit {
   async salvarPerfil() {
     if (!this.userId) return;
     
-    const loading = await this.loadingController.create({
-      message: 'Salvando...',
-      spinner: 'circles', // 'bubbles', 'circles', 'crescent', 'dots', 'lines'
-      translucent: true
-    });
-    await loading.present();
+    this.isUpdating = true; // Mostra o spinner e o texto
 
     try {
-      // Salva no Firestore
       const userDocRef = doc(this.db, 'usuarios', this.userId);
       const dadosParaAtualizar = {
         email: this.usuario.email || '',
@@ -149,7 +142,6 @@ export class PerfilComponent implements OnInit {
       };
       await setDoc(userDocRef, dadosParaAtualizar, { merge: true });
 
-      // Salva no Realtime Database
       const nomeRef = ref(this.dbRT, 'usuarios/' + this.userId + '/nome');
       await set(nomeRef, this.usuario.nomeUsuario || '');
 
@@ -159,18 +151,18 @@ export class PerfilComponent implements OnInit {
       const telefoneRT = ref(this.dbRT, 'usuarios/' + this.userId + '/telefone');
       await set(telefoneRT, this.usuario.telefone || '');
 
-      await loading.dismiss(); // Fecha o loading em caso de sucesso
+      this.isUpdating = false; // Esconde o spinner e o texto em caso de sucesso
 
       const alert = await this.alertController.create({
         header: 'Sucesso',
-        message: 'Perfil Atualizado!',
+        message: 'Informações atualizadas!',
         buttons: ['OK']
       });
       await alert.present();
 
     } catch (error) {
       console.error('Erro ao salvar o perfil:', error);
-      await loading.dismiss(); // Fecha o loading em caso de erro
+      this.isUpdating = false; // Esconde o spinner e o texto em caso de erro
       
       const alert = await this.alertController.create({
         header: 'Erro',

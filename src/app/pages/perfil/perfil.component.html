@@ -1,4 +1,15 @@
+<<<<<<< HEAD
 <ion-content class="fundo">
+=======
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/pedidos"  text=""></ion-back-button>
+    </ion-buttons>
+    <ion-title>Meu Perfil</ion-title>
+  </ion-toolbar>
+</ion-header>
+>>>>>>> 90a11e1d94fa95a8910290d472bd5a2be4cb3830
 
   <ion-header>
     <ion-toolbar>
@@ -9,6 +20,7 @@
     </ion-toolbar>
   </ion-header>
   <div class="container">
+<<<<<<< HEAD
     <!-- Foto e informações do usuário -->
     <div class="foto-perfil">
       <ion-avatar class="perfil-img">
@@ -32,5 +44,37 @@
     <ion-button expand="block" color="dark" class="btn-salvar">Salvar Alterações</ion-button>
     <ion-button expand="block" color="danger" class="btn-logout">Logout</ion-button>
 
+=======
+    <ion-card>
+      <ion-card-content>
+       <ion-avatar class="perfil-img" >
+        <img [src]="fotoUrl || placeholderUrl"  />
+       </ion-avatar>
+
+       <input type="file" #fileInput (change)="onFileSelected($event)" style="display: none;">
+       <ion-button class="edicao" (click)="fileInput.click()" color="dark" fill="clear" >
+         <ion-icon name="create" slot="start"></ion-icon>
+       </ion-button>
+
+       <form (ngSubmit)="salvarPerfil()">
+         <ion-input label="Nome de usuário" [(ngModel)]="usuario.nomeUsuario" labelPlacement="stacked" name="nomeUsuario"></ion-input>
+         <ion-input label="E-mail" [(ngModel)]="usuario.email" labelPlacement="stacked" type="email" name="email" [readonly]="true"></ion-input>
+         <ion-input label="Telefone" [(ngModel)]="usuario.telefone" labelPlacement="stacked" type="tel" name="telefone"></ion-input>
+         <ion-input label="Endereço" [(ngModel)]="usuario.endereco" labelPlacement="stacked" name="endereco"></ion-input>
+         
+         <ion-button expand="block" class="ion-margin-top" type="submit" [disabled]="isUpdating" color="dark">
+           Salvar
+         </ion-button>
+
+         <div *ngIf="isUpdating" class="ion-text-center">
+           <ion-spinner name="crescent" color="dark"></ion-spinner>
+           <p>Atualizando...</p>
+         </div>
+       </form>
+
+       <ion-button expand="block" color="danger" class="ion-margin-top" (click)="logout()">Logout</ion-button>
+      </ion-card-content>
+    </ion-card>
+>>>>>>> 90a11e1d94fa95a8910290d472bd5a2be4cb3830
   </div>
 </ion-content>

@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { CarrinhoService, CartItem } from '../services/carrinho.service';
 import { getAuth } from 'firebase/auth';
 import { Router, RouterModule } from '@angular/router'; // Adicione RouterModule aqui
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-carrinho',
@@ -56,7 +57,6 @@ export class CarrinhoPage implements OnInit {
   }
   
   async finalizarPagamento(metodo: string) {
-    // Adição da validação: se o método for uma string vazia, exibe um alerta
     if (!metodo) {
       const alert = await this.alertController.create({
         header: 'Atenção',
@@ -64,7 +64,7 @@ export class CarrinhoPage implements OnInit {
         buttons: ['OK']
       });
       await alert.present();
-      return; // Interrompe a execução da função
+      return;
     }
 
     const user = getAuth().currentUser;
@@ -74,9 +74,8 @@ export class CarrinhoPage implements OnInit {
       return;
     }
 
-    this.compraFinalizada = false; // resetar estado do card finalizado
+    this.compraFinalizada = false;
 
-    // Criar e apresentar o loading spinner
     const loading = await this.loadingController.create({
       spinner: 'circles',
       message: 'Processando pagamento...',
@@ -87,32 +86,38 @@ export class CarrinhoPage implements OnInit {
 
     await loading.present();
 
-    // Espera o loading fechar automaticamente após duração
     await loading.onDidDismiss();
 
-    // Após o loading, exibe o alert de confirmação
-    const alert = await this.alertController.create({
-      header: 'Pagamento Finalizado!',
-      message: `Você escolheu pagar com ${metodo}. Agradecemos a preferência!`,
-      buttons: [
-        {
-          text: 'OK',
-          handler: () => {
-            // Fecha o modal e navega para a tela de pedidos
-            this.modalController.dismiss();
-            this.router.navigate(['/pedidos']);
+    try {
+      const carrinhoItens = await this.carrinhoItens$.pipe(take(1)).toPromise();
+      await this.carrinhoService.finalizarCompra(carrinhoItens);
+      
+      const alert = await this.alertController.create({
+        header: 'Pagamento Finalizado!',
+        message: `Você escolheu pagar com ${metodo}. Agradecemos a preferência!`,
+        buttons: [
+          {
+            text: 'OK',
+            handler: () => {
+              this.modalController.dismiss();
+              this.router.navigate(['/pedidos']);
+            }
           }
-        }
-      ]
-    });
-
-    await alert.present();
-
-    // Exibe o card de compra finalizada (se você tiver um no template)
-    this.compraFinalizada = true;
-
-    // Finaliza a compra e fecha o modal
-    await this.carrinhoService.finalizarCompra();
-    this.modalController.dismiss();
+        ]
+      });
+  
+      await alert.present();
+      this.compraFinalizada = true;
+      this.modalController.dismiss();
+    } catch (error) {
+      console.error('Erro ao finalizar a compra:', error);
+      // Exibe um alerta de erro caso algo dê errado
+      const errorAlert = await this.alertController.create({
+        header: 'Erro',
+        message: 'Ocorreu um erro ao finalizar a compra. Tente novamente.',
+        buttons: ['OK']
+      });
+      await errorAlert.present();
+    }
   }
 }
