@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, RouterLinkActive, RouterLink } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, LoadingController } from '@ionic/angular'; // Adicione LoadingController aqui
 import { RealtimeDatabaseService } from '../firebase/realtime-databse';
 import { CarrinhoService } from '../services/carrinho.service';
 
@@ -11,7 +11,7 @@ import { CarrinhoService } from '../services/carrinho.service';
   templateUrl: './infoitens.page.html',
   styleUrls: ['./infoitens.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule, RouterLink]
+  imports: [IonicModule, CommonModule, FormsModule]
 })
 export class InfoitensPage implements OnInit {
   item: any = null;
@@ -20,12 +20,12 @@ export class InfoitensPage implements OnInit {
   errorMessage: string | null = null;
   observacao: string = '';
 
-
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private rt: RealtimeDatabaseService,
-    private carrinhoService: CarrinhoService
+    private carrinhoService: CarrinhoService,
+    private loadingController: LoadingController // Injete o serviço aqui
   ) { }
 
   async ngOnInit() {
@@ -71,16 +71,27 @@ export class InfoitensPage implements OnInit {
 
   async adicionarAoCarrinho() {
     if (this.item) {
+      // 1. Cria e exibe o loading spinner
+      const loading = await this.loadingController.create({
+        message: 'Adicionando ao carrinho...',
+        spinner: 'crescent'
+      });
+      await loading.present();
+
       try {
+        // 2. Aguarda a conclusão da operação
         await this.carrinhoService.adicionarAoCarrinho(this.item, this.quantidade);
-        
+        console.log('Item adicionado ao carrinho com sucesso!');
+
       } catch (error) {
         console.error('Erro ao adicionar item ao carrinho:', error);
         alert('Erro ao adicionar item ao carrinho. Tente novamente.');
+      } finally {
+        // 3. Em qualquer caso (sucesso ou erro), o spinner é dispensado
+        await loading.dismiss();
       }
     } else {
       alert('Não foi possível adicionar o item ao carrinho.');
     }
   }
-
 }
