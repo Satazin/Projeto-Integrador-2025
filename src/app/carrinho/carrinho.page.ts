@@ -82,7 +82,7 @@ export class CarrinhoPage implements OnInit {
     // Após o loading, exibe o alert de confirmação
     const alert = await this.alertController.create({
       header: 'Pagamento Finalizado!',
-      message: "Você escolheu pagar com ${metodo}. Agradecemos a preferência!",
+      message: `Você escolheu pagar com ${metodo}. Agradecemos a preferência!`,
       buttons: [
         {
           text: 'OK',
