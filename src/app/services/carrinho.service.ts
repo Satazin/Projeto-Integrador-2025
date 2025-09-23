@@ -3,6 +3,7 @@ import { getAuth, User, onAuthStateChanged } from 'firebase/auth';
 import { Observable, of, BehaviorSubject } from 'rxjs';
 import { RealtimeDatabaseService } from '../firebase/realtime-databse';
 import { map } from 'rxjs/operators';
+import { PontoService } from '../ponto/pontos-recom'; // Importa o serviço de pontos
 
 export interface Product {
   id: string;
@@ -30,7 +31,10 @@ export class CarrinhoService {
   private cartItemsSubject = new BehaviorSubject<CartItem[]>([]);
   public cartItems$: Observable<CartItem[]> = this.cartItemsSubject.asObservable();
 
-  constructor(private rtdb: RealtimeDatabaseService) {
+  constructor(
+    private rtdb: RealtimeDatabaseService,
+    private pontoService: PontoService // Injeta o PontoService
+  ) {
     onAuthStateChanged(this.auth, (user) => {
       this.userSubject.next(user);
       if (user) {
@@ -87,7 +91,7 @@ export class CarrinhoService {
     console.log('Carrinho limpo localmente e no banco de dados.');
   }
 
-  async finalizarCompra(): Promise<void> {
+  async finalizarCompra(carrinhoItens: CartItem[] | undefined): Promise<void> {
     const user = this.userSubject.getValue();
     if (!user) {
       console.error('Nenhum usuário logado para finalizar a compra.');
@@ -101,6 +105,21 @@ export class CarrinhoService {
       console.log('Carrinho está vazio. Nenhuma compra para finalizar.');
       return;
     }
+    
+    // 1. Crie um array para os itens da compra e calcule o valor total
+    let valorTotalDaCompra = 0;
+    const itensComSubtotal = cartItems.map(item => {
+      const subtotal = item.preco * item.quantidade;
+      valorTotalDaCompra += subtotal; // Acumula o valor total
+      return {
+        ...item,
+        // O preço salvo será o subtotal
+        preco: subtotal 
+      };
+    });
+
+    // 2. Chame o serviço de pontos para adicionar os pontos ganhos
+    await this.pontoService.adicionarPontos(valorTotalDaCompra);
 
     const brasilTime = new Date().toLocaleString('pt-BR', {
       timeZone: 'America/Sao_Paulo'
@@ -108,7 +127,8 @@ export class CarrinhoService {
 
     const purchase = {
       data: brasilTime,
-      itens: cartItems
+      // Salve a compra com o novo array de itens processados
+      itens: itensComSubtotal
     };
 
     const purchasePath = `usuarios/${userId}/compras/${Date.now()}`;

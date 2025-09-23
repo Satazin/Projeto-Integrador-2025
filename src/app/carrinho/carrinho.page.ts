@@ -6,7 +6,8 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CarrinhoService, CartItem } from '../services/carrinho.service';
 import { getAuth } from 'firebase/auth';
-import { Router, RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router'; // Adicione RouterModule aqui
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-carrinho',
@@ -80,26 +81,39 @@ export class CarrinhoPage implements OnInit {
     });
 
     await loading.present();
+
     await loading.onDidDismiss();
 
-    const alert = await this.alertController.create({
-      header: 'Pagamento Finalizado!',
-      message: `Você escolheu pagar com ${metodo}. Agradecemos a preferência!`,
-      buttons: [
-        {
-          text: 'OK',
-          handler: () => {
-            this.modalController.dismiss();
-            this.router.navigate(['/pedidos']);
+    try {
+      const carrinhoItens = await this.carrinhoItens$.pipe(take(1)).toPromise();
+      await this.carrinhoService.finalizarCompra(carrinhoItens);
+      
+      const alert = await this.alertController.create({
+        header: 'Pagamento Finalizado!',
+        message: `Você escolheu pagar com ${metodo}. Agradecemos a preferência!`,
+        buttons: [
+          {
+            text: 'OK',
+            handler: () => {
+              this.modalController.dismiss();
+              this.router.navigate(['/pedidos']);
+            }
           }
-        }
-      ]
-    });
-
-    await alert.present();
-
-    this.compraFinalizada = true;
-    await this.carrinhoService.finalizarCompra();
-    this.modalController.dismiss();
+        ]
+      });
+  
+      await alert.present();
+      this.compraFinalizada = true;
+      this.modalController.dismiss();
+    } catch (error) {
+      console.error('Erro ao finalizar a compra:', error);
+      // Exibe um alerta de erro caso algo dê errado
+      const errorAlert = await this.alertController.create({
+        header: 'Erro',
+        message: 'Ocorreu um erro ao finalizar a compra. Tente novamente.',
+        buttons: ['OK']
+      });
+      await errorAlert.present();
+    }
   }
 }
