@@ -34,7 +34,7 @@
       <ion-item routerLink="/localizacao">Nosso Espaço</ion-item>
       <ion-item routerLink="/sobre-nos">Sobre nós</ion-item>
       <ion-item routerLink="/contato">Fale Conosco</ion-item>
-
+       <ion-item *ngIf="authService.isAdmin()" routerLink="/pedidos-test">Painel Admin</ion-item>
     </ion-list>
   </ion-content>
 </ion-menu>

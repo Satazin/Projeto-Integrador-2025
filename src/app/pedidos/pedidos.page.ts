@@ -17,6 +17,7 @@ import {
   IonMenu, IonBadge } from '@ionic/angular/standalone';
 import { RealtimeDatabaseService } from '../firebase/realtime-databse';
 import { CarrinhoService } from '../services/carrinho.service';
+import { AuthService } from '../services/auth';
 
 @Component({
   selector: 'app-pedidos',
@@ -53,7 +54,8 @@ export class PedidosPage implements OnInit, AfterViewInit {
     private rt: RealtimeDatabaseService,
     private elRef: ElementRef,
     private router: Router,
-    private carrinhoService: CarrinhoService
+    private carrinhoService: CarrinhoService,
+    public authService: AuthService
   ) {}
 
   ngOnInit() {
