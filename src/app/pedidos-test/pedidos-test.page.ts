@@ -46,7 +46,6 @@ export class PedidosTestPage implements OnInit {
     { id: 6, slug: 'hot', nome: 'PORÇÕES HOT' },
     { id: 7, slug: 'urumakis', nome: 'URUMAKIS' },
     { id: 8, slug: 'acompanhamentos', nome: 'ACOMPANHAMENTOS' },
-    { id: 9, slug: 'combos', nome: 'COMBOS' },
     { id: 10, slug: 'bebidas', nome: 'BEBIDAS' },
     { id: 11, slug: 'sobremesas', nome: 'SOBREMESAS' }
   ];

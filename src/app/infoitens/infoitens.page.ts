@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonicModule, LoadingController } from '@ionic/angular'; // Adicione LoadingController aqui
+import { IonicModule, LoadingController } from '@ionic/angular';
 import { RealtimeDatabaseService } from '../firebase/realtime-databse';
 import { CarrinhoService } from '../services/carrinho.service';
 
@@ -25,8 +25,8 @@ export class InfoitensPage implements OnInit {
     private router: Router,
     private rt: RealtimeDatabaseService,
     private carrinhoService: CarrinhoService,
-    private loadingController: LoadingController // Injete o serviço aqui
-  ) { }
+    private loadingController: LoadingController
+  ) {}
 
   async ngOnInit() {
     const nav = this.router.getCurrentNavigation();
@@ -71,7 +71,6 @@ export class InfoitensPage implements OnInit {
 
   async adicionarAoCarrinho() {
     if (this.item) {
-      // 1. Cria e exibe o loading spinner
       const loading = await this.loadingController.create({
         message: 'Adicionando ao carrinho...',
         spinner: 'crescent'
@@ -79,15 +78,16 @@ export class InfoitensPage implements OnInit {
       await loading.present();
 
       try {
-        // 2. Aguarda a conclusão da operação
-        await this.carrinhoService.adicionarAoCarrinho(this.item, this.quantidade);
+        // Envia a observação junto com o item
+        await this.carrinhoService.adicionarAoCarrinho(
+          { ...this.item, observacao: this.observacao },
+          this.quantidade
+        );
         console.log('Item adicionado ao carrinho com sucesso!');
-
       } catch (error) {
         console.error('Erro ao adicionar item ao carrinho:', error);
         alert('Erro ao adicionar item ao carrinho. Tente novamente.');
       } finally {
-        // 3. Em qualquer caso (sucesso ou erro), o spinner é dispensado
         await loading.dismiss();
       }
     } else {

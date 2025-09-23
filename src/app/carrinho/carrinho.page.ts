@@ -3,60 +3,57 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule, AlertController, ModalController, LoadingController } from '@ionic/angular';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { CarrinhoService, CartItem } from '../services/carrinho.service';
 import { getAuth } from 'firebase/auth';
 import { Router, RouterModule } from '@angular/router'; // Adicione RouterModule aqui
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-carrinho',
   templateUrl: './carrinho.page.html',
   styleUrls: ['./carrinho.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule, RouterModule] // Mude de "Router" para "RouterModule"
+  imports: [IonicModule, CommonModule, FormsModule, RouterModule]
 })
 export class CarrinhoPage implements OnInit {
   carrinhoItens$: Observable<CartItem[]>;
+  valorTotalCarrinho$: Observable<number>;
   public formaPagamento: string = '';
-  public compraFinalizada: boolean = false; // controla exibição do card finalizado
+  public compraFinalizada: boolean = false;
 
   constructor(
     private carrinhoService: CarrinhoService,
     private alertController: AlertController,
     private modalController: ModalController,
-    private loadingController: LoadingController, // injetar LoadingController
+    private loadingController: LoadingController,
     private router: Router
   ) {
     this.carrinhoItens$ = this.carrinhoService.cartItems$;
+
+    this.valorTotalCarrinho$ = this.carrinhoItens$.pipe(
+      map(itens =>
+        itens.reduce((total, item) => total + item.preco * item.quantidade, 0)
+      )
+    );
   }
 
   ngOnInit() {
     this.carrinhoItens$.subscribe(itens => {
-      console.log('Dados do carrinho recebidos:', itens);
+      console.log('Itens no carrinho:', itens);
     });
   }
 
   async removerItem(item: CartItem) {
     try {
       await this.carrinhoService.removeFromCart(item.id);
-      console.log('Item removido do carrinho com sucesso!');
     } catch (error) {
       console.error('Erro ao remover item:', error);
       alert('Erro ao remover item do carrinho. Tente novamente.');
     }
   }
 
-  get valorTotalCarrinho(): number {
-    let total = 0;
-    this.carrinhoItens$.subscribe(itens => {
-      itens.forEach(item => {
-        total += item.preco * item.quantidade;
-      });
-    }).unsubscribe();
-    return total;
-  }
-  
   async finalizarPagamento(metodo: string) {
-    // Adição da validação: se o método for uma string vazia, exibe um alerta
     if (!metodo) {
       const alert = await this.alertController.create({
         header: 'Atenção',
@@ -64,19 +61,17 @@ export class CarrinhoPage implements OnInit {
         buttons: ['OK']
       });
       await alert.present();
-      return; // Interrompe a execução da função
+      return;
     }
 
     const user = getAuth().currentUser;
-
     if (!user) {
       console.error('Nenhum usuário logado.');
       return;
     }
 
-    this.compraFinalizada = false; // resetar estado do card finalizado
+    this.compraFinalizada = false;
 
-    // Criar e apresentar o loading spinner
     const loading = await this.loadingController.create({
       spinner: 'circles',
       message: 'Processando pagamento...',
@@ -87,32 +82,38 @@ export class CarrinhoPage implements OnInit {
 
     await loading.present();
 
-    // Espera o loading fechar automaticamente após duração
     await loading.onDidDismiss();
 
-    // Após o loading, exibe o alert de confirmação
-    const alert = await this.alertController.create({
-      header: 'Pagamento Finalizado!',
-      message: `Você escolheu pagar com ${metodo}. Agradecemos a preferência!`,
-      buttons: [
-        {
-          text: 'OK',
-          handler: () => {
-            // Fecha o modal e navega para a tela de pedidos
-            this.modalController.dismiss();
-            this.router.navigate(['/pedidos']);
+    try {
+      const carrinhoItens = await this.carrinhoItens$.pipe(take(1)).toPromise();
+      await this.carrinhoService.finalizarCompra(carrinhoItens);
+      
+      const alert = await this.alertController.create({
+        header: 'Pagamento Finalizado!',
+        message: `Você escolheu pagar com ${metodo}. Agradecemos a preferência!`,
+        buttons: [
+          {
+            text: 'OK',
+            handler: () => {
+              this.modalController.dismiss();
+              this.router.navigate(['/pedidos']);
+            }
           }
-        }
-      ]
-    });
-
-    await alert.present();
-
-    // Exibe o card de compra finalizada (se você tiver um no template)
-    this.compraFinalizada = true;
-
-    // Finaliza a compra e fecha o modal
-    await this.carrinhoService.finalizarCompra();
-    this.modalController.dismiss();
+        ]
+      });
+  
+      await alert.present();
+      this.compraFinalizada = true;
+      this.modalController.dismiss();
+    } catch (error) {
+      console.error('Erro ao finalizar a compra:', error);
+      // Exibe um alerta de erro caso algo dê errado
+      const errorAlert = await this.alertController.create({
+        header: 'Erro',
+        message: 'Ocorreu um erro ao finalizar a compra. Tente novamente.',
+        buttons: ['OK']
+      });
+      await errorAlert.present();
+    }
   }
 }
