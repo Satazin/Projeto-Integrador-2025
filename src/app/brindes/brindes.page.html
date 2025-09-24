@@ -1,17 +1,17 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/pedidos" color="dark" text="Voltar"></ion-back-button>
+      <ion-back-button defaultHref="/pedidos" color="dark" text=""></ion-back-button>
     </ion-buttons>
     <ion-title>Nossos brindes</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="brindes-bg">
-  <div class="conteudo">
-    <h2>Descubra os brindes exclusivos da Casa Bonsai! <br> De chaveiros estilosos a totoros encantadores, troque seus pontos por itens cheios de personalidade e sorte!</h2>
+ 
+  <div class="pontos">
+    Seus pontos: <strong>{{ pontos }}</strong>
   </div>
-
   <ion-grid>
     <ion-row>
       <!-- Chaveiro -->
@@ -103,8 +103,4 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-
-  <div class="pontos">
-    Seus pontos: <strong>{{ pontos }}</strong>
-  </div>
 </ion-content>

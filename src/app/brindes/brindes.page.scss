@@ -23,7 +23,7 @@ ion-grid {
   flex-direction: column;
   align-items: center;
   padding: 18px 10px 14px 10px;
-  border: 3px solid #ffe96b;
+  border: 3px solid #ffffff;
 }
 
 .brinde-card:hover {
@@ -53,9 +53,9 @@ h2 {
 
 /* Title inside brinde card */
 .brinde-card h2 {
-  font-size: 1.2em;
+  font-size: 1.4em;
   font-weight: bold;
-  color: #fff7f7;
+  color: #ffffff;
   margin: 6px 0 0 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -74,8 +74,8 @@ h2 {
   position: absolute;
   top: 10px;
   right: 10px;
-  background: #ffffff;
-  color: #000;
+  background: #ecce58;
+  color: #000000;
   font-weight: bold;
   border-radius: 50%;
   padding: 7px 11px;
@@ -85,15 +85,18 @@ h2 {
 
 /* Points display section */
 .pontos {
-  text-align: center;
-  margin: 20%;
   font-size: 1.3em;
   font-weight: bold;
   color: #ffffff;
-  background-color: #3c3c3c;
-  padding: 15px;
+  background-color: #2e2c2c;
+  padding: 6px;
   border-radius: 6px;
   font-family: 'Noto Sans JP', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: inline-block;
+  border-radius: 12px;
+   border: 2px solid #ffffff;
+   width: calc(100% - 40px);
+  margin: 10px 20px; 
 }
 ion-col {
   display: flex;

@@ -25,7 +25,7 @@ export class ContatoPage implements OnInit {
   async exibirAlerta() {
     const alert = await this.alertController.create({
       header: 'Mensagem Enviada',
-      message: `Agradecemos pela sua avaliação de ${this.rating} estrela(s)! Responderemos em breve.`,
+      message: `Obrigado pelo seu feedback! Responderemos em breve.`,
       buttons: [{
         text: 'OK',
         handler: () => {
