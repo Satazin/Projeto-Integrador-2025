@@ -1,20 +1,28 @@
+// src/app/carrinho/carrinho.page.ts
+
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonicModule, AlertController, ModalController, LoadingController } from '@ionic/angular';
+import { IonicModule, AlertController, LoadingController, ModalController } from '@ionic/angular';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { CarrinhoService, CartItem } from '../services/carrinho.service';
 import { getAuth } from 'firebase/auth';
-import { Router, RouterModule } from '@angular/router'; // Adicione RouterModule aqui
-import { take } from 'rxjs/operators';
+import { Router, RouterModule } from '@angular/router';
+
+import { PixModalPage } from '../pix-modal/pix-modal.page'; // Importa a página do modal
 
 @Component({
   selector: 'app-carrinho',
   templateUrl: './carrinho.page.html',
   styleUrls: ['./carrinho.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule, RouterModule]
+  imports: [
+    IonicModule,
+    CommonModule,
+    FormsModule,
+    RouterModule
+  ]
 })
 export class CarrinhoPage implements OnInit {
   carrinhoItens$: Observable<CartItem[]>;
@@ -25,8 +33,8 @@ export class CarrinhoPage implements OnInit {
   constructor(
     private carrinhoService: CarrinhoService,
     private alertController: AlertController,
-    private modalController: ModalController,
     private loadingController: LoadingController,
+    private modalController: ModalController, // Adiciona o ModalController
     private router: Router
   ) {
     this.carrinhoItens$ = this.carrinhoService.cartItems$;
@@ -72,6 +80,33 @@ export class CarrinhoPage implements OnInit {
 
     this.compraFinalizada = false;
 
+    if (metodo === 'pix') {
+      const codigoPix = `E${Math.random().toString(36).substring(2, 15).toUpperCase()}F${Math.random().toString(36).substring(2, 15).toUpperCase()}`;
+      
+      const valorTotal = await this.valorTotalCarrinho$.pipe(take(1)).toPromise();
+
+      const modal = await this.modalController.create({
+        component: PixModalPage,
+        componentProps: {
+          codigoPix: codigoPix,
+          valorTotal: valorTotal
+        }
+      });
+
+      await modal.present();
+
+      // Espera o modal fechar para processar a compra
+      const { data } = await modal.onWillDismiss();
+      if (data === true) {
+        await this.processarCompra('Pix');
+      }
+
+    } else {
+      await this.processarCompra(metodo);
+    }
+  }
+
+  async processarCompra(metodo: string) {
     const loading = await this.loadingController.create({
       spinner: 'circles',
       message: 'Processando pagamento...',
@@ -79,9 +114,7 @@ export class CarrinhoPage implements OnInit {
       translucent: true,
       cssClass: 'custom-loading'
     });
-
     await loading.present();
-
     await loading.onDidDismiss();
 
     try {
@@ -91,23 +124,17 @@ export class CarrinhoPage implements OnInit {
       const alert = await this.alertController.create({
         header: 'Pagamento Finalizado!',
         message: `Você escolheu pagar com ${metodo}. Agradecemos a preferência!`,
-        buttons: [
-          {
-            text: 'OK',
-            handler: () => {
-              this.modalController.dismiss();
-              this.router.navigate(['/pedidos']);
-            }
+        buttons: [{
+          text: 'OK',
+          handler: () => {
+            this.router.navigate(['/pedidos']);
           }
-        ]
+        }]
       });
-  
       await alert.present();
       this.compraFinalizada = true;
-      this.modalController.dismiss();
     } catch (error) {
       console.error('Erro ao finalizar a compra:', error);
-      // Exibe um alerta de erro caso algo dê errado
       const errorAlert = await this.alertController.create({
         header: 'Erro',
         message: 'Ocorreu um erro ao finalizar a compra. Tente novamente.',
