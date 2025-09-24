@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { IonicModule, AlertController } from '@ionic/angular';
+import { IonicModule, AlertController, ActionSheetController} from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { Auth, onAuthStateChanged, User } from '@angular/fire/auth';
 import { Firestore, doc, getDoc, setDoc } from '@angular/fire/firestore';
 import { getDatabase, ref, onValue, set } from "firebase/database";
 import { AuthService } from '../../services/auth';
 import { Router } from '@angular/router';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 
 interface Usuario {
   nomeUsuario: string;
@@ -45,7 +46,8 @@ export class PerfilComponent implements OnInit {
     private db: Firestore,
     private authService: AuthService,
     private router: Router,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private actionSheetCtrl: ActionSheetController,
   ) {
     this.dbRT = getDatabase();
   }
@@ -59,17 +61,56 @@ export class PerfilComponent implements OnInit {
     });
   }
 
-  onFileSelected(event: Event) {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
-      this.selectedFile = input.files[0];
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.fotoUrl = reader.result as string;
-      };
-      reader.readAsDataURL(this.selectedFile);
+async selecionarImagem() {
+  const actionSheet = await this.actionSheetCtrl.create({
+    header: 'Selecionar imagem',
+    buttons: [
+      {
+        text: '📷 Câmera',
+        handler: () => {
+          this.pegarImagem(CameraSource.Camera);
+        }
+      },
+      {
+        text: '🖼️ Galeria',
+        handler: () => {
+          this.pegarImagem(CameraSource.Photos);
+        }
+      },
+      {
+        text: 'Cancelar',
+        role: 'cancel',
+        data: { action: 'cancel' }
+      }
+    ]
+  });
+  await actionSheet.present();
+}
+
+  // PEGAR IMAGEM BASE64
+async pegarImagem(source: CameraSource) {
+  try {
+    const image = await Camera.getPhoto({
+      quality: 70,
+      allowEditing: false,
+      resultType: CameraResultType.Base64,
+      source
+    });
+
+    if (image?.base64String) {
+      this.fotoUrl = `data:image/jpeg;base64,${image.base64String}`;
     }
+  } catch (err) {
+    console.error('Erro ao pegar imagem:', err);
+    const a = await this.alertController.create({
+      header: 'Erro',
+      message: 'Falha ao obter imagem.',
+      buttons: ['OK']
+    });
+    await a.present();
   }
+}
+
 
   async carregarPerfil() {
     if (!this.userId) return;
