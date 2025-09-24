@@ -1,14 +1,14 @@
 <ion-header [translucent]="false">
-  <ion-toolbar>
+  <ion-toolbar >
     <ion-buttons slot="start">
       <ion-avatar>
-        <img alt="Perfil" src="../../assets/png-removebg-preview.png" routerLink="/home" />
+        <img alt="Perfil" src="../../assets/png-removebg-preview.png" />
       </ion-avatar>
     </ion-buttons>
 
     <ion-title>Casa Bonsai</ion-title>
-    <ion-buttons slot="end">
-
+    <ion-buttons slot="end" class="casa-bonsai">
+       
       <ion-button fill="clear" color="dark" routerLink="/carrinho">
         <ion-icon slot="icon-only" name="cart-outline"></ion-icon>
       </ion-button>
@@ -34,6 +34,7 @@
       <ion-item routerLink="/localizacao">Nosso Espaço</ion-item>
       <ion-item routerLink="/sobre-nos">Sobre nós</ion-item>
       <ion-item routerLink="/contato">Fale Conosco</ion-item>
+       <ion-item *ngIf="authService.isAdmin()" routerLink="/pedidos-test">Painel Admin</ion-item>
     </ion-list>
   </ion-content>
 </ion-menu>

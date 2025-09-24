@@ -11,7 +11,8 @@ import {
   IonItem,
   IonSelect,
   IonSelectOption,
-  ActionSheetController
+  ActionSheetController,
+  AlertController
 } from '@ionic/angular/standalone';
 import { RealtimeDatabaseService } from '../firebase/realtime-databse';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -46,7 +47,6 @@ export class PedidosTestPage implements OnInit {
     { id: 6, slug: 'hot', nome: 'PORÇÕES HOT' },
     { id: 7, slug: 'urumakis', nome: 'URUMAKIS' },
     { id: 8, slug: 'acompanhamentos', nome: 'ACOMPANHAMENTOS' },
-    { id: 9, slug: 'combos', nome: 'COMBOS' },
     { id: 10, slug: 'bebidas', nome: 'BEBIDAS' },
     { id: 11, slug: 'sobremesas', nome: 'SOBREMESAS' }
   ];
@@ -56,7 +56,8 @@ export class PedidosTestPage implements OnInit {
     private rt: RealtimeDatabaseService,
     private ar: ActivatedRoute,
     private router: Router,
-    private actionSheetCtrl: ActionSheetController
+    private actionSheetCtrl: ActionSheetController,
+    private alertCtrl: AlertController
   ){
     this.ar.params.subscribe((param: any) => {
      //this.id = param.id;
@@ -67,23 +68,63 @@ export class PedidosTestPage implements OnInit {
   }
 
   // SALVAR NOVO PEDIDO
-  salvar(){
-    this.rt.add('pedidos', {
-      nome: this.nome,
-      descricao: this.descricao,
-      serve: this.serve,
-      preco: this.preco,
-      categoria: this.categoria,
-      imagem: this.imagem
-    })
-    .then((res: any) => {
-      console.log('Salvo com sucesso', res);
-      this.listar();       // atualiza lista
-      this.limparFormulario(); // limpa form
-    })
-    .catch((err: any) => {
-      console.log('Falhou', err);
-    });
+  async salvar() {
+    // validação simples
+    if (!this.nome || !this.categoria || !this.preco) {
+      const a = await this.alertCtrl.create({
+        header: 'Campos obrigatórios',
+        message: 'Preencha pelo menos nome, categoria e preço.',
+        buttons: ['OK']
+      });
+      await a.present();
+      return;
+    }
+
+    try {
+      await this.rt.add('pedidos', {
+        nome: this.nome,
+        descricao: this.descricao,
+        serve: this.serve,
+        preco: this.preco,
+        categoria: this.categoria,
+        imagem: this.imagem
+      });
+
+      console.log('Salvo com sucesso');
+      this.listar();
+
+      // ALERT com opções: cadastrar outro ou ir pra lista de pedidos
+      const alert = await this.alertCtrl.create({
+        header: 'Produto cadastrado!',
+        message: 'Deseja cadastrar outro ou ir para a lista de pedidos?',
+        buttons: [
+          {
+            text: 'Cadastrar outro',
+            role: 'cancel',
+            handler: () => {
+              this.limparFormulario();
+            }
+          },
+          {
+            text: 'Ir para pedidos',
+            handler: () => {
+              this.router.navigate(['/pedidos']);
+            }
+          }
+        ]
+      });
+
+      await alert.present();
+
+    } catch (err) {
+      console.error('Falhou', err);
+      const alert = await this.alertCtrl.create({
+        header: 'Erro',
+        message: 'Não foi possível cadastrar o produto. Tente novamente.',
+        buttons: ['OK']
+      });
+      await alert.present();
+    }
   }
 
   // LISTAR PEDIDOS
@@ -139,6 +180,12 @@ export class PedidosTestPage implements OnInit {
       }
     } catch (err) {
       console.error('Erro ao pegar imagem:', err);
+      const a = await this.alertCtrl.create({
+        header: 'Erro',
+        message: 'Falha ao obter imagem.',
+        buttons: ['OK']
+      });
+      await a.present();
     }
   }
 }

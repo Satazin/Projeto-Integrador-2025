@@ -13,7 +13,8 @@ import { AlertController } from '@ionic/angular';
   imports: [IonicModule, CommonModule, FormsModule, RouterLink]
 })
 export class ContatoPage implements OnInit {
-   public rating: number = 0;
+    rating: number = 0;
+     mensagem: string = '';    // guarda o texto digitado
 
  constructor(private alertController: AlertController) {}
 // Nova função para definir a nota
@@ -23,10 +24,18 @@ export class ContatoPage implements OnInit {
   
   async exibirAlerta() {
     const alert = await this.alertController.create({
-      header: 'Pedido Enviado',
-      message: 'Agradeçemos pela sua avalição!Respomderemos em breve.',
-      buttons: ['OK']
+      header: 'Mensagem Enviada',
+      message: `Agradecemos pela sua avaliação de ${this.rating} estrela(s)! Responderemos em breve.`,
+      buttons: [{
+        text: 'OK',
+        handler: () => {
+          // resetar os campos quando o usuário clicar em OK
+          this.rating = 0;
+          this.mensagem = '';
+        }
+      }]
     });
+
 
     await alert.present();
   }

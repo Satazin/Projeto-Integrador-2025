@@ -14,14 +14,13 @@ import {
   IonButton, 
   IonAvatar,
   IonMenuButton,
-  IonMenu,
+  IonMenu, 
   AlertController,
-  LoadingController // Importe o LoadingController
+  LoadingController
 } from '@ionic/angular/standalone';
-
 import { RealtimeDatabaseService } from '../firebase/realtime-databse';
-import { AuthService } from '../services/auth'; 
-import { take } from 'rxjs/operators';
+import { CarrinhoService } from '../services/carrinho.service';
+import { AuthService } from '../services/auth';
 
 @Component({
   selector: 'app-pedidos',
@@ -29,7 +28,7 @@ import { take } from 'rxjs/operators';
   styleUrls: ['./pedidos.page.scss'],
   standalone: true,
   imports: [
-    IonAvatar, IonButton, IonIcon,
+   IonAvatar, IonButton, IonIcon,
     CommonModule, FormsModule, RouterLink,
     IonContent, IonHeader, IonTitle, IonToolbar,
     IonList, IonItem, IonButtons, IonMenuButton, IonMenu
@@ -45,6 +44,7 @@ export class PedidosPage implements OnInit, AfterViewInit {
     { id: 'niguiris', nome: 'NIGUIRIS' },
     { id: 'hot', nome: 'HOT' },
     { id: 'bebidas', nome: 'BEBIDAS' },
+
   ];
   public categoriaEmFoco: string = 'poke';
   termoBusca: string = '';
@@ -53,13 +53,14 @@ export class PedidosPage implements OnInit, AfterViewInit {
     private rt: RealtimeDatabaseService,
     private elRef: ElementRef,
     private router: Router,
-    private authService: AuthService,
+    private carrinhoService: CarrinhoService,
+    public authService: AuthService,
     private alertController: AlertController,
-    private loadingController: LoadingController // Injete o LoadingController
+    private loadingController: LoadingController
   ) {}
 
-  async ngOnInit() {
-    await this.carregarDados();
+  ngOnInit() {
+    this.listar();
   }
 
   ngAfterViewInit() {
@@ -69,22 +70,10 @@ export class PedidosPage implements OnInit, AfterViewInit {
     }
   }
 
-  // NOVA FUNÇÃO ASYNC PARA CARREGAR OS DADOS
-  async carregarDados() {
-    const loading = await this.loadingController.create({
-      message: 'Carregando...',
-    });
-    await loading.present();
-
-    try {
-      // Usando uma Promise para converter a lógica de callback do `query`
-      const dados = await new Promise<any>((resolve, reject) => {
-        this.rt.query('/pedidos', (snapshot: any) => {
-          const dados = snapshot.val();
-          resolve(dados);
-        });
-      });
-
+  // LISTAR PEDIDOS DO FIREBASE
+  listar() {
+    this.rt.query('/pedidos', (snapshot: any) => {
+      const dados = snapshot.val();
       if (dados) {
         this.pedidos = Object.keys(dados).map(key => ({
           id: key,
@@ -93,29 +82,17 @@ export class PedidosPage implements OnInit, AfterViewInit {
       } else {
         this.pedidos = [];
       }
-    } catch (error) {
-      console.error('Erro ao carregar dados:', error);
-      // Você pode exibir um alerta de erro aqui
-    } finally {
-      await loading.dismiss(); // Sempre feche o loading
-    }
-  }
-
-  // LISTAR PEDIDOS DO FIREBASE - a função original 'listar' foi movida para 'carregarDados'
-  // Deixei o método aqui mas com a lógica removida, para fins de exemplo
-  listar() {
-    // A lógica de carregamento agora está em 'carregarDados'
-    console.log('Dados carregados via ngOnInit');
+    });
   }
 
   // FILTRAR POR CATEGORIA
   itensPorCategoria(cat: string) {
     return this.pedidos.filter(i => i.categoria === cat)
-      .filter(i =>
-        !this.termoBusca || 
-        i.nome.toLowerCase().includes(this.termoBusca.toLowerCase()) || 
-        i.descricao.toLowerCase().includes(this.termoBusca.toLowerCase())
-      );
+    .filter(i =>
+      !this.termoBusca || 
+      i.nome.toLowerCase().includes(this.termoBusca.toLowerCase()) || 
+      i.descricao.toLowerCase().includes(this.termoBusca.toLowerCase())
+    );
   }
 
   // SCROLL SUAVE PARA A CATEGORIA
@@ -125,6 +102,7 @@ export class PedidosPage implements OnInit, AfterViewInit {
       el.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   }
+
 
   // MARCAR QUAL CATEGORIA ESTÁ EM FOCO
   onScroll() {
