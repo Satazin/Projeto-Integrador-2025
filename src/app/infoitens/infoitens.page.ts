@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonicModule, LoadingController } from '@ionic/angular';
+import { IonicModule, LoadingController, AlertController } from '@ionic/angular';
 import { RealtimeDatabaseService } from '../firebase/realtime-databse';
 import { CarrinhoService } from '../services/carrinho.service';
+import { AuthService } from '../services/auth'; // Importe o AuthService
 
 @Component({
   selector: 'app-infoitens',
@@ -25,7 +26,9 @@ export class InfoitensPage implements OnInit {
     private router: Router,
     private rt: RealtimeDatabaseService,
     private carrinhoService: CarrinhoService,
-    private loadingController: LoadingController
+    private loadingController: LoadingController,
+    private alertController: AlertController, // Injeta o AlertController
+    private authService: AuthService // Injeta o AuthService
   ) {}
 
   async ngOnInit() {
@@ -70,28 +73,53 @@ export class InfoitensPage implements OnInit {
   }
 
   async adicionarAoCarrinho() {
-    if (this.item) {
-      const loading = await this.loadingController.create({
-        message: 'Adicionando ao carrinho...',
-        spinner: 'crescent'
-      });
-      await loading.present();
-
-      try {
-        // Envia a observação junto com o item
-        await this.carrinhoService.adicionarAoCarrinho(
-          { ...this.item, observacao: this.observacao },
-          this.quantidade
-        );
-        console.log('Item adicionado ao carrinho com sucesso!');
-      } catch (error) {
-        console.error('Erro ao adicionar item ao carrinho:', error);
-        alert('Erro ao adicionar item ao carrinho. Tente novamente.');
-      } finally {
-        await loading.dismiss();
-      }
-    } else {
+    if (!this.item) {
       alert('Não foi possível adicionar o item ao carrinho.');
+      return;
+    }
+
+    // Verifica se o usuário está logado
+    const user = this.authService.usuarioLogado;
+    if (!user) {
+      const alert = await this.alertController.create({
+        header: 'Acesso Restrito',
+        message: 'Para adicionar itens ao carrinho, você precisa estar logado.',
+        buttons: [
+          {
+            text: 'Cancelar',
+            role: 'cancel',
+            cssClass: 'secondary',
+          },
+          {
+            text: 'Fazer Login',
+            handler: () => {
+              this.router.navigate(['/login']); // Navega para a página de login
+            },
+          },
+        ],
+      });
+      await alert.present();
+      return; // Interrompe a função aqui
+    }
+
+    // Se o usuário estiver logado, continue com a lógica de adicionar ao carrinho
+    const loading = await this.loadingController.create({
+      message: 'Adicionando ao carrinho...',
+      spinner: 'crescent'
+    });
+    await loading.present();
+
+    try {
+      await this.carrinhoService.adicionarAoCarrinho(
+        { ...this.item, observacao: this.observacao },
+        this.quantidade
+      );
+      console.log('Item adicionado ao carrinho com sucesso!');
+    } catch (error) {
+      console.error('Erro ao adicionar item ao carrinho:', error);
+      alert('Erro ao adicionar item ao carrinho. Tente novamente.');
+    } finally {
+      await loading.dismiss();
     }
   }
 }

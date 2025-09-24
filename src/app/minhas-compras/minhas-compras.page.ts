@@ -1,10 +1,10 @@
 // src/app/minhas-compras/minhas-compras.page.ts
+
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
-// Importe os módulos do Firebase para a versão mais recente
 import { Auth, user } from '@angular/fire/auth';
 import { Database, object, ref, get } from '@angular/fire/database';
 
@@ -45,8 +45,23 @@ export class MinhasComprasPage implements OnInit {
       const snapshot = await get(dbRef);
       if (snapshot.exists()) {
         const data = snapshot.val();
-        this.compras = Object.values(data);
-        console.log('Compras carregadas:', this.compras);
+        
+        let comprasArray = Object.values(data);
+        
+        comprasArray.sort((a: any, b: any) => {
+          const [dataA, horaA] = a.data.split(', ');
+          const [diaA, mesA, anoA] = dataA.split('/').map(Number);
+          const [horaObjA, minObjA, segObjA] = horaA.split(':').map(Number);
+          const [dataB, horaB] = b.data.split(', ');
+          const [diaB, mesB, anoB] = dataB.split('/').map(Number);
+          const [horaObjB, minObjB, segObjB] = horaB.split(':').map(Number);
+          const dateObjA = new Date(anoA, mesA - 1, diaA, horaObjA, minObjA, segObjA).getTime();
+          const dateObjB = new Date(anoB, mesB - 1, diaB, horaObjB, minObjB, segObjB).getTime();
+          return dateObjB - dateObjA;
+        });
+
+        this.compras = comprasArray;
+        console.log('Compras ordenadas e carregadas:', this.compras);
       } else {
         this.compras = [];
         console.log('Nenhuma compra encontrada para este usuário.');

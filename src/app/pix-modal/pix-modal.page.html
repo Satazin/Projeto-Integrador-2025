@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/carrinho" (click)="voltarParaCarrinho()" text="Voltar"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Pagamento Pix</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="finalizarCompra()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="pix-container">
+    
+    <canvas #qrcodeCanvas class="qrcode-canvas"></canvas> 
+    <p class="valor-total">
+      Valor a pagar: <strong>R$ {{ valorTotal | number:'1.2-2' }}</strong>
+    </p>
+    <p class="instrucoes">Escaneie o QR Code ou use o código Pix Copia e Cola para pagar.</p>
+    
+    <div class="codigo-pix-box">
+      <p>Código Pix:</p>
+      <span class="codigo">{{ codigoPix }}</span>
+    </div>
+
+    <ion-button expand="block" (click)="copiarCodigo()">
+      <ion-icon slot="start" name="copy-outline"></ion-icon>
+      Copiar Código
+    </ion-button>
+    <ion-button expand="block" (click)="finalizarCompra()">
+      Finalizar Compra
+    </ion-button>
+  </div>
+</ion-content>

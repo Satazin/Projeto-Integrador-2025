@@ -28,8 +28,7 @@ export class AppComponent {
       informationCircleOutline,
       radioButtonOn,
       bicycleOutline,
-      checkmarkCircleOutline
-
+      checkmarkCircleOutline,
     });
   }
 }

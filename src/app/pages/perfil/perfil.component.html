@@ -3,7 +3,7 @@
   <ion-header>
     <ion-toolbar>
       <ion-buttons slot="start">
-        <ion-back-button defaultHref="/pedidos" color="dark" text="Voltar"></ion-back-button>
+        <ion-back-button defaultHref="/pedidos" color="dark" text=""></ion-back-button>
       </ion-buttons>
       <ion-title>Editar Perfil</ion-title>
     </ion-toolbar>
@@ -11,9 +11,10 @@
   <div class="container">
     <!-- Foto e informações do usuário -->
     <div class="foto-perfil">
-      <ion-avatar class="perfil-img">
+      <ion-avatar class="perfil-img" (click)="selecionarImagem()">
         <img [src]="fotoUrl || placeholderUrl" id="foto-perfil-img" />
       </ion-avatar>
+
       <div class="info-usuario">
         <h2 class="nome">nome</h2>
         <p class="usuario">nome de usuario</p>
@@ -29,8 +30,8 @@
     <ion-input placeholder="Endereço" [(ngModel)]="usuario.endereco"></ion-input>
 
     <!-- Botões -->
-    <ion-button expand="block" color="dark" class="btn-salvar">Salvar Alterações</ion-button>
-    <ion-button expand="block" color="danger" class="btn-logout">Logout</ion-button>
+    <ion-button expand="block" color="dark" class="btn-salvar" (click)="salvarPerfil()">Salvar Alterações</ion-button>
+    <ion-button expand="block" color="danger" class="btn-logout" (click)="logout()">Logout</ion-button>
 
   </div>
 </ion-content>

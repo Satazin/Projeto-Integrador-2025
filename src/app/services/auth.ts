@@ -23,6 +23,11 @@ export class AuthService {
     });
   }
 
+  // Método para retornar o email do admin
+  getAdminEmail(): string {
+    return this.adminEmail;
+  }
+
   async cadastrar(email: string, password: string, nome: string, telefone: string, endereco: string): Promise<any> {
     const userCredential = await createUserWithEmailAndPassword(this.auth, email, password);
     const user = userCredential.user;
