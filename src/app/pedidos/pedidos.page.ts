@@ -15,6 +15,8 @@ import {
   IonAvatar,
   IonMenuButton,
   IonMenu, 
+  AlertController,
+  LoadingController
 } from '@ionic/angular/standalone';
 import { RealtimeDatabaseService } from '../firebase/realtime-databse';
 import { CarrinhoService } from '../services/carrinho.service';
@@ -52,7 +54,9 @@ export class PedidosPage implements OnInit, AfterViewInit {
     private elRef: ElementRef,
     private router: Router,
     private carrinhoService: CarrinhoService,
-    public authService: AuthService
+    public authService: AuthService,
+    private alertController: AlertController,
+    private loadingController: LoadingController
   ) {}
 
   ngOnInit() {
@@ -124,4 +128,18 @@ export class PedidosPage implements OnInit, AfterViewInit {
     this.router.navigate(['/infoitens', item.id], { state: { item } });
   }
 
+  // Nova função para verificar o login e navegar
+  async abrirPerfil() {
+    const usuarioLogado = this.authService.usuarioLogado;
+    if (usuarioLogado) {
+      this.router.navigate(['/perfil']);
+    } else {
+      const alert = await this.alertController.create({
+        header: 'Acesso Restrito',
+        message: 'Por favor, faça login para acessar seu perfil.',
+        buttons: ['Cancelar', { text: 'Login', handler: () => this.router.navigate(['/login']) }]
+      });
+      await alert.present();
+    }
+  }
 }
