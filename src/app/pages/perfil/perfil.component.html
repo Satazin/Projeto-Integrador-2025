@@ -11,9 +11,10 @@
   <div class="container">
     <!-- Foto e informações do usuário -->
     <div class="foto-perfil">
-      <ion-avatar class="perfil-img">
+      <ion-avatar class="perfil-img" (click)="selecionarImagem()">
         <img [src]="fotoUrl || placeholderUrl" id="foto-perfil-img" />
       </ion-avatar>
+
       <div class="info-usuario">
         <h2 class="nome">nome</h2>
         <p class="usuario">nome de usuario</p>
