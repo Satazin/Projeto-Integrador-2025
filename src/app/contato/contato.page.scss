@@ -16,48 +16,25 @@ ion-toolbar {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-<<<<<<< HEAD
 .titulo {
   font-size: 1.8em;
-=======
-ion-card-title {
-  color: #fff;
-  font-size: 2.4em;
->>>>>>> b4831ff9f392869b1c575d75c767915970eea4f1
   font-weight: bold;
   margin-bottom: 40px;
 }
 
-<<<<<<< HEAD
 .fale-conosco-container h2 {
-=======
-ion-card-content {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #e8e8e8;
-  font-size: 1.05em;
-  text-align: center;
-}
-
-ion-card-content h2 {
->>>>>>> b4831ff9f392869b1c575d75c767915970eea4f1
   margin-bottom: 30px;
   font-size: 1em;
   line-height: 1.5;
   color: #f1e9e9;
 }
 
-<<<<<<< HEAD
 
 
 ion-input,
 ion-textarea {
   margin-top: 40px;
   margin-bottom: 40px;
-=======
-ion-input,
-ion-textarea {
-  margin-bottom: 30px;
->>>>>>> b4831ff9f392869b1c575d75c767915970eea4f1
   --padding-start: 10px;
   --padding-end: 10px;
   border: 2px solid #c2c2c2;
@@ -70,22 +47,6 @@ ion-button {
   border-radius: 6px;
   margin: 20px 0;
 }
-<<<<<<< HEAD
-=======
-
-.star-rating {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-}
-
-.star {
-  font-size: 2.2em;
-  color: #ebe8e8; /* cor padrão */
-  cursor: pointer;
-  transition: color 0.2s;
-}
->>>>>>> b4831ff9f392869b1c575d75c767915970eea4f1
 
 .star:hover,
 .star.selected {

@@ -9,7 +9,10 @@
     <ion-title>Casa Bonsai</ion-title>
     <ion-buttons slot="end" class="casa-bonsai">
        
-      <ion-button fill="clear" color="dark" routerLink="/carrinho">
+      <ion-button fill="clear" color="dark" routerLink="/horario">
+        <ion-icon slot="icon-only" name="time-outline"></ion-icon>
+      </ion-button>
+       <ion-button fill="clear" color="dark" routerLink="/carrinho">
         <ion-icon slot="icon-only" name="cart-outline"></ion-icon>
       </ion-button>
       <ion-button fill="clear" color="dark" routerLink="/perfil">
@@ -27,8 +30,7 @@
     </ion-toolbar>
   </ion-header>
   <ion-content class="ion-padding">
-    <ion-list>
-      
+    <ion-list class="menu-list">
       <ion-item routerLink="/minhas-compras">Minhas Compras</ion-item>
       <ion-item routerLink="/brindes">Brindes</ion-item>
       <ion-item routerLink="/localizacao">Nosso Espaço</ion-item> 
@@ -44,6 +46,7 @@
   </div>
   <img src="assets/lights.jpg" alt="Lanternas japonesas" class="banner-lanternas" />
   
+
   <div class="search-bar-container">
     <ion-searchbar ngDefaultControl [(ngModel)]="termoBusca" placeholder="Buscar produto..." color="light"
       showCancelButton="focus" class="search-bar-custom"></ion-searchbar>
