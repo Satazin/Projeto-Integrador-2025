@@ -14,9 +14,14 @@ import {
   IonButton, 
   IonAvatar,
   IonMenuButton,
-  IonMenu, 
+  IonMenu,
+  AlertController,
+  LoadingController // Importe o LoadingController
 } from '@ionic/angular/standalone';
+
 import { RealtimeDatabaseService } from '../firebase/realtime-databse';
+import { AuthService } from '../services/auth'; 
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-pedidos',
@@ -24,7 +29,7 @@ import { RealtimeDatabaseService } from '../firebase/realtime-databse';
   styleUrls: ['./pedidos.page.scss'],
   standalone: true,
   imports: [
-   IonAvatar, IonButton, IonIcon,
+    IonAvatar, IonButton, IonIcon,
     CommonModule, FormsModule, RouterLink,
     IonContent, IonHeader, IonTitle, IonToolbar,
     IonList, IonItem, IonButtons, IonMenuButton, IonMenu
@@ -40,7 +45,6 @@ export class PedidosPage implements OnInit, AfterViewInit {
     { id: 'niguiris', nome: 'NIGUIRIS' },
     { id: 'hot', nome: 'HOT' },
     { id: 'bebidas', nome: 'BEBIDAS' },
-
   ];
   public categoriaEmFoco: string = 'poke';
   termoBusca: string = '';
@@ -48,11 +52,14 @@ export class PedidosPage implements OnInit, AfterViewInit {
   constructor(
     private rt: RealtimeDatabaseService,
     private elRef: ElementRef,
-    private router: Router
+    private router: Router,
+    private authService: AuthService,
+    private alertController: AlertController,
+    private loadingController: LoadingController // Injete o LoadingController
   ) {}
 
-  ngOnInit() {
-    this.listar();
+  async ngOnInit() {
+    await this.carregarDados();
   }
 
   ngAfterViewInit() {
@@ -62,10 +69,22 @@ export class PedidosPage implements OnInit, AfterViewInit {
     }
   }
 
-  // LISTAR PEDIDOS DO FIREBASE
-  listar() {
-    this.rt.query('/pedidos', (snapshot: any) => {
-      const dados = snapshot.val();
+  // NOVA FUNÇÃO ASYNC PARA CARREGAR OS DADOS
+  async carregarDados() {
+    const loading = await this.loadingController.create({
+      message: 'Carregando...',
+    });
+    await loading.present();
+
+    try {
+      // Usando uma Promise para converter a lógica de callback do `query`
+      const dados = await new Promise<any>((resolve, reject) => {
+        this.rt.query('/pedidos', (snapshot: any) => {
+          const dados = snapshot.val();
+          resolve(dados);
+        });
+      });
+
       if (dados) {
         this.pedidos = Object.keys(dados).map(key => ({
           id: key,
@@ -74,17 +93,29 @@ export class PedidosPage implements OnInit, AfterViewInit {
       } else {
         this.pedidos = [];
       }
-    });
+    } catch (error) {
+      console.error('Erro ao carregar dados:', error);
+      // Você pode exibir um alerta de erro aqui
+    } finally {
+      await loading.dismiss(); // Sempre feche o loading
+    }
+  }
+
+  // LISTAR PEDIDOS DO FIREBASE - a função original 'listar' foi movida para 'carregarDados'
+  // Deixei o método aqui mas com a lógica removida, para fins de exemplo
+  listar() {
+    // A lógica de carregamento agora está em 'carregarDados'
+    console.log('Dados carregados via ngOnInit');
   }
 
   // FILTRAR POR CATEGORIA
   itensPorCategoria(cat: string) {
     return this.pedidos.filter(i => i.categoria === cat)
-    .filter(i =>
-      !this.termoBusca || 
-      i.nome.toLowerCase().includes(this.termoBusca.toLowerCase()) || 
-      i.descricao.toLowerCase().includes(this.termoBusca.toLowerCase())
-    );
+      .filter(i =>
+        !this.termoBusca || 
+        i.nome.toLowerCase().includes(this.termoBusca.toLowerCase()) || 
+        i.descricao.toLowerCase().includes(this.termoBusca.toLowerCase())
+      );
   }
 
   // SCROLL SUAVE PARA A CATEGORIA
@@ -94,7 +125,6 @@ export class PedidosPage implements OnInit, AfterViewInit {
       el.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   }
-
 
   // MARCAR QUAL CATEGORIA ESTÁ EM FOCO
   onScroll() {
@@ -120,4 +150,18 @@ export class PedidosPage implements OnInit, AfterViewInit {
     this.router.navigate(['/infoitens', item.id], { state: { item } });
   }
 
+  // Nova função para verificar o login e navegar
+  async abrirPerfil() {
+    const usuarioLogado = this.authService.usuarioLogado;
+    if (usuarioLogado) {
+      this.router.navigate(['/perfil']);
+    } else {
+      const alert = await this.alertController.create({
+        header: 'Acesso Restrito',
+        message: 'Por favor, faça login para acessar seu perfil.',
+        buttons: ['Cancelar', { text: 'Login', handler: () => this.router.navigate(['/login']) }]
+      });
+      await alert.present();
+    }
+  }
 }
