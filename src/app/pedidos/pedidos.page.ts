@@ -104,7 +104,7 @@ export class PedidosPage implements OnInit, AfterViewInit {
   }
 
 
-  // MARCAR QUAL CATEGORIA ESTÁ EM FOCO
+ 
   onScroll() {
     const scrollEl = this.elRef.nativeElement.querySelector('ion-content');
     if (scrollEl) {

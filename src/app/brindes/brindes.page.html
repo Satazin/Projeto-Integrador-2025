@@ -6,13 +6,15 @@
     <ion-title>Nossos brindes</ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content class="brindes-bg">
-
-  <div class="pontos">
-    Seus pontos: <strong>{{ pontos }}</strong>
+  <div class="nossos-brindes">
+    <p>
+      Na Casa Bonsai, cada brinde é pensado com carinho!
+      Troque seus pontos por itens cheios de charme e
+      significado, como chaveiros, meias, xícaras,
+      gatinhos da sorte e mini bonsais.
+    </p>
   </div>
-
   <ion-grid>
     <ion-row>
       <ion-col size="6">
@@ -21,10 +23,10 @@
           <ion-card-content>
             <h2>Chaveiros</h2>
             <p class="descricao">
-              Chaveiros estiloso para manter suas chaves organizadas.
+              Chaveiros estiloso para manter suas chaves organizadas, com estilo e personalidade.
             </p>
+            <div class="coin">500 <br> pontos</div>
           </ion-card-content>
-          <div class="coin">...</div>
         </ion-card>
       </ion-col>
 
@@ -36,8 +38,9 @@
             <p class="descricao">
               Meias confortaveis e estilosas representando oque voce mais gosta.
             </p>
+            <div class="coin">1000 <br> pontos</div>
           </ion-card-content>
-          <div class="coin">...</div>
+
         </ion-card>
       </ion-col>
     </ion-row>
@@ -51,8 +54,9 @@
             <p class="descricao">
               Pense em você tomando sua bebida favorita nesta xícara com a nossa logo
             </p>
+            <div class="coin">1500 <br> pontos</div>
           </ion-card-content>
-          <div class="coin">...</div>
+
         </ion-card>
       </ion-col>
 
@@ -62,10 +66,10 @@
           <ion-card-content>
             <h2>Gatinho da sorte</h2>
             <p class="descricao">
-              Gatinho dourado para trazer a sorte para sua vida.
-            </p>
+              Gatinho dourado que simboliza sorte e boas energias para a sua vida. </p>
+            <div class="coin">2000 <br> pontos</div>
           </ion-card-content>
-          <div class="coin">...</div>
+
         </ion-card>
       </ion-col>
     </ion-row>
@@ -79,8 +83,9 @@
             <p class="descricao">
               Brinde inspirado no personagem Totoro do filme "Meu Amigo Totoro" do Studio Ghibli.
             </p>
+            <div class="coin">2500 <br> pontos</div>
           </ion-card-content>
-          <div class="coin">...</div>
+
         </ion-card>
       </ion-col>
 
@@ -90,16 +95,17 @@
           <ion-card-content>
             <h2>Bonsai</h2>
             <p class="descricao">
-              Bonsai, uma tecnica de plantio pequena mas cheia de significado.
-            </p>
+              Bonsai: uma técnica de plantio em miniatura, mas repleta de beleza, e significado. </p>
+            <div class="coin">4000 <br> pontos</div>
           </ion-card-content>
-          <div class="coin">...</div>
-        </ion-card>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
 
-  <div class="pontos">
-    Seus pontos: <strong>{{ pontos }}</strong>
-  </div>
+        </ion-card>
+
+      </ion-col>
+
+    </ion-row>
+    <div class="pontos">
+      Seus pontos: <strong> {{ pontos }} </strong>
+    </div>
+  </ion-grid>
 </ion-content>

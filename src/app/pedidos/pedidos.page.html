@@ -46,7 +46,8 @@
     <h1>Seja bem-vindo ao <br>Casa Bonsai!</h1>
   </div>
   <img src="assets/lights.jpg" alt="Lanternas japonesas" class="banner-lanternas" />
-  
+
+
   <div class="search-bar-container">
     <ion-searchbar ngDefaultControl [(ngModel)]="termoBusca" placeholder="Buscar produto..." color="light"
       showCancelButton="focus" class="search-bar-custom"></ion-searchbar>
@@ -73,7 +74,7 @@
         <div class="produto-info">
           <div class="produto-nome">{{item.nome}}</div>
           <div class="produto-desc">{{item.descricao}}</div>
-          <div class="produto-serve">Serve {{item.serve}}</div>
+          <div class="produto-serve">Serve {{item.serve}} pessoa</div>
           <div class="produto-preco">R$ {{item.preco | number:'1.2-2'}}</div>
         </div>
       </button>

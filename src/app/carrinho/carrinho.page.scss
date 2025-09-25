@@ -10,10 +10,8 @@ ion-header,
 ion-toolbar {
   --background: #000000;
   --color: #fff;
-  border-bottom: 1px solid #393939;
+
 }
-
-
 
 ion-content {
   --background: #000000;
@@ -28,11 +26,10 @@ ion-list {
 
 ion-item {
   --background: #232323;
-  border-radius: 14px;
-  margin-bottom: 14px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.10);
+  padding: 10px;
   color: #fff;
 }
+
 
 ion-label h2 {
   color: #fff;
@@ -43,7 +40,7 @@ ion-label h2 {
 
 ion-label p {
   color: #e0e0e0;
-  font-size: 0.98em;
+  font-size: 1em;
   margin: 0;
 }
 
@@ -56,10 +53,13 @@ ion-button[color="danger"] {
 
 ion-card {
   background: #232323;
-  border-radius: 16px;
-  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.10);
   margin-top: 18px;
   margin-bottom: 18px;
+}
+
+ion-card-content{
+  border:1px solid #e0e0e0;
+
 }
 
 ion-card-content h3 {
@@ -70,15 +70,6 @@ ion-card-content h3 {
   text-align: center;
 }
 
-#open-modal {
-  --background: #c46a1b;
-  --color: #fff;
-  font-weight: bold;
-  border-radius: 14px;
-  margin-top: 12px;
-  margin-bottom: 18px;
-  letter-spacing: 1px;
-}
 
 ion-modal {
   --background: #181818;
@@ -130,11 +121,10 @@ ion-modal ion-title {
   .pagamento-fixo {
     position: fixed;
     bottom: 0;
-    left: 0;
     width: 100%;
     background: #181818;
-    padding: 16px;
-    border-top: 1px solid #393939;
+    padding: 2px;
+    border-top: 2px solid #979797;
     z-index: 100;
   }
 
@@ -186,9 +176,10 @@ ion-modal ion-title {
     .carrinho-vazio p {
       font-size: 1.05em;
     }
-
   }
 
-
-
+  .botao-pagar ion-button{
+    padding: 5px;
+    font-size: 1em;
+  }
 }

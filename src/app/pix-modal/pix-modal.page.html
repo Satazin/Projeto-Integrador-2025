@@ -1,14 +1,9 @@
 <ion-header>
-  <ion-toolbar color="primary">
+  <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/carrinho" (click)="voltarParaCarrinho()" text="Voltar"></ion-back-button>
+      <ion-back-button color="dark" defaultHref="/carrinho" (click)="voltarParaCarrinho()" text=""></ion-back-button>
     </ion-buttons>
     <ion-title>Pagamento Pix</ion-title>
-    <ion-buttons slot="end">
-      <ion-button (click)="finalizarCompra()">
-        <ion-icon name="close"></ion-icon>
-      </ion-button>
-    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -26,11 +21,12 @@
       <span class="codigo">{{ codigoPix }}</span>
     </div>
 
-    <ion-button expand="block" (click)="copiarCodigo()">
+    <ion-button color="primary" expand="block" (click)="copiarCodigo()">
       <ion-icon slot="start" name="copy-outline"></ion-icon>
       Copiar Código
     </ion-button>
-    <ion-button expand="block" (click)="finalizarCompra()">
+    <ion-button color="primary" expand="block" (click)="finalizarCompra()">
+      <ion-icon slot="start" name="checkmark-outline"></ion-icon>
       Finalizar Compra
     </ion-button>
   </div>

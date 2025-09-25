@@ -1,5 +1,4 @@
 <ion-content class="fundo">
-
   <ion-header>
     <ion-toolbar>
       <ion-buttons slot="start">
@@ -8,30 +7,45 @@
       <ion-title>Editar Perfil</ion-title>
     </ion-toolbar>
   </ion-header>
-  <div class="container">
-    <!-- Foto e informações do usuário -->
-    <div class="foto-perfil">
-      <ion-avatar class="perfil-img" (click)="selecionarImagem()">
-        <img [src]="fotoUrl || placeholderUrl" id="foto-perfil-img" />
-      </ion-avatar>
 
+  <div class="container">
+    <div class="td-junto">
+      <div class="foto-perfil">
+        <ion-avatar class="perfil-img" (click)="selecionarImagem()">
+          <img [src]="fotoUrl || placeholderUrl" id="foto-perfil-img" />
+        </ion-avatar>
+      </div>
       <div class="info-usuario">
-        <h2 class="nome">nome</h2>
-        <p class="usuario">nome de usuario</p>
+        <h2 class="nome">Pedrinho Zanette</h2>
+        <p class="usuario">eusouopedrinho</p>
       </div>
     </div>
 
+    <ion-list>
+      <ion-item>
+        <ion-label position="stacked">Nome</ion-label>
+        <ion-input placeholder="Nome" [(ngModel)]="usuario.nomeUsuario"></ion-input>
+      </ion-item>
 
+      <ion-item>
+        <ion-label position="stacked">Telefone</ion-label>
+        <ion-input placeholder="Telefone" [(ngModel)]="usuario.telefone" type="tel"></ion-input>
+      </ion-item>
 
-    <!-- Inputs -->
-    <ion-input placeholder="Nome" [(ngModel)]="usuario.nomeUsuario"></ion-input>
-    <ion-input placeholder="Telefone" [(ngModel)]="usuario.telefone" type="tel"></ion-input>
-    <ion-input placeholder="Email" [(ngModel)]="usuario.email" type="email"></ion-input>
-    <ion-input placeholder="Endereço" [(ngModel)]="usuario.endereco"></ion-input>
+      <ion-item>
+        <ion-label position="stacked">Email</ion-label>
+        <ion-input placeholder="Email" [(ngModel)]="usuario.email" type="email"></ion-input>
+      </ion-item>
 
-    <!-- Botões -->
-    <ion-button expand="block" color="dark" class="btn-salvar" (click)="salvarPerfil()">Salvar Alterações</ion-button>
-    <ion-button expand="block" color="danger" class="btn-logout" (click)="logout()">Logout</ion-button>
+      <ion-item>
+        <ion-label position="stacked">Endereço</ion-label>
+        <ion-input placeholder="Endereço" [(ngModel)]="usuario.endereco"></ion-input>
+      </ion-item>
+    </ion-list>
 
+    <div class="botoes">
+      <ion-button expand="block" color="dark" class="btn-salvar" (click)="salvarPerfil()">Salvar Alterações</ion-button>
+      <ion-button expand="block" color="danger" class="btn-logout" (click)="logout()">Logout</ion-button>
+    </div>
   </div>
 </ion-content>
