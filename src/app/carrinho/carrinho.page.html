@@ -44,7 +44,7 @@
       </ion-list>
 
       <!-- Valor total só aparece se houver itens -->
-      <ion-card *ngIf="itens.length > 0" style="margin: 16px; border-radius: 20px;">
+      <ion-card *ngIf="itens.length > 0">
         <ion-card-content>
           <h3>Valor Total: R$ {{ valorTotalCarrinho$ | async | number:'1.2-2' }}</h3>
         </ion-card-content>
@@ -53,35 +53,37 @@
       <!-- formas de pagamento -->
       <!-- src/app/carrinho/carrinho.page.html -->
 
-<div class="pagamento-fixo">
-  <ion-radio-group [(ngModel)]="formaPagamento">
-    <ion-card (click)="formaPagamento = 'pix'">
-      <ion-card-content>
-        <ion-radio slot="start" value="pix"></ion-radio>
-        <ion-icon name="qr-code-outline" size="large"></ion-icon>
-        <ion-label>
-          <h2>Pix</h2>
-          <p>Pagamento instantâneo via QR Code</p>
-        </ion-label>
-      </ion-card-content>
-    </ion-card>
+      <div class="pagamento-fixo">
+        <ion-radio-group [(ngModel)]="formaPagamento">
+          <ion-card (click)="formaPagamento = 'pix'">
+            <ion-card-content>
+              <ion-radio slot="start" value="pix"></ion-radio>
+              <ion-icon name="qr-code-outline" size="large"></ion-icon>
+              <ion-label>
+                <h2>Pix</h2>
+                <p>Pagamento instantâneo via QR Code</p>
+              </ion-label>
+            </ion-card-content>
+          </ion-card>
 
-    <ion-card (click)="formaPagamento = 'cartao'">
-      <ion-card-content>
-        <ion-radio slot="start" value="cartao"></ion-radio>
-        <ion-icon name="card-outline" size="large"></ion-icon>
-        <ion-label>
-          <h2>Cartão</h2>
-          <p>Crédito/Débito</p>
-        </ion-label>
-      </ion-card-content>
-    </ion-card>
-  </ion-radio-group>
+          <ion-card (click)="formaPagamento = 'cartao'">
+            <ion-card-content>
+              <ion-radio slot="start" value="cartao"></ion-radio>
+              <ion-icon name="card-outline" size="large"></ion-icon>
+              <ion-label>
+                <h2>Cartão</h2>
+                <p>Crédito/Débito</p>
+              </ion-label>
+            </ion-card-content>
+          </ion-card>
+        </ion-radio-group>
 
-  <ion-button expand="block" color="primary" (click)="finalizarPagamento(formaPagamento)">
-    Finalizar Compra
-  </ion-button>
-</div>
+        <div class="botao-pagar">
+          <ion-button expand="block" color="primary" (click)="finalizarPagamento(formaPagamento)">
+            Finalizar Compra
+          </ion-button>
+        </div>
+      </div>
     </ng-template>
   </ng-container>
 </ion-content>

@@ -146,7 +146,12 @@ export const routes: Routes = [
     path: 'pedidos-test',
     loadComponent: () => import('./pedidos-test/pedidos-test.page').then( m => m.PedidosTestPage)
     
-  },  {
+  },
+  {
+    path: 'horario',
+    loadComponent: () => import('./horario/horario.page').then( m => m.HorarioPage)
+  },
+  {
     path: 'pix-modal',
     loadComponent: () => import('./pix-modal/pix-modal.page').then( m => m.PixModalPage)
   }

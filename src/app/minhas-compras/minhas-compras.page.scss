@@ -13,7 +13,8 @@ ion-toolbar {
 
 /* Lista de compras */
 .compras-list {
-  padding: 16px;
+  padding: 16px;  
+  background: #000000; /* fundo sólido */
 }
 
 /* Card */
@@ -33,6 +34,9 @@ ion-toolbar {
    --background: #202020; /* fundo sólido */
 
 }
+
+
+
 
 /* Data da compra */
 .data-compra {

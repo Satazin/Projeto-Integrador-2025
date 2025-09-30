@@ -197,7 +197,12 @@ async pegarImagem(source: CameraSource) {
       const alert = await this.alertController.create({
         header: 'Sucesso',
         message: 'Informações atualizadas!',
-        buttons: ['OK']
+        buttons: [{
+          text: 'OK',
+          handler: () => {
+            this.router.navigate(['/pedidos']);
+          }
+        }]
       });
       await alert.present();
 

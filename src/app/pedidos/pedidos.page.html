@@ -9,7 +9,10 @@
     <ion-title>Casa Bonsai</ion-title>
     <ion-buttons slot="end" class="casa-bonsai">
        
-      <ion-button fill="clear" color="dark" routerLink="/carrinho">
+      <ion-button fill="clear" color="dark" routerLink="/horario">
+        <ion-icon slot="icon-only" name="time-outline"></ion-icon>
+      </ion-button>
+       <ion-button fill="clear" color="dark" routerLink="/carrinho">
         <ion-icon slot="icon-only" name="cart-outline"></ion-icon>
       </ion-button>
       <ion-button fill="clear" color="dark" (click)="abrirPerfil()">
@@ -27,8 +30,7 @@
     </ion-toolbar>
   </ion-header>
   <ion-content class="ion-padding">
-    <ion-list>
-
+    <ion-list class="menu-list">
       <ion-item routerLink="/minhas-compras">Minhas Compras</ion-item>
       <ion-item routerLink="/brindes">Brindes</ion-item>
       <ion-item routerLink="/localizacao">Nosso Espaço</ion-item>
@@ -44,6 +46,7 @@
     <h1>Seja bem-vindo ao <br>Casa Bonsai!</h1>
   </div>
   <img src="assets/lights.jpg" alt="Lanternas japonesas" class="banner-lanternas" />
+
 
   <div class="search-bar-container">
     <ion-searchbar ngDefaultControl [(ngModel)]="termoBusca" placeholder="Buscar produto..." color="light"
@@ -71,7 +74,7 @@
         <div class="produto-info">
           <div class="produto-nome">{{item.nome}}</div>
           <div class="produto-desc">{{item.descricao}}</div>
-          <div class="produto-serve">Serve {{item.serve}}</div>
+          <div class="produto-serve">Serve {{item.serve}} pessoa</div>
           <div class="produto-preco">R$ {{item.preco | number:'1.2-2'}}</div>
         </div>
       </button>
