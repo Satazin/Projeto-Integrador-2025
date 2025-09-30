@@ -2,7 +2,7 @@
 
 import { Component, Input, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonicModule, ModalController } from '@ionic/angular';
+import { IonicModule, ModalController, AlertController } from '@ionic/angular';
 import QRCode from 'qrcode';
 
 @Component({
@@ -21,7 +21,9 @@ export class PixModalPage implements AfterViewInit {
 
   @ViewChild('qrcodeCanvas') qrcodeCanvas!: ElementRef;
 
-  constructor(private modalCtrl: ModalController) {}
+  constructor(
+    private modalCtrl: ModalController,
+  private alertController: AlertController) {}
 
   ngAfterViewInit() {
     this.gerarQRCode();
@@ -42,18 +44,21 @@ export class PixModalPage implements AfterViewInit {
     }
   }
 
-  async copiarCodigo() {
+  async copiarCodigoPix() {
+  try {
     await navigator.clipboard.writeText(this.codigoPix);
-    const copyAlert = await this.modalCtrl.create({
-      component: 'ion-alert',
-      componentProps: {
-        header: 'Copiado!',
-        message: 'Código Pix copiado para a área de transferência!',
-        buttons: ['OK']
-      }
+    // Alerta bonitinho
+    const alert = await this.alertController.create({
+      header: 'Copiado!',
+      message: 'O código Pix foi copiado para a área de transferência!',
+      buttons: ['OK']
     });
-    await copyAlert.present();
+    await alert.present();
+  } catch (err) {
+    console.error('Erro ao copiar', err);
   }
+}
+
 
   // Novo método para voltar sem finalizar a compra
   voltarParaCarrinho() {

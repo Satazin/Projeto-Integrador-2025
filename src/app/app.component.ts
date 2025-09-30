@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { cartOutline, pin, create, trashOutline,timeOutline , personCircleOutline, person, star, logoWhatsapp, logoInstagram, logoFacebook, shareSocialOutline, informationCircle, informationCircleOutline, radioButtonOn, bicycleOutline, checkmarkCircleOutline, copyOutline, checkmarkOutline, addOutline } from 'ionicons/icons';
+import { cartOutline, pin, create, trashOutline,timeOutline , personCircleOutline, person, star, logoWhatsapp, logoInstagram, logoFacebook, shareSocialOutline, informationCircle, informationCircleOutline, radioButtonOn, bicycleOutline, checkmarkCircleOutline, copyOutline, checkmarkOutline, addOutline, radioButtonOnOutline, chatbubbleEllipsesOutline } from 'ionicons/icons';
 
 
 
@@ -31,7 +31,8 @@ export class AppComponent {
       copyOutline,
       checkmarkOutline,
       addOutline,
-      informationCircleOutline
+      informationCircleOutline,
+      radioButtonOnOutline,
     });
   }
 }

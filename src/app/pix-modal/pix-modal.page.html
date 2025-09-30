@@ -9,25 +9,27 @@
 
 <ion-content class="ion-padding">
   <div class="pix-container">
-    
-    <canvas #qrcodeCanvas class="qrcode-canvas"></canvas> 
+
+    <canvas #qrcodeCanvas class="qrcode-canvas"></canvas>
     <p class="valor-total">
       Valor a pagar: <strong>R$ {{ valorTotal | number:'1.2-2' }}</strong>
     </p>
     <p class="instrucoes">Escaneie o QR Code ou use o código Pix Copia e Cola para pagar.</p>
-    
-    <div class="codigo-pix-box">
+
+    <div class="codigo-pix-box" (click)="copiarCodigoPix()">
       <p>Código Pix:</p>
       <span class="codigo">{{ codigoPix }}</span>
     </div>
 
-    <ion-button color="primary" expand="block" (click)="copiarCodigo()">
-      <ion-icon slot="start" name="copy-outline"></ion-icon>
-      Copiar Código
-    </ion-button>
-    <ion-button color="primary" expand="block" (click)="finalizarCompra()">
-      <ion-icon slot="start" name="checkmark-outline"></ion-icon>
-      Finalizar Compra
-    </ion-button>
+    <div class="botoes">
+      <ion-button class="copiar" (click)="copiarCodigoPix()">
+        <ion-icon slot="start" name="copy-outline"></ion-icon>
+        Copiar Código
+      </ion-button>
+      <ion-button class="finalizar" (click)="finalizarCompra()">
+        <ion-icon slot="start" name="checkmark-outline"></ion-icon>
+        Finalizar Compra
+      </ion-button>
+    </div>
   </div>
 </ion-content>

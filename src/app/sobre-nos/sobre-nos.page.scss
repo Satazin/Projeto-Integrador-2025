@@ -28,7 +28,7 @@
 /* Texto */
 .sobre-nos-text {
   color: #ffffff;
-  font-size: 1.1em;
+  font-size: 1.2em;
   text-align: justify;
   max-width: 800px;
   line-height: 1.6;
@@ -46,4 +46,14 @@
 @font-face {
   font-family: 'chinese';
   src: url('/assets/fonte.ttf') format('truetype');
+}
+.logo-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.logo-bonsai {
+  width: 150px; /* ajusta o tamanho conforme quiser */
+  height: auto;
 }
