@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink, Router } from '@angular/router';
@@ -10,11 +10,11 @@ import {
   IonList,
   IonItem,
   IonButtons,
-  IonIcon, 
-  IonButton, 
+  IonIcon,
+  IonButton,
   IonAvatar,
   IonMenuButton,
-  IonMenu, 
+  IonMenu,
   AlertController,
   LoadingController
 } from '@ionic/angular/standalone';
@@ -28,7 +28,7 @@ import { AuthService } from '../services/auth';
   styleUrls: ['./pedidos.page.scss'],
   standalone: true,
   imports: [
-   IonAvatar, IonButton, IonIcon,
+    IonAvatar, IonButton, IonIcon,
     CommonModule, FormsModule, RouterLink,
     IonContent, IonHeader, IonTitle, IonToolbar,
     IonList, IonItem, IonButtons, IonMenuButton, IonMenu
@@ -44,7 +44,6 @@ export class PedidosPage implements OnInit, AfterViewInit {
     { id: 'niguiris', nome: 'NIGUIRIS' },
     { id: 'hot', nome: 'HOT' },
     { id: 'bebidas', nome: 'BEBIDAS' },
-
   ];
   public categoriaEmFoco: string = 'poke';
   termoBusca: string = '';
@@ -85,14 +84,15 @@ export class PedidosPage implements OnInit, AfterViewInit {
     });
   }
 
-  // FILTRAR POR CATEGORIA
+  // FILTRAR POR CATEGORIA E BUSCA
   itensPorCategoria(cat: string) {
-    return this.pedidos.filter(i => i.categoria === cat)
-    .filter(i =>
-      !this.termoBusca || 
-      i.nome.toLowerCase().includes(this.termoBusca.toLowerCase()) || 
-      i.descricao.toLowerCase().includes(this.termoBusca.toLowerCase())
-    );
+    return this.pedidos
+      .filter(i => i.categoria === cat)
+      .filter(i =>
+        !this.termoBusca ||
+        i.nome.toLowerCase().includes(this.termoBusca.toLowerCase()) ||
+        i.descricao.toLowerCase().includes(this.termoBusca.toLowerCase())
+      );
   }
 
   // SCROLL SUAVE PARA A CATEGORIA
@@ -103,8 +103,6 @@ export class PedidosPage implements OnInit, AfterViewInit {
     }
   }
 
-
- 
   onScroll() {
     const scrollEl = this.elRef.nativeElement.querySelector('ion-content');
     if (scrollEl) {
@@ -128,7 +126,6 @@ export class PedidosPage implements OnInit, AfterViewInit {
     this.router.navigate(['/infoitens', item.id], { state: { item } });
   }
 
-  // Nova função para verificar o login e navegar
   async abrirPerfil() {
     const usuarioLogado = this.authService.usuarioLogado;
     if (usuarioLogado) {
@@ -137,9 +134,18 @@ export class PedidosPage implements OnInit, AfterViewInit {
       const alert = await this.alertController.create({
         header: 'Acesso Restrito',
         message: 'Por favor, faça login para acessar seu perfil.',
-        buttons: ['Cancelar', { text: 'Login', handler: () => this.router.navigate(['/login']) }]
+        buttons: [
+          'Cancelar',
+          {
+            text: 'Login',
+            handler: () => this.router.navigate(['/login'])
+          }
+        ]
       });
       await alert.present();
     }
   }
+  limparBusca() {
+  this.termoBusca = '';
+}
 }
