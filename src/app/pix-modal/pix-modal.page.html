@@ -21,15 +21,12 @@
     </p>
     <p class="instrucoes">Escaneie o QR Code ou use o código Pix Copia e Cola para pagar.</p>
     
-    <div class="codigo-pix-box">
+    <div class="codigo-pix-box" (click)="copiarCodigo()">
       <p>Código Pix:</p>
       <span class="codigo">{{ codigoPix }}</span>
-    </div>
-
-    <ion-button expand="block" (click)="copiarCodigo()">
       <ion-icon slot="start" name="copy-outline"></ion-icon>
-      Copiar Código
-    </ion-button>
+    </div>
+    
     <ion-button expand="block" (click)="finalizarCompra()">
       Finalizar Compra
     </ion-button>
