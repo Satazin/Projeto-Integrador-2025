@@ -37,9 +37,12 @@
         <ion-input placeholder="Email" [(ngModel)]="usuario.email" type="email"></ion-input>
       </ion-item>
 
-      <ion-item>
+      <ion-item (click)="selecionarEndereco()" detail>
+
+
         <ion-label position="stacked">Endereço</ion-label>
-        <ion-input placeholder="Endereço" [(ngModel)]="usuario.endereco"></ion-input>
+        <ion-input placeholder="Toque para selecionar no mapa" [ngModel]="usuario.endereco" readonly>
+        </ion-input>
       </ion-item>
     </ion-list>
 

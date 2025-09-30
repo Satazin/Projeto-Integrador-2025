@@ -1,13 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+// src/app/perfil/perfil.component.ts
+
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { IonicModule, AlertController, ActionSheetController} from '@ionic/angular';
+import { IonicModule, AlertController, ActionSheetController } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { Auth, onAuthStateChanged, User } from '@angular/fire/auth';
 import { Firestore, doc, getDoc, setDoc } from '@angular/fire/firestore';
-import { getDatabase, ref, onValue, set } from "firebase/database";
+import { getDatabase, ref, get, set } from "firebase/database";
 import { AuthService } from '../../services/auth';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
+import { EnderecoTransferService } from 'src/app/services/endereco-transfer'; // IMPORTADO: O Serviço
 
 interface Usuario {
   nomeUsuario: string;
@@ -39,7 +42,7 @@ export class PerfilComponent implements OnInit {
   private selectedFile: File | null = null;
   private dbRT;
 
-  public isUpdating: boolean = false; // Variável para controlar o status de atualização
+  public isUpdating: boolean = false;
 
   constructor(
     private auth: Auth,
@@ -48,6 +51,9 @@ export class PerfilComponent implements OnInit {
     private router: Router,
     private alertController: AlertController,
     private actionSheetCtrl: ActionSheetController,
+    private activatedRoute: ActivatedRoute,
+    private cdRef: ChangeDetectorRef,
+    private enderecoTransfer: EnderecoTransferService 
   ) {
     this.dbRT = getDatabase();
   }
@@ -55,90 +61,100 @@ export class PerfilComponent implements OnInit {
   async ngOnInit() {
     onAuthStateChanged(this.auth, async (user) => {
       if (user) {
-        this.userId = user.uid;
+        this.userId = user.uid; 
         await this.carregarPerfil();
+
+        await this.lerEnderecoDoServico();
       }
     });
   }
 
-async selecionarImagem() {
-  const actionSheet = await this.actionSheetCtrl.create({
-    header: 'Selecionar imagem',
-    buttons: [
-      {
-        text: '📷 Câmera',
-        handler: () => {
-          this.pegarImagem(CameraSource.Camera);
-        }
-      },
-      {
-        text: '🖼️ Galeria',
-        handler: () => {
-          this.pegarImagem(CameraSource.Photos);
-        }
-      },
-      {
-        text: 'Cancelar',
-        role: 'cancel',
-        data: { action: 'cancel' }
-      }
-    ]
-  });
-  await actionSheet.present();
-}
+  async selecionarEndereco() {
+    this.router.navigate(['/localizacao']);
+  }
 
-  // PEGAR IMAGEM BASE64
-async pegarImagem(source: CameraSource) {
-  try {
-    const image = await Camera.getPhoto({
-      quality: 70,
-      allowEditing: false,
-      resultType: CameraResultType.Base64,
-      source
-    });
-
-    if (image?.base64String) {
-      this.fotoUrl = `data:image/jpeg;base64,${image.base64String}`;
+  private async salvarApenasEndereco(endereco: string) {
+    if (!this.userId) {
+      console.error('ERRO DE SALVAMENTO: userId não está definido.');
+      return;
     }
-  } catch (err) {
-    console.error('Erro ao pegar imagem:', err);
-    const a = await this.alertController.create({
-      header: 'Erro',
-      message: 'Falha ao obter imagem.',
-      buttons: ['OK']
-    });
-    await a.present();
+    if (!endereco) return;
+
+    try {
+      const enderecoRef = ref(this.dbRT, 'usuarios/' + this.userId + '/endereco');
+      await set(enderecoRef, endereco);
+      console.log(`Endereço [${endereco}] salvo com sucesso no RTDB para o usuário ${this.userId}.`); // Log de sucesso
+    } catch (error) {
+      console.error('ERRO FATAL ao salvar endereço no RTDB. Verifique as Regras de Segurança do seu Firebase:', error);
+    }
   }
-}
+
+  private async lerEnderecoDoServico() {
+    const novoEndereco = this.enderecoTransfer.getEndereco();
+    console.log('Endereço lido do Serviço:', novoEndereco); 
+
+    if (novoEndereco) {
+      this.usuario.endereco = novoEndereco;
+      this.cdRef.detectChanges(); 
+      await this.salvarApenasEndereco(novoEndereco);
+    }
+  }
+
+  async selecionarImagem() {
+    const actionSheet = await this.actionSheetCtrl.create({
+      header: 'Selecionar imagem',
+      buttons: [
+        {
+          text: '📷 Câmera',
+          handler: () => {
+            this.pegarImagem(CameraSource.Camera);
+          }
+        },
+        {
+          text: '🖼️ Galeria',
+          handler: () => {
+            this.pegarImagem(CameraSource.Photos);
+          }
+        },
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          data: { action: 'cancel' }
+        }
+      ]
+    });
+    await actionSheet.present();
+  }
+
+  // PEGAR IMAGEM BASE64 (sem alterações)
+  async pegarImagem(source: CameraSource) {
+    try {
+      const image = await Camera.getPhoto({
+        quality: 70,
+        allowEditing: false,
+        resultType: CameraResultType.Base64,
+        source
+      });
+
+      if (image?.base64String) {
+        this.fotoUrl = `data:image/jpeg;base64,${image.base64String}`;
+      }
+    } catch (err) {
+      console.error('Erro ao pegar imagem:', err);
+      const a = await this.alertController.create({
+        header: 'Erro',
+        message: 'Falha ao obter imagem.',
+        buttons: ['OK']
+      });
+      await a.present();
+    }
+  }
 
 
   async carregarPerfil() {
     if (!this.userId) return;
-    
-    const nomeRef = ref(this.dbRT, 'usuarios/' + this.userId + '/nome');
-    onValue(nomeRef, (snapshot) => {
-      const nomeDoRealtime = snapshot.val();
-      if (nomeDoRealtime) {
-        this.usuario.nomeUsuario = nomeDoRealtime;
-      }
-    });
 
-    const telefoneRef = ref(this.dbRT, 'usuarios/' + this.userId + '/telefone');
-    onValue(telefoneRef, (snapshot) => {
-      const telefoneDoRealtime = snapshot.val();
-      if (telefoneDoRealtime) {
-        this.usuario.telefone = telefoneDoRealtime;
-      }
-    });
-
-    const enderecoRef = ref(this.dbRT, 'usuarios/' + this.userId + '/endereco');
-    onValue(enderecoRef, (snapshot) => {
-      const enderecoDoRealtime = snapshot.val();
-      if (enderecoDoRealtime) {
-        this.usuario.endereco = enderecoDoRealtime;
-      }
-    });
-
+    // Carregamento do Firestore (sem alterações)
     try {
       const userDocRef = doc(this.db, 'usuarios', this.userId);
       const userDocSnap = await getDoc(userDocRef);
@@ -150,13 +166,34 @@ async pegarImagem(source: CameraSource) {
           this.fotoUrl = dados.fotoUrl;
         }
       } else {
-        console.log("Documento do usuário não encontrado. Criando...");
         await this.criarDocumentoPadrao(this.auth.currentUser as User);
       }
     } catch (error) {
       console.error('Erro ao carregar o perfil do Firestore:', error);
     }
+
+    // Carregamento do RTDB com 'get' (sem alterações)
+    try {
+      const nomePromise = get(ref(this.dbRT, 'usuarios/' + this.userId + '/nome'));
+      const telefonePromise = get(ref(this.dbRT, 'usuarios/' + this.userId + '/telefone'));
+      const enderecoPromise = get(ref(this.dbRT, 'usuarios/' + this.userId + '/endereco'));
+
+      const [nomeSnap, telefoneSnap, enderecoSnap] = await Promise.all([nomePromise, telefonePromise, enderecoPromise]);
+
+      if (nomeSnap.exists()) {
+        this.usuario.nomeUsuario = nomeSnap.val();
+      }
+      if (telefoneSnap.exists()) {
+        this.usuario.telefone = telefoneSnap.val();
+      }
+      if (enderecoSnap.exists()) {
+        this.usuario.endereco = enderecoSnap.val();
+      }
+    } catch (error) {
+      console.error('Erro ao carregar dados do RTDB:', error);
+    }
   }
+
 
   async criarDocumentoPadrao(user: User | null) {
     if (!this.userId || !user) return;
@@ -166,13 +203,12 @@ async pegarImagem(source: CameraSource) {
       telefone: '',
       fotoUrl: this.placeholderUrl
     });
-    await this.carregarPerfil();
   }
 
-  async salvarPerfil() {
+  async salvarPerfil(shouldNavigate: boolean = true) {
     if (!this.userId) return;
-    
-    this.isUpdating = true; // Mostra o spinner e o texto
+
+    this.isUpdating = true;
 
     try {
       const userDocRef = doc(this.db, 'usuarios', this.userId);
@@ -192,24 +228,23 @@ async pegarImagem(source: CameraSource) {
       const telefoneRT = ref(this.dbRT, 'usuarios/' + this.userId + '/telefone');
       await set(telefoneRT, this.usuario.telefone || '');
 
-      this.isUpdating = false; // Esconde o spinner e o texto em caso de sucesso
+      this.isUpdating = false;
 
-      const alert = await this.alertController.create({
-        header: 'Sucesso',
-        message: 'Informações atualizadas!',
-        buttons: [{
-          text: 'OK',
-          handler: () => {
-            this.router.navigate(['/pedidos']);
-          }
-        }]
-      });
-      await alert.present();
+      if (shouldNavigate) {
+        const alert = await this.alertController.create({
+          header: 'Sucesso',
+          message: 'Informações atualizadas!',
+          buttons: [{
+            text: 'OK',
+          }]
+        });
+        await alert.present();
+      }
 
     } catch (error) {
       console.error('Erro ao salvar o perfil:', error);
-      this.isUpdating = false; // Esconde o spinner e o texto em caso de erro
-      
+      this.isUpdating = false;
+
       const alert = await this.alertController.create({
         header: 'Erro',
         message: 'Falha ao salvar o perfil. Tente novamente.',

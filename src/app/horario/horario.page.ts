@@ -9,7 +9,7 @@ import { RouterLink } from '@angular/router';
   templateUrl: './horario.page.html',
   styleUrls: ['./horario.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule, RouterLink]
+  imports: [IonicModule, CommonModule, FormsModule]
 })
 export class HorarioPage implements OnInit {
 

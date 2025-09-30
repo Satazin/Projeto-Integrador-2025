@@ -1,5 +1,3 @@
-// src/app/pix-modal/pix-modal.page.ts
-
 import { Component, Input, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule, ModalController, ToastController, AlertController} from '@ionic/angular';
@@ -19,7 +17,6 @@ import { Clipboard } from '@capacitor/clipboard';
 export class PixModalPage implements AfterViewInit {
   @Input() codigoPix!: string;
   @Input() valorTotal!: number;
-
   @ViewChild('qrcodeCanvas') qrcodeCanvas!: ElementRef;
 
   constructor(
