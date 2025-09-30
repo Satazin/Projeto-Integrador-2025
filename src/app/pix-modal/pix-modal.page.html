@@ -1,14 +1,9 @@
 <ion-header>
-  <ion-toolbar color="primary">
+  <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/carrinho" (click)="voltarParaCarrinho()" text="Voltar"></ion-back-button>
+      <ion-back-button color="dark" defaultHref="/carrinho" (click)="voltarParaCarrinho()" text=""></ion-back-button>
     </ion-buttons>
     <ion-title>Pagamento Pix</ion-title>
-    <ion-buttons slot="end">
-      <ion-button (click)="finalizarCompra()">
-        <ion-icon name="close"></ion-icon>
-      </ion-button>
-    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -21,15 +16,12 @@
     </p>
     <p class="instrucoes">Escaneie o QR Code ou use o código Pix Copia e Cola para pagar.</p>
     
-    <div class="codigo-pix-box">
+    <div class="codigo-pix-box" (click)="copiarCodigo()">
       <p>Código Pix:</p>
       <span class="codigo">{{ codigoPix }}</span>
-    </div>
-
-    <ion-button expand="block" (click)="copiarCodigo()">
       <ion-icon slot="start" name="copy-outline"></ion-icon>
-      Copiar Código
-    </ion-button>
+    </div>
+    
     <ion-button expand="block" (click)="finalizarCompra()">
       Finalizar Compra
     </ion-button>
