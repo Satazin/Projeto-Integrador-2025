@@ -14,6 +14,7 @@ import { AuthService } from '../services/auth'; // Importe o AuthService
   standalone: true,
   imports: [IonicModule, CommonModule, FormsModule]
 })
+
 export class InfoitensPage implements OnInit {
   item: any = null;
   quantidade = 1;
@@ -29,7 +30,7 @@ export class InfoitensPage implements OnInit {
     private loadingController: LoadingController,
     private alertController: AlertController, // Injeta o AlertController
     private authService: AuthService // Injeta o AuthService
-  ) {}
+  ) { }
 
   async ngOnInit() {
     const nav = this.router.getCurrentNavigation();
@@ -114,10 +115,21 @@ export class InfoitensPage implements OnInit {
         { ...this.item, observacao: this.observacao },
         this.quantidade
       );
-      console.log('Item adicionado ao carrinho com sucesso!');
+
+      // Exibe um alerta de sucesso em vez do console.log
+      const alert = await this.alertController.create({
+        header: 'Sucesso!',
+        message: 'Item adicionado ao carrinho.'
+      });
+      await alert.present();
+
     } catch (error) {
       console.error('Erro ao adicionar item ao carrinho:', error);
-      alert('Erro ao adicionar item ao carrinho. Tente novamente.');
+      const errorAlert = await this.alertController.create({
+        header: 'Erro',
+        message: 'Erro ao adicionar item ao carrinho. Tente novamente.'
+      });
+      await errorAlert.present();
     } finally {
       await loading.dismiss();
     }
