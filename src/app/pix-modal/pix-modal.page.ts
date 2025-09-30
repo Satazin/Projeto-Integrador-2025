@@ -2,8 +2,13 @@
 
 import { Component, Input, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+<<<<<<< HEAD
 import { IonicModule, ModalController, AlertController } from '@ionic/angular';
+=======
+import { IonicModule, ModalController, ToastController, AlertController} from '@ionic/angular';
+>>>>>>> 6951d9c414c6986f2b75d1340696027cac08d212
 import QRCode from 'qrcode';
+import { Clipboard } from '@capacitor/clipboard';
 
 @Component({
   selector: 'app-pix-modal',
@@ -23,7 +28,13 @@ export class PixModalPage implements AfterViewInit {
 
   constructor(
     private modalCtrl: ModalController,
+<<<<<<< HEAD
   private alertController: AlertController) {}
+=======
+    private toastCtrl: ToastController,
+    private alertCtrl: AlertController
+  ) {}
+>>>>>>> 6951d9c414c6986f2b75d1340696027cac08d212
 
   ngAfterViewInit() {
     this.gerarQRCode();
@@ -44,6 +55,7 @@ export class PixModalPage implements AfterViewInit {
     }
   }
 
+<<<<<<< HEAD
   async copiarCodigoPix() {
   try {
     await navigator.clipboard.writeText(this.codigoPix);
@@ -56,6 +68,28 @@ export class PixModalPage implements AfterViewInit {
     await alert.present();
   } catch (err) {
     console.error('Erro ao copiar', err);
+=======
+    async copiarCodigo() {
+    try {
+      await Clipboard.write({ string: this.codigoPix });
+
+      const toast = await this.toastCtrl.create({
+        message: 'Código Pix copiado!',
+        duration: 2000,
+        color: 'success',
+        position: 'bottom'
+      });
+      await toast.present();
+    } catch (err) {
+      console.error('Erro ao copiar Pix:', err);
+      const alert = await this.alertCtrl.create({
+        header: 'Erro',
+        message: 'Não foi possível copiar o código Pix.',
+        buttons: ['OK']
+      });
+      await alert.present();
+    }
+>>>>>>> 6951d9c414c6986f2b75d1340696027cac08d212
   }
 }
 

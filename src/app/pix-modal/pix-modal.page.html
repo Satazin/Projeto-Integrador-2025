@@ -15,6 +15,7 @@
       Valor a pagar: <strong>R$ {{ valorTotal | number:'1.2-2' }}</strong>
     </p>
     <p class="instrucoes">Escaneie o QR Code ou use o código Pix Copia e Cola para pagar.</p>
+<<<<<<< HEAD
 
     <div class="codigo-pix-box" (click)="copiarCodigoPix()">
       <p>Código Pix:</p>
@@ -31,5 +32,17 @@
         Finalizar Compra
       </ion-button>
     </div>
+=======
+    
+    <div class="codigo-pix-box" (click)="copiarCodigo()">
+      <p>Código Pix:</p>
+      <span class="codigo">{{ codigoPix }}</span>
+      <ion-icon slot="start" name="copy-outline"></ion-icon>
+    </div>
+    
+    <ion-button expand="block" (click)="finalizarCompra()">
+      Finalizar Compra
+    </ion-button>
+>>>>>>> 6951d9c414c6986f2b75d1340696027cac08d212
   </div>
 </ion-content>
