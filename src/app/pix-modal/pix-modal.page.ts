@@ -2,7 +2,7 @@
 
 import { Component, Input, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonicModule, ModalController, ToastController, AlertController} from '@ionic/angular';
+import { IonicModule, ModalController, AlertController } from '@ionic/angular';
 import QRCode from 'qrcode';
 import { Clipboard } from '@capacitor/clipboard';
 
@@ -24,9 +24,7 @@ export class PixModalPage implements AfterViewInit {
 
   constructor(
     private modalCtrl: ModalController,
-    private toastCtrl: ToastController,
-    private alertCtrl: AlertController
-  ) {}
+  private alertController: AlertController) {}
 
   ngAfterViewInit() {
     this.gerarQRCode();
@@ -47,27 +45,21 @@ export class PixModalPage implements AfterViewInit {
     }
   }
 
-    async copiarCodigo() {
-    try {
-      await Clipboard.write({ string: this.codigoPix });
-
-      const toast = await this.toastCtrl.create({
-        message: 'Código Pix copiado!',
-        duration: 2000,
-        color: 'success',
-        position: 'bottom'
-      });
-      await toast.present();
-    } catch (err) {
-      console.error('Erro ao copiar Pix:', err);
-      const alert = await this.alertCtrl.create({
-        header: 'Erro',
-        message: 'Não foi possível copiar o código Pix.',
-        buttons: ['OK']
-      });
-      await alert.present();
-    }
+  async copiarCodigoPix() {
+  try {
+    await navigator.clipboard.writeText(this.codigoPix);
+    // Alerta bonitinho
+    const alert = await this.alertController.create({
+      header: 'Copiado!',
+      message: 'O código Pix foi copiado para a área de transferência!',
+      buttons: ['OK']
+    });
+    await alert.present();
+  } catch (err) {
+    console.error('Erro ao copiar', err);
   }
+}
+
 
   // Novo método para voltar sem finalizar a compra
   voltarParaCarrinho() {

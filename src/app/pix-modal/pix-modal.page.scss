@@ -3,10 +3,10 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  margin-top: 20px;
+  margin-top: 60px;
 }
 
-ion-toolbar{
+ion-toolbar {
   --background: #000000;
 }
 
@@ -16,7 +16,7 @@ ion-toolbar{
   padding: 5px;
   background-color: white;
   margin-bottom: 20px;
-  
+
 }
 
 .valor-total {
@@ -53,7 +53,7 @@ ion-toolbar{
 
 .codigo-container .codigo {
   word-break: break-all;
-  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 1em;
   font-weight: bold;
   color: var(--ion-color-dark);
@@ -64,6 +64,11 @@ ion-toolbar{
   color: var(--ion-color-primary);
 }
 
-ion-button {
-  margin-top: 10px;
+.botoes {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  margin-top: 20px;
+  align-items: center;
 }

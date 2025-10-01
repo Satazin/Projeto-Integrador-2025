@@ -9,9 +9,9 @@
 }
 
 ion-title {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     text-align: left;
-    font-size: 1em;
+    font-size: 1.4em;
     color: #ffffff;
 }
 
@@ -24,10 +24,9 @@ ion-avatar {
 .categorias-menu {
     display: flex;
     justify-content: center;
-    gap: 32px;
+   
     margin: 32px 0 18px 0;
 }
-
 
 .categorias-menu button {
     background: none;
@@ -35,16 +34,18 @@ ion-avatar {
     font-size: 1em;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: #ffffff;
-    padding: 6px 18px;
-    border-radius: 3px;
-
+    border-radius: 8px; /* bordas mais arredondadas */
+    padding: 8px ; /* espaço interno para o texto não cortar */
 }
 
+/* Hover e botão selecionado */
 .categorias-menu button.selected,
 .categorias-menu button:hover {
     background: #444343;
-    color: #fff;
+    color: #ffffff;
+    
 }
+
 
 .produtos-lista {
     display: flex;
@@ -182,14 +183,11 @@ ion-badge {
     box-shadow: 0 10px 20px -5px rgb(0, 0, 0);
     margin: auto;
     overflow-x: auto;
-    /* scroll horizontal */
     overflow-y: hidden;
     position: relative;
     width: 90%;
     scroll-snap-type: x mandatory;
-    /* efeito de snap */
     -webkit-overflow-scrolling: touch;
-    /* suave no mobile */
     font-size: 1.3em;
 }
 
@@ -218,7 +216,6 @@ ion-toolbar {
     font-weight: bold;
     color: #ffffff;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-
     font-size: 1.4em;
 }
 
@@ -227,8 +224,6 @@ ion-toolbar {
     top: 40px; // Altura da barra de pesquisa (ajuste se necessário)
     z-index: 10;
     background: #000000;
-    padding-bottom: 8px;
-
 }
 
 .search-bar-container {
@@ -239,9 +234,9 @@ ion-toolbar {
     position: sticky;
     top: 0;
     z-index: 20;
-    background: #000000; // Mesma cor do fundo para não sobrepor
+    background: #000000; 
     padding-top: 12px;
-    padding-bottom: 6px;
+
 }
 
 .search-bar-custom {

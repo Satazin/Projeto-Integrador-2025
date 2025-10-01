@@ -23,7 +23,8 @@ import {
   checkmarkCircleOutline,
   copyOutline,
   checkmarkOutline,
-  addOutline
+  addOutline,
+  radioButtonOnOutline
 } from 'ionicons/icons';
 import { filter } from 'rxjs/operators';
 import { AuthService } from './services/auth';
@@ -62,7 +63,8 @@ export class AppComponent {
       copyOutline,
       checkmarkOutline,
       addOutline,
-      informationCircleOutline
+      informationCircleOutline,
+      radioButtonOnOutline,
     });
 
     // controla exibição do menu baseado na rota

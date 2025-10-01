@@ -1,185 +1,192 @@
-.block {
-  width: 100%;
-  height: 300px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
+/* ===== Cabeçalho ===== */
 ion-header,
 ion-toolbar {
-  --background: #000000;
+  --background: #000;
   --color: #fff;
-
 }
 
+
+/* ===== Fundo ===== */
 ion-content {
   --background: #000000;
-  min-height: 100vh;
-  padding-bottom: 24px;
+
 }
 
+
+/* Lista do carrinho */
 ion-list {
   background: transparent;
-  margin-bottom: 0;
+  padding: 10px;
 }
 
 ion-item {
-  --background: #232323;
-  padding: 10px;
-  color: #fff;
+  --background: #2d2d2d;
+   border-radius: 15px;
 }
 
+/* Imagem do produto */
+ion-thumbnail {
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+  padding: 2px;
+  margin-left: 0px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+ion-thumbnail img {
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+}
+
+/* Texto do produto */
+ion-label {
+  display: flex;
+  flex-direction: column;
+}
 
 ion-label h2 {
-  color: #fff;
-  font-size: 1.1em;
+  font-size: 1.2em;
   font-weight: bold;
-  margin-bottom: 2px;
+  color: #ffffff;
 }
 
 ion-label p {
-  color: #e0e0e0;
   font-size: 1em;
-  margin: 0;
+  color: #ffffff;
 }
 
 ion-button[color="danger"] {
-  --background: #e63946;
+  --background: #ff5252;
   --color: #fff;
-  border-radius: 10px;
   font-weight: bold;
+  --box-shadow: none;
 }
 
+/* ===== Total ===== */
 ion-card {
-  background: #232323;
-  margin-top: 18px;
-  margin-bottom: 18px;
+  background: #1a1a1a;
+  margin: 330px 30px;
+  border: 2px solid #474747;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6);
 }
 
-ion-card-content{
-  border:1px solid #e0e0e0;
-
+ion-card-content {
+  padding: 14px;
 }
 
 ion-card-content h3 {
   color: #fff;
-  font-size: 1.2em;
+  font-size: 1.3em;
   font-weight: bold;
-  margin: 0;
   text-align: center;
+  margin: 0;
+
+}
+
+.pagamento-fixo {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: #111;
+  padding: 14px 12px;
+  border-top: 1px solid #2c2c2c;
+  z-index: 100;
 }
 
 
-ion-modal {
-  --background: #181818;
+.pagamento-fixo ion-card {
+  margin: 10px 0;
+  padding: 10px;
+  background: #1c1c1c;
+  border-radius: 14px;
+
 }
 
-ion-modal ion-header,
-ion-modal ion-toolbar {
-  --background: #232323;
+.pagamento-fixo ion-card:hover {
+  background: #333333;
+
+}
+
+.pagamento-fixo ion-card-content {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border: none;
+}
+
+.pagamento-fixo ion-icon {
+  font-size: 28px;
+  color: #ff6f61;
+}
+
+.pagamento-fixo ion-label h2 {
+  font-size: 1.1em;
+  color: #fff;
+  margin: 0;
+}
+
+.pagamento-fixo ion-label p {
+  font-size: 0.85em;
+  color: #9e9e9e;
+  margin: 2px 0 0;
+}
+
+/* ===== Botão pagar ===== */
+.botao-pagar ion-button {
+  margin-top: 12px;
   --color: #fff;
+  font-size: 1.15em;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  border-radius: 14px;
+  transition: transform 0.2s ease;
 }
 
-ion-modal ion-title {
+.botao-pagar ion-button:hover {
+  transform: translateY(-2px);
+}
+
+/* ===== Carrinho vazio ===== */
+.carrinho-vazio {
+  width: 100%;
+  height: calc(100vh - 180px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #e0e0e0;
+  padding: 20px;
+}
+
+.carrinho-vazio ion-icon {
+  font-size: 100px;
+  color: #ff6f61;
+  margin-bottom: 16px;
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+.carrinho-vazio p {
   font-size: 1.1em;
   font-weight: bold;
+  color: #fff;
 }
 
-.total-card {
-  margin: 1rem;
-  background-color: #fff;
-  border-radius: 8px;
-}
+/* ===== Animação ===== */
+@keyframes pulse {
 
-.total-title {
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-}
-
-.total-value {
-  font-size: 1.2rem;
-  color: #000;
-}
-
-.total-actions {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 1rem;
-}
-
-@media (max-width: 500px) {
-
-  ion-card,
-  ion-list,
-  .carrinho-footer {
-    max-width: 99vw;
-
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.8;
   }
 
-  .pagamento-fixo {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background: #181818;
-    padding: 2px;
-    border-top: 2px solid #979797;
-    z-index: 100;
-  }
-
-  .carrinho-vazio {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    /* ícone em cima, texto embaixo */
-    align-items: center;
-    /* centraliza na horizontal */
-    justify-content: center;
-    /* centraliza na vertical */
-    text-align: center;
-    color: #e0e0e0;
-    padding: 20px;
-  }
-
-  .carrinho-vazio ion-icon {
-    font-size: 96px;
-    color: #cfcfcf;
-    margin-bottom: 12px;
-    transition: font-size 0.3s ease;
-  }
-
-  .carrinho-vazio p {
-    font-size: 1em;
-    font-weight: bold;
-    color: #fff;
-    transition: font-size 0.3s ease;
-  }
-
-  /* Responsivo */
-  @media (max-width: 768px) {
-    .carrinho-vazio ion-icon {
-      font-size: 72px;
-    }
-
-    .carrinho-vazio p {
-      font-size: 0.9em;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .carrinho-vazio ion-icon {
-      font-size: 70px;
-    }
-
-    .carrinho-vazio p {
-      font-size: 1.05em;
-    }
-  }
-
-  .botao-pagar ion-button{
-    padding: 5px;
-    font-size: 1em;
+  50% {
+    transform: scale(1.1);
+    opacity: 1;
   }
 }
+
