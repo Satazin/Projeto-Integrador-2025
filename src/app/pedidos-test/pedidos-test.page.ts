@@ -12,10 +12,9 @@ import {
   IonSelect,
   IonSelectOption,
   ActionSheetController,
-  AlertController
-} from '@ionic/angular/standalone';
+  AlertController, IonIcon } from '@ionic/angular/standalone';
 import { RealtimeDatabaseService } from '../firebase/realtime-databse';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 
 @Component({
@@ -23,9 +22,9 @@ import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
   templateUrl: './pedidos-test.page.html',
   styleUrls: ['./pedidos-test.page.scss'],
   standalone: true,
-  imports: [
+  imports: [IonIcon, 
     IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule,
-    IonInput, IonButton, IonItem, IonSelect, IonSelectOption
+    IonInput, IonButton, IonItem, IonSelect, IonSelectOption, RouterLink
   ]
 })
 export class PedidosTestPage implements OnInit {
