@@ -1,8 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
 
 ion-content {
-    --background: #000000; /* fundo sólido */
-
+    --background: #000000; 
   font-family: 'Inter', sans-serif;
 }
 
@@ -13,18 +12,15 @@ ion-toolbar {
 
 /* Lista de compras */
 .compras-list {
-  padding: 16px;  
   background: #000000; /* fundo sólido */
 }
 
 /* Card */
 .compra-card {
     --background: #202020; /* fundo sólido */
-
   color: #fff;
   border-radius: 14px;
   --background: #202020; /* fundo sólido */
-
   margin-bottom: 22px;
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
@@ -41,7 +37,7 @@ ion-toolbar {
 /* Data da compra */
 .data-compra {
   color: #aaa;
-  font-size: 0.70rem;
+  font-size: 1em;
   font-weight: 500;
   text-transform: uppercase;
 }
@@ -109,8 +105,8 @@ ion-toolbar {
 }
 .item-container {
   display: flex;
-  align-items: center;   /* centraliza verticalmente */
-  gap: 12px;             /* espaço entre imagem e texto */
+  align-items: center;   
+  gap: 12px;             
 }
 
 .produto {

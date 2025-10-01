@@ -53,7 +53,7 @@ export class PerfilComponent implements OnInit {
     private actionSheetCtrl: ActionSheetController,
     private activatedRoute: ActivatedRoute,
     private cdRef: ChangeDetectorRef,
-    private enderecoTransfer: EnderecoTransferService 
+    private enderecoTransfer: EnderecoTransferService
   ) {
     this.dbRT = getDatabase();
   }
@@ -61,9 +61,10 @@ export class PerfilComponent implements OnInit {
   async ngOnInit() {
     onAuthStateChanged(this.auth, async (user) => {
       if (user) {
-        this.userId = user.uid; 
+        this.userId = user.uid; // Garante que o ID está definido aqui
         await this.carregarPerfil();
 
+        // ✅ CORRETO: Chamada após o user.uid ser definido
         await this.lerEnderecoDoServico();
       }
     });
@@ -73,7 +74,9 @@ export class PerfilComponent implements OnInit {
     this.router.navigate(['/localizacao']);
   }
 
+  // Método auxiliar para salvar apenas o endereço no Realtime Database
   private async salvarApenasEndereco(endereco: string) {
+    // ✅ CORREÇÃO DE LOG: Confirma se o ID existe antes de tentar salvar
     if (!this.userId) {
       console.error('ERRO DE SALVAMENTO: userId não está definido.');
       return;
@@ -89,13 +92,16 @@ export class PerfilComponent implements OnInit {
     }
   }
 
+  // NOVO MÉTODO: Leitura garantida via Serviço
   private async lerEnderecoDoServico() {
+    // O serviço busca o endereço que a página de localização salvou
     const novoEndereco = this.enderecoTransfer.getEndereco();
-    console.log('Endereço lido do Serviço:', novoEndereco); 
+    console.log('Endereço lido do Serviço:', novoEndereco); // Log de leitura
 
     if (novoEndereco) {
       this.usuario.endereco = novoEndereco;
-      this.cdRef.detectChanges(); 
+      this.cdRef.detectChanges(); // Garante que o template HTML atualiza
+
       await this.salvarApenasEndereco(novoEndereco);
     }
   }

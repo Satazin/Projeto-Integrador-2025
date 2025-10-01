@@ -1,5 +1,5 @@
 <ion-header [translucent]="false">
-  <ion-toolbar >
+  <ion-toolbar>
     <ion-buttons slot="start">
       <ion-avatar>
         <img alt="Perfil" src="../../assets/png-removebg-preview.png" />
@@ -7,12 +7,12 @@
     </ion-buttons>
 
     <ion-title>Casa Bonsai</ion-title>
+
     <ion-buttons slot="end" class="casa-bonsai">
-       
       <ion-button fill="clear" color="dark" routerLink="/horario">
         <ion-icon slot="icon-only" name="time-outline"></ion-icon>
       </ion-button>
-       <ion-button fill="clear" color="dark" routerLink="/carrinho">
+      <ion-button fill="clear" color="dark" routerLink="/carrinho">
         <ion-icon slot="icon-only" name="cart-outline"></ion-icon>
       </ion-button>
       <ion-button fill="clear" color="dark" (click)="abrirPerfil()">
@@ -23,6 +23,7 @@
   </ion-toolbar>
 </ion-header>
 
+<!-- MENU LATERAL -->
 <ion-menu side="end" contentId="main-content" menuId="rightMenu">
   <ion-header>
     <ion-toolbar>
@@ -33,51 +34,66 @@
     <ion-list class="menu-list">
       <ion-item routerLink="/minhas-compras">Minhas Compras</ion-item>
       <ion-item routerLink="/brindes">Brindes</ion-item>
-      <ion-item routerLink="/localizacao">Nosso Espaço</ion-item>
+      <ion-item routerLink="/localizacao">Localização</ion-item>
       <ion-item routerLink="/sobre-nos">Sobre nós</ion-item>
       <ion-item routerLink="/contato">Fale Conosco</ion-item>
-       <ion-item *ngIf="authService.isAdmin()" routerLink="/pedidos-test">Painel Admin</ion-item>
+      <ion-item *ngIf="authService.isAdmin()" routerLink="/pedidos-test">Painel Admin</ion-item>
     </ion-list>
   </ion-content>
 </ion-menu>
 
+<!-- CONTEÚDO PRINCIPAL -->
 <ion-content id="main-content" [fullscreen]="true">
   <div class="bemvindo">
     <h1>Seja bem-vindo ao <br>Casa Bonsai!</h1>
   </div>
+
   <img src="assets/lights.jpg" alt="Lanternas japonesas" class="banner-lanternas" />
 
-
+  <!-- Barra de busca -->
   <div class="search-bar-container">
-    <ion-searchbar ngDefaultControl [(ngModel)]="termoBusca" placeholder="Buscar produto..." color="light"
-      showCancelButton="focus" class="search-bar-custom"></ion-searchbar>
+    <ion-searchbar
+      ngDefaultControl
+      [(ngModel)]="termoBusca"
+      placeholder="Buscar produto..."
+      color="light"
+      showCancelButton="focus"
+      class="search-bar-custom"
+      (ionClear)="limparBusca()">
+    </ion-searchbar>
   </div>
 
+  <!-- Menu categorias em scroll -->
   <div class="categorias-menu-scroll">
     <div class="slider">
       <div class="slide-track">
         <div class="categorias-menu item slide" #categoriasMenu>
           <button *ngFor="let cat of categorias" (click)="scrollToCategoria(cat.id)">
-            {{cat.nome}}
+            {{ cat.nome }}
           </button>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="produtos-lista">
-    <ng-container *ngFor="let cat of categorias">
-      <div [id]="cat.id" class="categoria-titulo">{{cat.nome}}</div>
-      <button *ngFor="let item of itensPorCategoria(cat.id)" class="produto-card produto-botao"
-        (click)="abrirInfoItem(item)">
-        <img [src]="item.imagem" alt="{{item.nome}}" class="produto-img" />
-        <div class="produto-info">
-          <div class="produto-nome">{{item.nome}}</div>
-          <div class="produto-desc">{{item.descricao}}</div>
-          <div class="produto-serve">Serve {{item.serve}} pessoa</div>
-          <div class="produto-preco">R$ {{item.preco | number:'1.2-2'}}</div>
-        </div>
-      </button>
-    </ng-container>
-  </div>
+  <!-- Lista de produtos -->
+ <!-- Lista de produtos -->
+<div class="produtos-lista">
+  <ng-container *ngFor="let cat of categorias">
+    <!-- 🔴 Removi o <div [id]="cat.id" class="categoria-titulo">{{ cat.nome }}</div> -->
+    <button
+      *ngFor="let item of itensPorCategoria(cat.id)"
+      class="produto-card produto-botao"
+      (click)="abrirInfoItem(item)">
+      <img [src]="item.imagem" alt="{{ item.nome }}" class="produto-img" />
+      <div class="produto-info">
+        <div class="produto-nome">{{ item.nome }}</div>
+        <div class="produto-desc">{{ item.descricao }}</div>
+        <div class="produto-serve">Serve {{ item.serve }} pessoa</div>
+        <div class="produto-preco">R$ {{ item.preco | number: '1.2-2' }}</div>
+      </div>
+    </button>
+  </ng-container>
+</div>
+
 </ion-content>
