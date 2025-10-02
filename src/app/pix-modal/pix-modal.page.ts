@@ -2,7 +2,7 @@
 
 import { Component, Input, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonicModule, ModalController, ToastController, AlertController} from '@ionic/angular';
+import { IonicModule, ModalController, AlertController } from '@ionic/angular';
 import QRCode from 'qrcode';
 
 @Component({

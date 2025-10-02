@@ -16,14 +16,19 @@
     </p>
   </div>
   <ion-grid>
+    <div class="pontos">
+      Seus pontos: <strong> {{ pontos }} </strong>
+    </div>
     <ion-row>
       <ion-col size="6">
-        <ion-card class="brinde-card" (click)="toggleDescricao('chaveiro')">
+        <!-- Chaveiro -->
+        <ion-card class="brinde-card" [class.disabled]="pontos < 500"
+          (click)="pontos >= 500 && toggleDescricao('chaveiro')">
           <img src="assets/chaveiro.png" alt="Chaveiro">
           <ion-card-content>
             <h2>Chaveiros</h2>
             <p class="descricao">
-              Chaveiros estiloso para manter suas chaves organizadas, com estilo e personalidade.
+              Chaveiros estilosos para manter suas chaves organizadas, com estilo e personalidade.
             </p>
             <div class="coin">500 <br> pontos</div>
           </ion-card-content>
@@ -31,52 +36,58 @@
       </ion-col>
 
       <ion-col size="6">
-        <ion-card class="brinde-card" (click)="toggleDescricao('meias')">
+        <!-- Meias -->
+        <ion-card class="brinde-card" [class.disabled]="pontos < 1000"
+          (click)="pontos >= 1000 && toggleDescricao('meias')">
           <img src="assets/meias.png" alt="Meias">
           <ion-card-content>
             <h2>Meias</h2>
             <p class="descricao">
-              Meias confortaveis e estilosas representando oque voce mais gosta.
+              Meias confortáveis e estilosas representando o que você mais gosta.
             </p>
             <div class="coin">1000 <br> pontos</div>
           </ion-card-content>
-
         </ion-card>
       </ion-col>
     </ion-row>
 
     <ion-row>
       <ion-col size="6">
-        <ion-card class="brinde-card" (click)="toggleDescricao('caneca')">
+        <!-- Caneca -->
+        <ion-card class="brinde-card" [class.disabled]="pontos < 1500"
+          (click)="pontos >= 1500 && toggleDescricao('caneca')">
           <img src="assets/caneca.png" alt="Caneca">
           <ion-card-content>
             <h2>Xícara</h2>
             <p class="descricao">
-              Pense em você tomando sua bebida favorita nesta xícara com a nossa logo
+              Pense em você tomando sua bebida favorita nesta xícara com a nossa logo.
             </p>
             <div class="coin">1500 <br> pontos</div>
           </ion-card-content>
-
         </ion-card>
       </ion-col>
 
       <ion-col size="6">
-        <ion-card class="brinde-card" (click)="toggleDescricao('gato')">
-          <img src="assets/gato.png" alt="gato">
+        <!-- Gatinho da sorte -->
+        <ion-card class="brinde-card" [class.disabled]="pontos < 2000"
+          (click)="pontos >= 2000 && toggleDescricao('gato')">
+          <img src="assets/gato.png" alt="Gato da Sorte">
           <ion-card-content>
             <h2>Gatinho da sorte</h2>
             <p class="descricao">
-              Gatinho dourado que simboliza sorte e boas energias para a sua vida. </p>
+              Gatinho dourado que simboliza sorte e boas energias para a sua vida.
+            </p>
             <div class="coin">2000 <br> pontos</div>
           </ion-card-content>
-
         </ion-card>
       </ion-col>
     </ion-row>
 
     <ion-row>
       <ion-col size="6">
-        <ion-card class="brinde-card" (click)="toggleDescricao('totoro')">
+        <!-- Totoro -->
+        <ion-card class="brinde-card" [class.disabled]="pontos < 2500"
+          (click)="pontos >= 2500 && toggleDescricao('totoro')">
           <img src="assets/totoro.png" alt="Totoro">
           <ion-card-content>
             <h2>Totoro</h2>
@@ -85,27 +96,24 @@
             </p>
             <div class="coin">2500 <br> pontos</div>
           </ion-card-content>
-
         </ion-card>
       </ion-col>
 
       <ion-col size="6">
-        <ion-card class="brinde-card" (click)="toggleDescricao('bonsai')">
+        <!-- Bonsai -->
+        <ion-card class="brinde-card" [class.disabled]="pontos < 4000"
+          (click)="pontos >= 4000 && toggleDescricao('bonsai')">
           <img src="assets/bonsai.png" alt="Bonsai">
           <ion-card-content>
             <h2>Bonsai</h2>
             <p class="descricao">
-              Bonsai: uma técnica de plantio em miniatura, mas repleta de beleza, e significado. </p>
+              Bonsai: uma técnica de plantio em miniatura, mas repleta de beleza e significado.
+            </p>
             <div class="coin">4000 <br> pontos</div>
           </ion-card-content>
-
         </ion-card>
-
       </ion-col>
-
     </ion-row>
-    <div class="pontos">
-      Seus pontos: <strong> {{ pontos }} </strong>
-    </div>
+
   </ion-grid>
 </ion-content>

@@ -16,8 +16,7 @@ import {
   IonMenuButton,
   IonMenu,
   AlertController,
-  LoadingController
-} from '@ionic/angular/standalone';
+  LoadingController, IonFooter, IonLabel } from '@ionic/angular/standalone';
 import { RealtimeDatabaseService } from '../firebase/realtime-databse';
 import { CarrinhoService } from '../services/carrinho.service';
 import { AuthService } from '../services/auth';

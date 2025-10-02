@@ -1,9 +1,12 @@
-<ion-header>
-  <ion-toolbar color="primary">
-    <ion-title>Localização Casa Bonsai</ion-title>
-  </ion-toolbar>
-</ion-header>
-
+<ion-content [fullscreen]="true" class="fale-conosco-bg">
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/pedidos" color="dark" text=""></ion-back-button>
+      </ion-buttons>
+      <ion-title>Localização</ion-title>
+    </ion-toolbar>
+  </ion-header>
 <ion-content>
   <div #map id="map-container"></div> 
 </ion-content>
