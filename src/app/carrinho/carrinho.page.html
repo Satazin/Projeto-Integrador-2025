@@ -45,17 +45,28 @@
         </ion-item>
       </ion-list>
 
-      <!-- Valor total -->
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Local de Entrega</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      
+      <ion-label>
+        <p>Endereço de Entrega:</p>
+        <strong>{{ enderecoEntrega }}</strong>
+      </ion-label>      
+    </ion-card-content>
+  </ion-card>
+
       <ion-card *ngIf="itens.length > 0">
         <ion-card-content>
           <h3>Valor Total: R$ {{ valorTotalCarrinho$ | async | number:'1.2-2' }}</h3>
         </ion-card-content>
       </ion-card>
 
-      <!-- Formas de pagamento -->
       <div class="pagamento-fixo">
 
-        <!-- PIX -->
         <ion-card (click)="formaPagamento = 'pix'">
           <ion-card-content class="pagamento-item">
             <ion-icon 
@@ -72,7 +83,6 @@
           </ion-card-content>
         </ion-card>
 
-        <!-- Cartão -->
         <ion-card (click)="formaPagamento = 'cartao'">
           <ion-card-content class="pagamento-item">
             <ion-icon 
@@ -90,7 +100,6 @@
           </ion-card-content>
         </ion-card>
 
-        <!-- Botão finalizar compra -->
         <div class="botao-pagar">
           <ion-button expand="block" color="primary" (click)="finalizarPagamento(formaPagamento)">
             Finalizar Compra

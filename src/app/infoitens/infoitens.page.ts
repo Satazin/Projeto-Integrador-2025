@@ -92,7 +92,7 @@ export class InfoitensPage implements OnInit {
             cssClass: 'secondary',
           },
           {
-            text: 'Fazer Login',
+            text: 'Login',
             handler: () => {
               this.router.navigate(['/login']); // Navega para a página de login
             },

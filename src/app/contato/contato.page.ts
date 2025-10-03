@@ -9,7 +9,7 @@ import { RouterLink } from '@angular/router';
   templateUrl: './contato.page.html',
   styleUrls: ['./contato.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule, RouterLink]
+  imports: [IonicModule, CommonModule, FormsModule]
 })
 export class ContatoPage implements OnInit {
   rating: number = 0;

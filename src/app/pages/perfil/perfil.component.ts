@@ -1,6 +1,4 @@
-// src/app/perfil/perfil.component.ts
-
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, NgZone } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IonicModule, AlertController, ActionSheetController } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
@@ -10,7 +8,7 @@ import { getDatabase, ref, get, set } from "firebase/database";
 import { AuthService } from '../../services/auth';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
-import { EnderecoTransferService } from 'src/app/services/endereco-transfer'; // IMPORTADO: O Serviço
+import { EnderecoTransferService } from 'src/app/services/endereco-transfer';
 
 interface Usuario {
   nomeUsuario: string;
@@ -41,7 +39,6 @@ export class PerfilComponent implements OnInit {
   public placeholderUrl: string = 'assets/img/default-profile.png';
   private selectedFile: File | null = null;
   private dbRT;
-
   public isUpdating: boolean = false;
 
   constructor(
@@ -53,7 +50,8 @@ export class PerfilComponent implements OnInit {
     private actionSheetCtrl: ActionSheetController,
     private activatedRoute: ActivatedRoute,
     private cdRef: ChangeDetectorRef,
-    private enderecoTransfer: EnderecoTransferService
+    private enderecoTransfer: EnderecoTransferService,
+    public zone: NgZone
   ) {
     this.dbRT = getDatabase();
   }
@@ -61,48 +59,44 @@ export class PerfilComponent implements OnInit {
   async ngOnInit() {
     onAuthStateChanged(this.auth, async (user) => {
       if (user) {
-        this.userId = user.uid; // Garante que o ID está definido aqui
+        this.userId = user.uid;
         await this.carregarPerfil();
-
-        // ✅ CORRETO: Chamada após o user.uid ser definido
-        await this.lerEnderecoDoServico();
       }
     });
+  }
+
+  async ionViewWillEnter() {
+    if (this.userId) {
+      await this.lerEnderecoDoServico();
+    }
   }
 
   async selecionarEndereco() {
     this.router.navigate(['/localizacao']);
   }
 
-  // Método auxiliar para salvar apenas o endereço no Realtime Database
   private async salvarApenasEndereco(endereco: string) {
-    // ✅ CORREÇÃO DE LOG: Confirma se o ID existe antes de tentar salvar
-    if (!this.userId) {
-      console.error('ERRO DE SALVAMENTO: userId não está definido.');
-      return;
-    }
-    if (!endereco) return;
-
+    if (!this.userId || !endereco) return;
     try {
       const enderecoRef = ref(this.dbRT, 'usuarios/' + this.userId + '/endereco');
       await set(enderecoRef, endereco);
-      console.log(`Endereço [${endereco}] salvo com sucesso no RTDB para o usuário ${this.userId}.`); // Log de sucesso
+      console.log("Endereço salvo com sucesso no Realtime Database (em background).");
     } catch (error) {
-      console.error('ERRO FATAL ao salvar endereço no RTDB. Verifique as Regras de Segurança do seu Firebase:', error);
+      console.error('Erro ao salvar endereço no RTDB em background:', error);
     }
   }
 
-  // NOVO MÉTODO: Leitura garantida via Serviço
-  private async lerEnderecoDoServico() {
-    // O serviço busca o endereço que a página de localização salvou
+  private lerEnderecoDoServico() {
     const novoEndereco = this.enderecoTransfer.getEndereco();
-    console.log('Endereço lido do Serviço:', novoEndereco); // Log de leitura
+    console.log('Endereço lido do Serviço (no ionViewWillEnter):', novoEndereco);
 
     if (novoEndereco) {
-      this.usuario.endereco = novoEndereco;
-      this.cdRef.detectChanges(); // Garante que o template HTML atualiza
-
-      await this.salvarApenasEndereco(novoEndereco);
+      this.zone.run(() => {
+        this.usuario.endereco = novoEndereco;
+        this.salvarApenasEndereco(novoEndereco);
+        this.enderecoTransfer.setEndereco('');
+        this.cdRef.detectChanges();
+      });
     }
   }
 
@@ -132,7 +126,6 @@ export class PerfilComponent implements OnInit {
     await actionSheet.present();
   }
 
-  // PEGAR IMAGEM BASE64 (sem alterações)
   async pegarImagem(source: CameraSource) {
     try {
       const image = await Camera.getPhoto({
@@ -160,7 +153,6 @@ export class PerfilComponent implements OnInit {
   async carregarPerfil() {
     if (!this.userId) return;
 
-    // Carregamento do Firestore (sem alterações)
     try {
       const userDocRef = doc(this.db, 'usuarios', this.userId);
       const userDocSnap = await getDoc(userDocRef);
@@ -178,7 +170,6 @@ export class PerfilComponent implements OnInit {
       console.error('Erro ao carregar o perfil do Firestore:', error);
     }
 
-    // Carregamento do RTDB com 'get' (sem alterações)
     try {
       const nomePromise = get(ref(this.dbRT, 'usuarios/' + this.userId + '/nome'));
       const telefonePromise = get(ref(this.dbRT, 'usuarios/' + this.userId + '/telefone'));

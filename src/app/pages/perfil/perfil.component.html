@@ -16,8 +16,8 @@
         </ion-avatar>
       </div>
       <div class="info-usuario">
-        <h2 class="nome">Pedrinho Zanette</h2>
-        <p class="usuario">eusouopedrinho</p>
+        <h2 class="nome">{{ usuario.nomeUsuario }}</h2>
+        <p class="usuario">{{ usuario.email }}</p>
       </div>
     </div>
 
@@ -37,12 +37,11 @@
         <ion-input placeholder="Email" [(ngModel)]="usuario.email" type="email"></ion-input>
       </ion-item>
 
-      <ion-item (click)="selecionarEndereco()" detail>
-
-
+      <ion-item>
         <ion-label position="stacked">Endereço</ion-label>
-        <ion-input placeholder="Toque para selecionar no mapa" [ngModel]="usuario.endereco" readonly>
-        </ion-input>
+        <ion-input [value]="usuario.endereco" readonly="true" (click)="selecionarEndereco()"
+          placeholder="Selecione o endereço no mapa"></ion-input>
+        <p>{{ usuario.endereco }}</p>
       </ion-item>
     </ion-list>
 

@@ -1,5 +1,3 @@
-// src/app/carrinho/carrinho.page.ts
-
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -7,10 +5,10 @@ import { IonicModule, AlertController, LoadingController, ModalController } from
 import { Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { CarrinhoService, CartItem } from '../services/carrinho.service';
-import { getAuth } from 'firebase/auth';
+import { Auth, getAuth, onAuthStateChanged } from '@angular/fire/auth';
+import { getDatabase, ref, get } from "firebase/database";
 import { Router, RouterModule } from '@angular/router';
-
-import { PixModalPage } from '../pix-modal/pix-modal.page'; // Importa a página do modal
+import { PixModalPage } from '../pix-modal/pix-modal.page'; 
 
 @Component({
   selector: 'app-carrinho',
@@ -30,13 +28,20 @@ export class CarrinhoPage implements OnInit {
   public formaPagamento: string = '';
   public compraFinalizada: boolean = false;
 
+  public enderecoEntrega: string = 'Carregando endereço...';
+  private userId: string | null = null;
+  private dbRT;
+
   constructor(
     private carrinhoService: CarrinhoService,
     private alertController: AlertController,
     private loadingController: LoadingController,
-    private modalController: ModalController, // Adiciona o ModalController
-    private router: Router
+    private modalController: ModalController,
+    private router: Router,
+    private auth: Auth 
   ) {
+    this.dbRT = getDatabase();
+
     this.carrinhoItens$ = this.carrinhoService.cartItems$;
 
     this.valorTotalCarrinho$ = this.carrinhoItens$.pipe(
@@ -50,18 +55,61 @@ export class CarrinhoPage implements OnInit {
     this.carrinhoItens$.subscribe(itens => {
       console.log('Itens no carrinho:', itens);
     });
+
+    onAuthStateChanged(this.auth, (user) => {
+      if (user) {
+        this.userId = user.uid;
+        this.carregarEndereco();
+      } else {
+        this.enderecoEntrega = 'Usuário não logado. Faça login para ver o endereço.';
+      }
+    });
   }
+
+  async carregarEndereco() {
+    if (!this.userId) return;
+
+    try {
+      const enderecoRef = ref(this.dbRT, 'usuarios/' + this.userId + '/endereco');
+      const enderecoSnap = await get(enderecoRef);
+
+      if (enderecoSnap.exists()) {
+        this.enderecoEntrega = enderecoSnap.val();
+      } else {
+        this.enderecoEntrega = 'Nenhum endereço de entrega salvo. Por favor, preencha no Perfil.';
+      }
+    } catch (error) {
+      console.error('Erro ao carregar endereço do RTDB:', error);
+      this.enderecoEntrega = 'Falha ao carregar endereço.';
+    }
+  }
+
 
   async removerItem(item: CartItem) {
     try {
       await this.carrinhoService.removeFromCart(item.id);
     } catch (error) {
       console.error('Erro ao remover item:', error);
-      alert('Erro ao remover item do carrinho. Tente novamente.');
+      const errorAlert = await this.alertController.create({
+        header: 'Erro',
+        message: 'Erro ao remover item do carrinho. Tente novamente.',
+        buttons: ['OK']
+      });
+      await errorAlert.present();
     }
   }
 
   async finalizarPagamento(metodo: string) {
+    if (this.enderecoEntrega.includes('Nenhum endereço') || this.enderecoEntrega.includes('Falha')) {
+      const addressAlert = await this.alertController.create({
+        header: 'Endereço Necessário',
+        message: 'Por favor, defina um endereço de entrega válido no seu Perfil antes de finalizar.',
+        buttons: ['OK']
+      });
+      await addressAlert.present();
+      return;
+    }
+
     if (!metodo) {
       const alert = await this.alertController.create({
         header: 'Atenção',
@@ -75,6 +123,12 @@ export class CarrinhoPage implements OnInit {
     const user = getAuth().currentUser;
     if (!user) {
       console.error('Nenhum usuário logado.');
+      const loginAlert = await this.alertController.create({
+        header: 'Atenção',
+        message: 'Você precisa estar logado para finalizar a compra.',
+        buttons: ['OK']
+      });
+      await loginAlert.present();
       return;
     }
 
@@ -82,7 +136,7 @@ export class CarrinhoPage implements OnInit {
 
     if (metodo === 'pix') {
       const codigoPix = `E${Math.random().toString(36).substring(2, 15).toUpperCase()}F${Math.random().toString(36).substring(2, 15).toUpperCase()}`;
-      
+
       const valorTotal = await this.valorTotalCarrinho$.pipe(take(1)).toPromise();
 
       const modal = await this.modalController.create({
@@ -95,7 +149,6 @@ export class CarrinhoPage implements OnInit {
 
       await modal.present();
 
-      // Espera o modal fechar para processar a compra
       const { data } = await modal.onWillDismiss();
       if (data === true) {
         await this.processarCompra('Pix');
@@ -120,7 +173,7 @@ export class CarrinhoPage implements OnInit {
     try {
       const carrinhoItens = await this.carrinhoItens$.pipe(take(1)).toPromise();
       await this.carrinhoService.finalizarCompra(carrinhoItens);
-      
+
       const alert = await this.alertController.create({
         header: 'Pagamento Finalizado!',
         message: `Você escolheu pagar com ${metodo}. Agradecemos a preferência!`,
@@ -143,4 +196,5 @@ export class CarrinhoPage implements OnInit {
       await errorAlert.present();
     }
   }
+  
 }

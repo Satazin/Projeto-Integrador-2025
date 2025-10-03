@@ -1,3 +1,5 @@
+// src/app/pix-modal/pix-modal.page.ts
+
 import { Component, Input, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule, ModalController, ToastController, AlertController} from '@ionic/angular';
@@ -17,6 +19,7 @@ import { Clipboard } from '@capacitor/clipboard';
 export class PixModalPage implements AfterViewInit {
   @Input() codigoPix!: string;
   @Input() valorTotal!: number;
+
   @ViewChild('qrcodeCanvas') qrcodeCanvas!: ElementRef;
 
   constructor(
@@ -65,16 +68,11 @@ export class PixModalPage implements AfterViewInit {
       await alert.present();
     }
   }
-
-  // Novo método para voltar sem finalizar a compra
-  voltarParaCarrinho() {
-    // Fecha o modal sem retornar um valor de sucesso
+    voltarParaCarrinho() {
     this.modalCtrl.dismiss();
   }
 
-  // Este método finaliza a compra
   finalizarCompra() {
-    // Fecha o modal e retorna um valor de sucesso
     this.modalCtrl.dismiss(true); 
   }
 }

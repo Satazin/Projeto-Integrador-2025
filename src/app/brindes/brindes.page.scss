@@ -119,3 +119,26 @@ ion-card {
   margin-bottom: 40px;
   padding: 10px;
 }
+
+.pontos-footer {
+    text-align: center;
+    padding: 20px 0;
+    font-size: 1.1em;
+    font-weight: 500;
+    color: #333; 
+}
+
+.pontos-footer ion-badge {
+    padding: 8px 15px;
+    font-size: 1.1em;
+    font-weight: bold;
+    border-radius: 15px;
+    background: #ffc409; 
+    color: #000;
+    vertical-align: middle;
+    margin-left: 5px;
+}
+
+.pontos-total {
+    font-size: 1.2em; 
+}
