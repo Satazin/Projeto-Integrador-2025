@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from './guards/auth-guard';
 import { AdminGuard } from './guards/admin-guard';
+import path from 'path';
 
 export const routes: Routes = [
   {
@@ -14,45 +15,46 @@ export const routes: Routes = [
   },
   {
     path: 'cadastro',
-    loadComponent: () => import('./cadastro/cadastro.page').then( m => m.CadastroPage)
+    loadComponent: () => import('./cadastro/cadastro.page').then(m => m.CadastroPage)
   },
   {
     path: 'login',
-    loadComponent: () => import('./login/login.page').then( m => m.LoginPage)
+    loadComponent: () => import('./login/login.page').then(m => m.LoginPage)
   },
   {
     path: 'pedidos',
-    loadComponent: () => import('./pedidos/pedidos.page').then( m => m.PedidosPage)
+    loadComponent: () => import('./pedidos/pedidos.page').then(m => m.PedidosPage)
   },
 
   {
     path: 'forgot-password',
-    loadComponent: () => import('./forgot-password/forgot-password.page').then( m => m.ForgotPasswordPage)
+    loadComponent: () => import('./forgot-password/forgot-password.page').then(m => m.ForgotPasswordPage)
   },
   {
     path: 'carrinho',
-    loadComponent: () => import('./carrinho/carrinho.page').then( m => m.CarrinhoPage)
+    loadComponent: () => import('./carrinho/carrinho.page').then(m => m.CarrinhoPage)
   },
 
   {
     path: 'forgot-password',
-    loadComponent: () => import('./forgot-password/forgot-password.page').then( m => m.ForgotPasswordPage)
+    loadComponent: () => import('./forgot-password/forgot-password.page').then(m => m.ForgotPasswordPage)
   },
   {
     path: 'sobre-nos',
-    loadComponent: () => import('./sobre-nos/sobre-nos.page').then( m => m.SobreNosPage),
+    loadComponent: () => import('./sobre-nos/sobre-nos.page').then(m => m.SobreNosPage),
+    canActivate: [AuthGuard]
   },
   {
     path: 'localizacao',
-    loadComponent: () => import('./localizacao/localizacao.page').then( m => m.LocalizacaoPage)
+    loadComponent: () => import('./localizacao/localizacao.page').then(m => m.LocalizacaoPage)
   },
   {
     path: 'contato',
-    loadComponent: () => import('./contato/contato.page').then( m => m.ContatoPage)
+    loadComponent: () => import('./contato/contato.page').then(m => m.ContatoPage)
   },
   {
     path: 'infoitens',
-    loadComponent: () => import('./infoitens/infoitens.page').then( m => m.InfoitensPage)
+    loadComponent: () => import('./infoitens/infoitens.page').then(m => m.InfoitensPage)
   },
   {
     path: 'infoitens/:id',
@@ -60,12 +62,12 @@ export const routes: Routes = [
   },
   {
     path: 'pedidos-test',
-    loadComponent: () => import('./pedidos-test/pedidos-test.page').then( m => m.PedidosTestPage),
+    loadComponent: () => import('./pedidos-test/pedidos-test.page').then(m => m.PedidosTestPage),
     canActivate: [AdminGuard] // 🔒 só admin acessa
   },
   {
     path: 'brindes',
-    loadComponent: () => import('./brindes/brindes.page').then( m => m.BrindesPage)
+    loadComponent: () => import('./brindes/brindes.page').then(m => m.BrindesPage)
   },
 
   {
@@ -79,37 +81,41 @@ export const routes: Routes = [
   },
   {
     path: 'adm-login',
-    loadComponent: () => import('./adm-login/adm-login.page').then( m => m.AdmLoginPage),
+    loadComponent: () => import('./adm-login/adm-login.page').then(m => m.AdmLoginPage),
   },
   {
     path: 'minhas-compras',
-    loadComponent: () => import('./minhas-compras/minhas-compras.page').then( m => m.MinhasComprasPage)
+    loadComponent: () => import('./minhas-compras/minhas-compras.page').then(m => m.MinhasComprasPage)
   },
 
   {
     path: 'forgot-password',
-    loadComponent: () => import('./forgot-password/forgot-password.page').then( m => m.ForgotPasswordPage)
+    loadComponent: () => import('./forgot-password/forgot-password.page').then(m => m.ForgotPasswordPage)
   },
   {
     path: 'carrinho',
-    loadComponent: () => import('./carrinho/carrinho.page').then( m => m.CarrinhoPage)
+    loadComponent: () => import('./carrinho/carrinho.page').then(m => m.CarrinhoPage)
   },
 
   {
     path: 'forgot-password',
-    loadComponent: () => import('./forgot-password/forgot-password.page').then( m => m.ForgotPasswordPage)
+    loadComponent: () => import('./forgot-password/forgot-password.page').then(m => m.ForgotPasswordPage)
   },
   {
     path: 'sobre-nos',
-    loadComponent: () => import('./sobre-nos/sobre-nos.page').then( m => m.SobreNosPage)
+    loadComponent: () => import('./sobre-nos/sobre-nos.page').then(m => m.SobreNosPage)
   },
+  // {
+  //   path: 'localizacao',
+  //   loadComponent: () => import('./localizacao/localizacao.page').then( m => m.LocalizacaoPage)
+  // },
   {
     path: 'contato',
-    loadComponent: () => import('./contato/contato.page').then( m => m.ContatoPage)
+    loadComponent: () => import('./contato/contato.page').then(m => m.ContatoPage)
   },
   {
     path: 'infoitens',
-    loadComponent: () => import('./infoitens/infoitens.page').then( m => m.InfoitensPage)
+    loadComponent: () => import('./infoitens/infoitens.page').then(m => m.InfoitensPage)
   },
   {
     path: 'infoitens/:id',
@@ -117,11 +123,11 @@ export const routes: Routes = [
   },
   {
     path: 'pedidos-test',
-    loadComponent: () => import('./pedidos-test/pedidos-test.page').then( m => m.PedidosTestPage)
+    loadComponent: () => import('./pedidos-test/pedidos-test.page').then(m => m.PedidosTestPage)
   },
   {
     path: 'brindes',
-    loadComponent: () => import('./brindes/brindes.page').then( m => m.BrindesPage)
+    loadComponent: () => import('./brindes/brindes.page').then(m => m.BrindesPage)
   },
 
   {
@@ -139,20 +145,18 @@ export const routes: Routes = [
   },
   {
     path: 'pedidos-test',
-    loadComponent: () => import('./pedidos-test/pedidos-test.page').then( m => m.PedidosTestPage)
-    
+    loadComponent: () => import('./pedidos-test/pedidos-test.page').then(m => m.PedidosTestPage)
+
   },
   {
     path: 'horario',
-    loadComponent: () => import('./horario/horario.page').then( m => m.HorarioPage)
+    loadComponent: () => import('./horario/horario.page').then(m => m.HorarioPage)
   },
   {
     path: 'pix-modal',
-    loadComponent: () => import('./pix-modal/pix-modal.page').then( m => m.PixModalPage)
-  },  {
-    path: 'localizacao-cadastro',
-    loadComponent: () => import('./localizacao-cadastro/localizacao-cadastro.page').then( m => m.LocalizacaoCadastroPage)
-  }
+    loadComponent: () => import('./pix-modal/pix-modal.page').then(m => m.PixModalPage)
+  },
+
 
 
 ];

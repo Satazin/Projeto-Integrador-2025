@@ -1,5 +1,3 @@
-// src/app/pix-modal/pix-modal.page.ts
-
 import { Component, Input, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule, ModalController, ToastController, AlertController} from '@ionic/angular';
