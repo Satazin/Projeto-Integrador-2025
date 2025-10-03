@@ -1,19 +1,26 @@
 <ion-header>
-  <ion-toolbar color="dark">
+  <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/pedidos" text=""></ion-back-button>
+      <ion-back-button defaultHref="/pedidos" color="dark" text=""></ion-back-button>
     </ion-buttons>
     <ion-title>Nossos Brindes</ion-title>
   </ion-toolbar>
 </ion-header>
+
 <ion-content class="ion-padding-vertical">
   <div class="nossos-brindes ion-padding-horizontal">
     <p>
-      Na **Casa Bonsai**, cada brinde é pensado com carinho!
+      Na Casa Bonsai, cada brinde é pensado com carinho!
       Troque seus pontos por itens cheios de charme e
       significado, como chaveiros, meias, xícaras,
       gatinhos da sorte e mini bonsais.
     </p>
+  </div>
+  <div class="pontos-footer">
+    Seus pontos:
+    <ion-badge color="dark">
+      <strong class="pontos-total">{{ pontos }}</strong>
+    </ion-badge>
   </div>
   <ion-grid class="ion-padding-horizontal">
     <ion-row>
@@ -42,10 +49,5 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  <div class="pontos-footer">
-    Seus pontos:
-    <ion-badge color="warning">
-      <strong class="pontos-total">{{ pontos }}</strong>
-    </ion-badge>
-  </div>
+
 </ion-content>
