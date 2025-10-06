@@ -1,19 +1,18 @@
-/* ===== Cabeçalho ===== */
+// src/app/carrinho/carrinho.page.scss
+
 ion-header,
 ion-toolbar {
   --background: #000;
   --color: #fff;
 }
 
-
-/* ===== Fundo ===== */
 ion-content {
   --background: #000000;
-
+  // ✅ CORREÇÃO 2: Adiciona padding inferior para compensar o .pagamento-fixo
+  // O valor de 200px é um bom ponto de partida, mas pode ser ajustado dependendo da altura do seu footer/pagamento.
+  --padding-bottom: 200px;
 }
 
-
-/* Lista do carrinho */
 ion-list {
   background: transparent;
   padding: 10px;
@@ -21,10 +20,9 @@ ion-list {
 
 ion-item {
   --background: #2d2d2d;
-   border-radius: 15px;
+  border-radius: 15px;
 }
 
-/* Imagem do produto */
 ion-thumbnail {
   width: 100px;
   height: 100px;
@@ -41,7 +39,6 @@ ion-thumbnail img {
   border-radius: 15px;
 }
 
-/* Texto do produto */
 ion-label {
   display: flex;
   flex-direction: column;
@@ -65,10 +62,11 @@ ion-button[color="danger"] {
   --box-shadow: none;
 }
 
-/* ===== Total ===== */
+// ✅ CORREÇÃO 1: Removendo a margem exagerada (330px) do ion-card principal
 ion-card {
   background: #1a1a1a;
-  margin: 330px 30px;
+  // Margem ajustada para espaçamento normal
+  margin: 15px 10px; 
   border: 2px solid #474747;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6);
 }
@@ -83,10 +81,11 @@ ion-card-content h3 {
   font-weight: bold;
   text-align: center;
   margin: 0;
-
 }
 
+/* ===== Seção de Pagamento Fixa (Footer) ===== */
 .pagamento-fixo {
+  // ✅ Posição fixa e z-index estão corretos
   position: fixed;
   bottom: 0;
   width: 100%;
@@ -98,16 +97,17 @@ ion-card-content h3 {
 
 
 .pagamento-fixo ion-card {
+  // ✅ A margem aqui está correta para cards dentro do footer
   margin: 10px 0;
   padding: 10px;
   background: #1c1c1c;
   border-radius: 14px;
-
+  // Removendo margem externa excessiva herdada
+  margin: 0; 
 }
 
 .pagamento-fixo ion-card:hover {
   background: #333333;
-
 }
 
 .pagamento-fixo ion-card-content {
@@ -152,7 +152,8 @@ ion-card-content h3 {
 /* ===== Carrinho vazio ===== */
 .carrinho-vazio {
   width: 100%;
-  height: calc(100vh - 180px);
+  // Altura ajustada, removendo a necessidade de subtrair o footer
+  height: 100%; 
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -189,4 +190,3 @@ ion-card-content h3 {
     opacity: 1;
   }
 }
-

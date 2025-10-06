@@ -1,50 +1,53 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Pontos e Produtos</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content [fullscreen]="true" class="fale-conosco-bg">
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/pedidos" color="dark" text=""></ion-back-button>
+      </ion-buttons>
+      <ion-title>Pontos e Produtos</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="ion-padding">
 
-<ion-content class="ion-padding">
-  
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Seus Pontos</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <ion-button expand="block" (click)="mostrarPontos()">Ver Meus Pontos</ion-button>
-    </ion-card-content>
-  </ion-card>
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Seus Pontos</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-button expand="block" (click)="mostrarPontos()">Ver Meus Pontos</ion-button>
+      </ion-card-content>
+    </ion-card>
 
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Adicionar Pontos</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <ion-item>
-        <ion-label position="floating">Valor da Compra</ion-label>
-        <ion-input type="number" [(ngModel)]="valorCompra"></ion-input>
-      </ion-item>
-      <ion-button expand="block" class="ion-margin-top" (click)="adicionarPontos()">Adicionar Pontos</ion-button>
-    </ion-card-content>
-  </ion-card>
-  
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Trocar Pontos</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <ion-item>
-        <ion-label position="floating">Selecione um produto</ion-label>
-        <ion-select [(ngModel)]="produtoSelecionado" interface="popover">
-          <ion-select-option *ngFor="let produto of produtosDisponiveis" [value]="produto">
-            {{ produto.nome }} ({{ produto.pontos }} pontos)
-          </ion-select-option>
-        </ion-select>
-      </ion-item>
-      <ion-button expand="block" class="ion-margin-top" (click)="removerPontos()">
-        Trocar Pontos
-      </ion-button>
-    </ion-card-content>
-  </ion-card>
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Adicionar Pontos</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item>
+          <ion-label position="floating">Valor da Compra</ion-label>
+          <ion-input type="number" [(ngModel)]="valorCompra"></ion-input>
+        </ion-item>
+        <ion-button expand="block" class="ion-margin-top" (click)="adicionarPontos()">Adicionar Pontos</ion-button>
+      </ion-card-content>
+    </ion-card>
 
-</ion-content>
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Trocar Pontos</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item>
+          <ion-label position="floating">Selecione um produto</ion-label>
+          <ion-select [(ngModel)]="produtoSelecionado" interface="popover">
+            <ion-select-option *ngFor="let produto of produtosDisponiveis" [value]="produto">
+              {{ produto.nome }} ({{ produto.pontos }} pontos)
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-button expand="block" class="ion-margin-top" (click)="removerPontos()">
+          Trocar Pontos
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+
+  </ion-content>

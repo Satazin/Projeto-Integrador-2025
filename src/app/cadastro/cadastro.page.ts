@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, AlertController, NavController } from '@ionic/angular'; // Adicionado NavController
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
-import { environment } from 'src/environments/environment'; // Importa o environment
-import { AuthService } from '../services/auth'; // Importa o AuthService
+import { environment } from 'src/environments/environment';
+import { AuthService } from '../services/auth';
+import { EnderecoTransferService } from '../services/endereco-transfer';
 
 @Component({
   selector: 'app-cadastro',
@@ -21,26 +22,53 @@ export class CadastroPage {
   senha = '';
   nome = '';
   telefone = '';
-  endereco = '';
-   private auth = getAuth(initializeApp(environment.firebaseConfig));
 
-  constructor(private authService: AuthService, private router: Router) {
-     onAuthStateChanged(this.auth, (user) => {
-        if (user) {
-          // Verifica se o email do usuário logado é o do admin
-          if (user.email === this.authService.getAdminEmail()) {
-            this.router.navigate(['/pedidos-test']);
-          } else {
-            this.router.navigate(['/pedidos']);
-          }
+  public endereco: string = '';
+  private auth = getAuth(initializeApp(environment.firebaseConfig));
+
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private alertController: AlertController,
+    private navCtrl: NavController, 
+    private enderecoTransfer: EnderecoTransferService
+  ) {
+    onAuthStateChanged(this.auth, (user) => {
+      if (user) {
+        if (user.email === this.authService.getAdminEmail()) {
+          this.router.navigate(['/pedidos-test']);
+        } else {
+          this.router.navigate(['/pedidos']);
         }
-        // Se user for null, fica na Home/Login
-      });
+      }
+    });
   }
+
+  selecionarEndereco() {
+    this.router.navigate(['/localizacao-cadastro']);
+  }
+
+  ionViewWillEnter() {
+    this.lerEnderecoDoServico();
+  }
+
+  private lerEnderecoDoServico() {
+    const novoEndereco = this.enderecoTransfer.getEndereco();
+
+    if (novoEndereco) {
+      this.endereco = novoEndereco;
+    }
+  }
+
 
   async fazerCadastro() {
     if (!this.email || !this.senha || !this.nome || !this.telefone || !this.endereco) {
-      alert('Preencha todos os campos!');
+      const alert = await this.alertController.create({
+        header: 'Atenção',
+        message: 'Por favor, preencha todos os campos e **selecione o endereço no mapa**.',
+        buttons: ['OK']
+      });
+      await alert.present();
       return;
     }
 
@@ -48,11 +76,15 @@ export class CadastroPage {
       const resultado = await this.authService.cadastrar(this.email, this.senha, this.nome, this.telefone, this.endereco);
       console.log('Usuário cadastrado:', resultado.authUser);
       console.log('Dados salvos no Realtime Database:', resultado.realtimeData);
-      
+
       this.router.navigate(['/pedidos']);
     } catch (erro: any) {
-      alert('Falha ao cadastrar. ' + erro.message);
+      const alert = await this.alertController.create({
+        header: 'Falha ao Cadastrar',
+        message: 'Ocorreu um erro: ' + erro.message,
+        buttons: ['OK']
+      });
+      await alert.present();
     }
-
   }
 }
