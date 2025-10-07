@@ -1,14 +1,14 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { CommonModule, CurrencyPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonicModule, LoadingController, AlertController } from '@ionic/angular';
+import { IonicModule, LoadingController, AlertController, Platform } from '@ionic/angular';
 import { RealtimeDatabaseService } from '../firebase/realtime-databse';
 import { CarrinhoService } from '../services/carrinho.service';
+import { AuthService } from '../services/auth';
 import { Auth, getAuth, onAuthStateChanged, User } from '@angular/fire/auth';
 import { environment } from 'src/environments/environment';
 import { initializeApp } from 'firebase/app';
-import { AuthService } from '../services/auth';
 
 @Component({
   selector: 'app-infoitens',
@@ -37,15 +37,16 @@ export class InfoitensPage implements OnInit, OnDestroy {
     private carrinhoService: CarrinhoService,
     private loadingController: LoadingController,
     private alertController: AlertController,
-    private authService: AuthService
+    private authService: AuthService,
+    private platform: Platform
   ) {
-    this.authInstance = getAuth(initializeApp(environment.firebaseConfig));
+    const firebaseApp = initializeApp(environment.firebaseConfig);
+    this.authInstance = getAuth(firebaseApp);
   }
 
   async ngOnInit() {
     this.authUnsubscribe = onAuthStateChanged(this.authInstance, (user: User | null) => {
       this.isAdminMode = this.authService.isAdmin();
-      console.log(`[AUTH CHECK - LISTENER] Usuário carregado. É ADM? ${this.isAdminMode}`);
     });
 
     const nav = this.router.getCurrentNavigation();
@@ -78,14 +79,12 @@ export class InfoitensPage implements OnInit, OnDestroy {
     }
   }
 
-  // ✅ FUNÇÃO PARA REMOVER O LISTENER AO DESTRUIR A PÁGINA
   ngOnDestroy(): void {
     if (this.authUnsubscribe) {
       this.authUnsubscribe();
     }
   }
 
-  // [Restante do código]
   get valorTotal() {
     return (parseFloat(this.item?.preco?.toString().replace(',', '.')) || 0) * this.quantidade;
   }
@@ -95,7 +94,6 @@ export class InfoitensPage implements OnInit, OnDestroy {
       this.quantidade += valor;
     }
   }
-
   async adicionarAoCarrinho() {
     if (!this.item) {
       await this.showAlert('Erro', 'Não foi possível adicionar o item ao carrinho.', ['OK']);

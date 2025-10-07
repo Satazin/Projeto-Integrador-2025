@@ -3,12 +3,11 @@ ion-content {
     --padding-bottom: 0;
     --padding-start: 0;
     --padding-end: 0;
-    // O ion-content deve ser configurado para preencher a tela
     height: 100%;
 }
 
 #map-container {
-    // Isso é VITAL: O container do mapa DEVE ter altura e largura definidas.
+    //O container do mapa deve ter altura e largura definidas.
     // 100% da altura e largura do ion-content.
     width: 100%;
     height: 100%;

@@ -17,10 +17,12 @@ import {
   IonMenuButton,
   IonMenu,
   AlertController,
-  LoadingController, IonFooter, IonLabel } from '@ionic/angular/standalone';
+  LoadingController, IonFooter, IonLabel
+} from '@ionic/angular/standalone';
 import { RealtimeDatabaseService } from '../firebase/realtime-databse';
 import { CarrinhoService } from '../services/carrinho.service';
 import { AuthService } from '../services/auth';
+import { startWith, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-pedidos',
@@ -35,6 +37,8 @@ import { AuthService } from '../services/auth';
   ]
 })
 export class PedidosPage implements OnInit, AfterViewInit {
+  public totalItens: number = 0;
+  private carrinhoSubscription: Subscription = new Subscription();
   public pedidos: any[] = [];
   public categorias = [
     { id: 'poke', nome: 'POKE' },
@@ -48,6 +52,7 @@ export class PedidosPage implements OnInit, AfterViewInit {
   public categoriaEmFoco: string = 'poke';
   termoBusca: string = '';
 
+
   constructor(
     private rt: RealtimeDatabaseService,
     private elRef: ElementRef,
@@ -55,13 +60,26 @@ export class PedidosPage implements OnInit, AfterViewInit {
     private carrinhoService: CarrinhoService,
     public authService: AuthService,
     private alertController: AlertController,
-    private loadingController: LoadingController
-  ) {}
+    private loadingController: LoadingController,
+  
+  ) { }
 
-  ngOnInit() {
+    ngOnInit() {
+    this.carrinhoSubscription = this.carrinhoService.totalItens$.pipe(
+        startWith(0)
+    ).subscribe({
+        next: (count) => {
+            this.totalItens = count;
+            console.log('Total de itens no carrinho atualizado:', count);
+        },
+        error: (err) => {
+            console.error('Erro ao receber dados do CarrinhoService:', err);
+            this.totalItens = 0;
+        },
+       
+    });
     this.listar();
   }
-
   ngAfterViewInit() {
     const content = this.elRef.nativeElement.querySelector('ion-content');
     if (content) {
@@ -132,7 +150,7 @@ export class PedidosPage implements OnInit, AfterViewInit {
       this.router.navigate(['/perfil']);
     } else {
       const alert = await this.alertController.create({
-          header: 'Acesso Restrito',
+        header: 'Acesso Restrito',
         message: `Voce precisa estar logado para acessar o perfil.`,
         buttons: [
           { text: 'Cancelar', role: 'cancel' },
@@ -147,23 +165,23 @@ export class PedidosPage implements OnInit, AfterViewInit {
   }
 
   limparBusca() {
-  this.termoBusca = '';
-}
+    this.termoBusca = '';
+  }
 
-async deletarItem(id: string, nome: string) {
-  const alert = await this.alertController.create({
-    header: 'Excluir item',
-    message: `Deseja mesmo excluir ${nome}?`,
-    buttons: [
-      { text: 'Cancelar', role: 'cancel' },
-      {
-        text: 'Excluir',
-        handler: () => this.rt.remove(`/pedidos/${id}`),
-      },
-    ],
-  });
-  await alert.present();
-}
+  async deletarItem(id: string, nome: string) {
+    const alert = await this.alertController.create({
+      header: 'Excluir item',
+      message: `Deseja mesmo excluir ${nome}?`,
+      buttons: [
+        { text: 'Cancelar', role: 'cancel' },
+        {
+          text: 'Excluir',
+          handler: () => this.rt.remove(`/pedidos/${id}`),
+        },
+      ],
+    });
+    await alert.present();
+  }
 
 
 }
