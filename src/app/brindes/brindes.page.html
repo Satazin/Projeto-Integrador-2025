@@ -9,14 +9,9 @@
 
 <ion-content class="ion-padding-vertical">
   <div class="nossos-brindes ion-padding-horizontal">
-    <p>
-      Na Casa Bonsai, cada brinde é pensado com carinho!
-      Troque seus pontos por itens cheios de charme e
-      significado, como chaveiros, meias, xícaras,
-      gatinhos da sorte e mini bonsais.
-    </p>
+   
   </div>
-  <div class="pontos-footer">
+  <div class="pontos-footer" >
     Seus pontos:
     <ion-badge color="dark">
       <strong class="pontos-total">{{ pontos }}</strong>
@@ -27,20 +22,19 @@
       <ion-col size="6" *ngFor="let brinde of brindes">
         <ion-card class="brinde-card" [ngClass]="{'insufficient': pontos < brinde.pontos}"
           (click)="toggleDescricao(brinde.id)">
+          <h2>{{ brinde.nome }}</h2>
           <img [src]="brinde.imagem" [alt]="brinde.nome">
           <ion-card-content>
-            <h2>{{ brinde.nome }}</h2>
-            <p class="descricao-expand" [class.active]="descricaoAtiva === brinde.id">
-              {{ brinde.descricao }}
-            </p>
-            <ion-button expand="block" class="pontos-btn" [disabled]="pontos < brinde.pontos"
+            
+           
+            <ion-button expand="block" class="pontos-btn" color="light" [disabled]="pontos < brinde.pontos"
               (click)="$event.stopPropagation(); resgatarBrinde(brinde)">
               <div class="content-wrapper">
                 <span *ngIf="pontos >= brinde.pontos">
                   {{ brinde.pontos }} <br> pontos
                 </span>
                 <span *ngIf="pontos < brinde.pontos">
-                  FALTAM {{ brinde.pontos - pontos }} <br> pontos
+                  Faltam <strong> {{ brinde.pontos - pontos }}</strong> <br> pontos
                 </span>
               </div>
             </ion-button>

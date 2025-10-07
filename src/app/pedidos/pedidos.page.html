@@ -5,10 +5,8 @@
         <img alt="Perfil" src="../../assets/png-removebg-preview.png" />
       </ion-avatar>
     </ion-buttons>
-    <!-- TÍTULO E BOTÕES DO TOPO -->
     <ion-title>Casa Bonsai</ion-title>
     <ion-buttons slot="end" class="casa-bonsai">
-
       <ion-button fill="clear" color="dark" routerLink="/horario">
         <ion-icon slot="icon-only" name="time-outline"></ion-icon>
       </ion-button>
@@ -21,7 +19,6 @@
   </ion-toolbar>
 </ion-header>
 
-
 <!-- MENU LATERAL -->
 <ion-menu side="end" contentId="main-content" menuId="rightMenu">
   <ion-header>
@@ -33,7 +30,6 @@
     <ion-list class="menu-list">
       <ion-item routerLink="/minhas-compras">Minhas Compras</ion-item>
       <ion-item routerLink="/brindes">Brindes</ion-item>
-      <!-- <ion-item routerLink="/localizacao">Localização</ion-item> -->
       <ion-item routerLink="/sobre-nos">Sobre nós</ion-item>
       <ion-item routerLink="/contato">Fale Conosco</ion-item>
       <ion-item *ngIf="authService.isAdmin()" routerLink="/pedidos-test">Painel Admin</ion-item>
@@ -45,15 +41,16 @@
   <div class="bemvindo">
     <h1>Seja bem-vindo ao <br>Casa Bonsai!</h1>
   </div>
+
   <img src="assets/lights.jpg" alt="Lanternas japonesas" class="banner-lanternas" />
 
-
-  <!--BARRA DE PESQUISA -->
+  <!-- BARRA DE PESQUISA -->
   <div class="search-bar-container">
     <ion-searchbar ngDefaultControl [(ngModel)]="termoBusca" placeholder="Buscar produto..." color="light"
       showCancelButton="focus" class="search-bar-custom" (ionClear)="limparBusca()"></ion-searchbar>
   </div>
 
+  <!-- CATEGORIAS -->
   <div class="categorias-menu-scroll">
     <div class="slider">
       <div class="slide-track">
@@ -66,15 +63,13 @@
     </div>
   </div>
 
-
   <!-- LISTA DE PRODUTOS -->
   <div class="produtos-lista">
     <ng-container *ngFor="let cat of categorias">
-      <!-- Só renderiza se tiver itens -->
       <ng-container *ngIf="itensPorCategoria(cat.id).length > 0">
         <div [id]="cat.id" class="categoria-titulo">{{cat.nome}}</div>
 
-        <button *ngFor="let item of itensPorCategoria(cat.id)" class="produto-card produto-botao"
+        <div *ngFor="let item of itensPorCategoria(cat.id)" class="produto-card produto-botao"
           (click)="abrirInfoItem(item)">
           <img [src]="item.imagem" alt="{{item.nome}}" class="produto-img" />
           <div class="produto-info">
@@ -82,8 +77,16 @@
             <div class="produto-desc">{{item.descricao}}</div>
             <div class="produto-serve">Serve {{item.serve}} pessoa</div>
             <div class="produto-preco">R$ {{item.preco | number:'1.2-2'}}</div>
+
+            <!-- Botão de deletar -->
+            <ion-button *ngIf="authService.isAdmin()" color="danger" class="btn-excluir"
+              (click)="deletarItem(item.id, item.nome); $event.stopPropagation();">
+              <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+            </ion-button>
           </div>
-        </button>
+        </div>
+
+        <div class="espaco-categoria"></div>
       </ng-container>
     </ng-container>
   </div>

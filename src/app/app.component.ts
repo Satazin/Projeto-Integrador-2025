@@ -33,7 +33,7 @@ import { AuthService } from './services/auth';
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
-  imports: [IonToolbar, IonButtons, IonButton, IonLabel, IonIcon, IonApp, IonRouterOutlet, RouterLink, CommonModule], // Adicionado CommonModule
+  imports: [IonButton, IonLabel, IonIcon, IonApp, IonRouterOutlet, RouterLink, CommonModule], 
 })
 export class AppComponent {
   showFooter = true; // controla se o menu aparece ou não
@@ -67,12 +67,10 @@ export class AppComponent {
       radioButtonOnOutline,
     });
 
-    // controla exibição do menu baseado na rota
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe((event: any) => {
         const url = event.urlAfterRedirects;
-        // esconder em login e cadastro
         this.showFooter = !(url.includes('/login') || url.includes('/cadastro') || url.includes('/home') || url.includes('/localizacao') || url.includes('/carrinho') );
       });
   }

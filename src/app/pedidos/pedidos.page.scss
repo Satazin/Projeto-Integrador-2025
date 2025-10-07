@@ -66,6 +66,7 @@ ion-avatar {
     height: 200px;
     gap: 16px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    position: relative;
 }
 
 .produto-img {
@@ -82,16 +83,17 @@ ion-avatar {
     display: flex;
     flex-direction: column;
     gap: 1px;
+
 }
 
 .produto-nome {
     font-weight: bold;
-    font-size: 1.6em;
+    font-size: 1.3em;
     margin-bottom: 8px;
 }
 
 .produto-desc {
-    font-size: 1.1em;
+    font-size: 0.95em;
     color: #fff6f6;
     display: -webkit-box;
     -webkit-line-clamp: 4;
@@ -102,7 +104,7 @@ ion-avatar {
 }
 
 .produto-serve {
-    font-size: 1.2em;
+    font-size: 1em;
     font-weight: bold;
     color: #ffffff;
     margin-top: auto;
@@ -110,7 +112,7 @@ ion-avatar {
 
 .produto-preco {
     font-weight: bold;
-    font-size: 1.8em;
+    font-size: 1.4em;
     color: #ffffff;
     margin-top: auto;
 }
@@ -243,4 +245,11 @@ ion-toolbar {
 .search-bar-custom {
     margin-left: 10px;
     margin-right: 10px;
+}
+.btn-excluir {
+    position: absolute;
+    bottom: 10px; 
+    right: 10px; 
+    left: auto;
+    top: auto; 
 }

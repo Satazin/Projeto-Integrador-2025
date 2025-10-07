@@ -59,9 +59,16 @@
     </ion-card-content>
   </ion-card>
 
-      <ion-card *ngIf="itens.length > 0">
+       <ion-card *ngIf="itens.length > 0" class="pontos-card">
         <ion-card-content>
           <h3>Valor Total: R$ {{ valorTotalCarrinho$ | async | number:'1.2-2' }}</h3>
+          <div class="ion-text-center">
+            Você ganhará
+          </div>
+          <h2 class="ion-text-center">
+            <strong>{{ pontosGanhos$ | async }}</strong> pontos!
+          </h2>
+          <h2 class="ion-text-center">Use para resgatar brindes!</h2>
         </ion-card-content>
       </ion-card>
 

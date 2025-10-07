@@ -176,6 +176,17 @@ ion-card-content h3 {
   color: #fff;
 }
 
+.pontos-card {
+    --background: #1f1f1f; 
+    color: #ffffff; 
+}
+.pontos-card h2 strong {
+    color: var(--ion-color-success, #2dd36f);
+}
+.pontos-card p {
+    color: #cccccc; 
+}
+
 /* ===== Animação ===== */
 @keyframes pulse {
 

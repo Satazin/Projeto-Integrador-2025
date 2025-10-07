@@ -1,7 +1,6 @@
 <ion-app>
   <ion-router-outlet></ion-router-outlet>
 
-  <!-- Barra inferior fixa -->
   <div *ngIf="showFooter" class="barra-inferior">
     <div class="nav-footer">
       <ion-button routerLink="/pedidos" fill="clear">
@@ -9,12 +8,12 @@
         <ion-label>Home</ion-label>
       </ion-button>
 
-      <ion-button routerLink="/brindes" fill="clear">
-        <ion-icon name="star"></ion-icon>
+      <ion-button routerLink="/brindes" fill="clear" color="dark">
+        <ion-icon name="star" ></ion-icon>
         <ion-label>Brindes</ion-label>
       </ion-button>
 
-      <ion-button (click)="abrirPerfil()" fill="clear">
+      <ion-button (click)="abrirPerfil()" fill="clear" color="dark">
         <ion-icon name="person-circle-outline"></ion-icon>
         <ion-label>Perfil</ion-label>
       </ion-button>
