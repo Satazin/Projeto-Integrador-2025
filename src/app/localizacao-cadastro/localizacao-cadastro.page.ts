@@ -9,12 +9,12 @@ declare const google: any;
 
 @Component({
   selector: 'app-localizacao',
-  templateUrl: './localizacao.page.html',
-  styleUrls: ['./localizacao.page.scss'],
+  templateUrl: './localizacao-cadastro.page.html',
+  styleUrls: ['./localizacao-cadastro.page.scss'],
   standalone: true,
   imports: [IonicModule, CommonModule]
 })
-export class LocalizacaoPage implements OnInit, AfterViewInit {
+export class LocalizacaoCadastroPage implements OnInit, AfterViewInit {
   @ViewChild('map', { static: true }) mapRef!: ElementRef;
 
   private googleMapInstance: any;
@@ -42,12 +42,10 @@ export class LocalizacaoPage implements OnInit, AfterViewInit {
         this.initializeGoogleMapsJS();
       });
     } else {
-      // ... (Lógica Nativa se precisar compilar para celular)
       console.warn('Rodando em ambiente nativo. O código de mapa nativo deve ser implementado aqui.');
     }
   }
 
-  // Carrega o script da API de forma dinâmica, usando a chave do environments
   private loadGoogleMapsScript(): Promise<void> {
     if (typeof google !== 'undefined' && typeof google.maps !== 'undefined') {
       return Promise.resolve();
@@ -65,7 +63,6 @@ export class LocalizacaoPage implements OnInit, AfterViewInit {
     });
   }
 
-  // INICIALIZAÇÃO DO MAPA JS SDK com @ts-ignore para evitar problemas de tipagem
   async initializeGoogleMapsJS() {
     try {
       // @ts-ignore
@@ -138,11 +135,7 @@ export class LocalizacaoPage implements OnInit, AfterViewInit {
 
   confirmAddress() {
     if (!this.selectedAddress) return;
-
-    // ✅ CORREÇÃO: Usando o Serviço de Transferência
     this.enderecoTransfer.setEndereco(this.selectedAddress);
-
-    // Navega sem passar o estado (o Perfil lerá o serviço)
-    this.router.navigate(['/perfil']);
+    this.router.navigate(['/cadastro']);
   }
 }

@@ -92,7 +92,7 @@ export class InfoitensPage implements OnInit {
             cssClass: 'secondary',
           },
           {
-            text: 'Fazer Login',
+            text: 'Login',
             handler: () => {
               this.router.navigate(['/login']); // Navega para a página de login
             },
@@ -116,10 +116,18 @@ export class InfoitensPage implements OnInit {
         this.quantidade
       );
 
-      // Exibe um alerta de sucesso em vez do console.log
+      // Exibe um alerta de sucesso e redireciona para pedidos
       const alert = await this.alertController.create({
         header: 'Sucesso!',
-        message: 'Item adicionado ao carrinho.'
+        message: 'Item adicionado ao carrinho.',
+        buttons: [
+          {
+            text: 'OK',
+            handler: () => {
+              this.router.navigate(['/pedidos']); // Redireciona para a tela de pedidos
+            }
+          }
+        ]
       });
       await alert.present();
 
@@ -127,7 +135,8 @@ export class InfoitensPage implements OnInit {
       console.error('Erro ao adicionar item ao carrinho:', error);
       const errorAlert = await this.alertController.create({
         header: 'Erro',
-        message: 'Erro ao adicionar item ao carrinho. Tente novamente.'
+        message: 'Erro ao adicionar item ao carrinho. Tente novamente.',
+        buttons: ['OK']
       });
       await errorAlert.present();
     } finally {

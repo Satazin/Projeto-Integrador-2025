@@ -8,6 +8,7 @@ import {
   IonTitle,
   IonToolbar,
   IonList,
+  IonBadge,
   IonItem,
   IonButtons,
   IonIcon,
@@ -28,7 +29,7 @@ import { AuthService } from '../services/auth';
   standalone: true,
   imports: [
     IonAvatar, IonButton, IonIcon,
-    CommonModule, FormsModule, RouterLink,
+    CommonModule, FormsModule, RouterLink, IonBadge,
     IonContent, IonHeader, IonTitle, IonToolbar,
     IonList, IonItem, IonButtons, IonMenuButton, IonMenu
   ]
@@ -147,4 +148,7 @@ export class PedidosPage implements OnInit, AfterViewInit {
   limparBusca() {
   this.termoBusca = '';
 }
+
+
+
 }

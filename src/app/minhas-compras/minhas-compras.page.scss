@@ -1,33 +1,39 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
 
 ion-content {
-    --background: #000000; 
+  --background: #000000;
   font-family: 'Inter', sans-serif;
+  --padding-bottom: 70px;
 }
 
 /* Header */
 ion-toolbar {
-   --background: #000000; /* fundo sólido */
+  --background: #000000;
+  /* fundo sólido */
 }
 
 /* Lista de compras */
 .compras-list {
-  background: #000000; /* fundo sólido */
+  background: #000000;
+  /* fundo sólido */
 }
 
 /* Card */
 .compra-card {
-    --background: #202020; /* fundo sólido */
+  --background: #202020;
+  /* fundo sólido */
   color: #fff;
   border-radius: 14px;
-  --background: #202020; /* fundo sólido */
+  --background: #202020;
+  /* fundo sólido */
   margin-bottom: 22px;
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .compra-card:hover {
   transform: translateY(-6px);
-   --background: #202020; /* fundo sólido */
+  --background: #202020;
+  /* fundo sólido */
 
 }
 
@@ -60,7 +66,8 @@ ion-toolbar {
   height: 80px;
   object-fit: cover;
   border-radius: 10px;
-    --background: #202020; /* fundo sólido */
+  --background: #202020;
+  /* fundo sólido */
 
 }
 
@@ -103,10 +110,11 @@ ion-toolbar {
   color: #666;
   margin-bottom: 12px;
 }
+
 .item-container {
   display: flex;
-  align-items: center;   
-  gap: 12px;             
+  align-items: center;
+  gap: 12px;
 }
 
 .produto {
@@ -117,6 +125,6 @@ ion-toolbar {
 }
 
 .item-info {
-  flex: 1;   /* ocupa o resto do espaço */
+  flex: 1;
+  /* ocupa o resto do espaço */
 }
-

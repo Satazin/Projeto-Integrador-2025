@@ -8,7 +8,7 @@ import { IonicModule } from '@ionic/angular';
   templateUrl: './horario.page.html',
   styleUrls: ['./horario.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule, ]
+  imports: [IonicModule, CommonModule, FormsModule]
 })
 export class HorarioPage implements OnInit {
 

@@ -1,8 +1,6 @@
-// src/app/pix-modal/pix-modal.page.ts
-
 import { Component, Input, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonicModule, ModalController, AlertController } from '@ionic/angular';
+import { IonicModule, ModalController, ToastController, AlertController} from '@ionic/angular';
 import QRCode from 'qrcode';
 import { Clipboard } from '@capacitor/clipboard';
 
@@ -24,7 +22,9 @@ export class PixModalPage implements AfterViewInit {
 
   constructor(
     private modalCtrl: ModalController,
-  private alertController: AlertController) {}
+    private toastCtrl: ToastController,
+    private alertCtrl: AlertController
+  ) {}
 
   ngAfterViewInit() {
     this.gerarQRCode();
@@ -45,31 +45,32 @@ export class PixModalPage implements AfterViewInit {
     }
   }
 
-  async copiarCodigoPix() {
-  try {
-    await navigator.clipboard.writeText(this.codigoPix);
-    // Alerta bonitinho
-    const alert = await this.alertController.create({
-      header: 'Copiado!',
-      message: 'O código Pix foi copiado para a área de transferência!',
-      buttons: ['OK']
-    });
-    await alert.present();
-  } catch (err) {
-    console.error('Erro ao copiar', err);
+    async copiarCodigo() {
+    try {
+      await Clipboard.write({ string: this.codigoPix });
+
+      const toast = await this.toastCtrl.create({
+        message: 'Código Pix copiado!',
+        duration: 2000,
+        color: 'success',
+        position: 'bottom'
+      });
+      await toast.present();
+    } catch (err) {
+      console.error('Erro ao copiar Pix:', err);
+      const alert = await this.alertCtrl.create({
+        header: 'Erro',
+        message: 'Não foi possível copiar o código Pix.',
+        buttons: ['OK']
+      });
+      await alert.present();
+    }
   }
-}
-
-
-  // Novo método para voltar sem finalizar a compra
-  voltarParaCarrinho() {
-    // Fecha o modal sem retornar um valor de sucesso
+    voltarParaCarrinho() {
     this.modalCtrl.dismiss();
   }
 
-  // Este método finaliza a compra
   finalizarCompra() {
-    // Fecha o modal e retorna um valor de sucesso
     this.modalCtrl.dismiss(true); 
   }
 }
