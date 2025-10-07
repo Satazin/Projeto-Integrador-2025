@@ -8,12 +8,16 @@ import { AuthService } from '../services/auth';
 })
 export class PontoService {
   private db: Database;
-  
+
   constructor(private authService: AuthService) {
     this.db = getDatabase();
   }
 
-  // Método para ler a pontuação do usuário logado
+  public calcularPontosGanhos(valorTotal: number): number {
+    const fatorConversao = 4.6; 
+    return Math.floor(valorTotal * fatorConversao);
+  }
+
   async lerPontos(): Promise<number> {
     const usuarioLogado = this.authService.usuarioLogado;
 
@@ -24,7 +28,7 @@ export class PontoService {
 
     const uid = usuarioLogado.uid;
     const userPontosRef = ref(this.db, `usuarios/${uid}/pontos`);
-    
+
     try {
       const snapshot = await get(userPontosRef);
       return snapshot.exists() ? snapshot.val() : 0;
@@ -34,7 +38,6 @@ export class PontoService {
     }
   }
 
-  // Método para adicionar/remover pontos do usuário logado
   async adicionarPontos(valorTotal: number, fatorConversao: number = 4.6) {
     const usuarioLogado = this.authService.usuarioLogado;
 
@@ -42,18 +45,18 @@ export class PontoService {
       console.error("Erro: Nenhum usuário logado. Não é possível adicionar pontos.");
       return;
     }
-    
+
     const pontosGanhos = Math.floor(valorTotal * fatorConversao);
 
     if (pontosGanhos > 0) {
       const uid = usuarioLogado.uid;
       const userPontosRef = ref(this.db, `usuarios/${uid}/pontos`);
-      
+
       const snapshot = await get(userPontosRef);
       const pontosAtuais = snapshot.exists() ? snapshot.val() : 0;
-      
+
       const novosPontos = pontosAtuais + pontosGanhos;
-      
+
       try {
         await set(userPontosRef, novosPontos);
         console.log(`Pontos adicionados: ${pontosGanhos}. Total agora é: ${novosPontos}`);
@@ -65,28 +68,27 @@ export class PontoService {
     }
   }
 
-   async removerPontos(pontosRemover: number = 10) {
+  async removerPontos(pontosRemover: number = 10) {
     const usuarioLogado = this.authService.usuarioLogado;
 
     if (!usuarioLogado) {
       console.error("Erro: Nenhum usuário logado. Não é possível remover pontos.");
       return;
     }
-    
+
     const uid = usuarioLogado.uid;
     const userPontosRef = ref(this.db, `usuarios/${uid}/pontos`);
-    
+
     try {
       const snapshot = await get(userPontosRef);
       const pontosAtuais = snapshot.exists() ? snapshot.val() : 0;
-      
+
       const novosPontos = Math.max(0, pontosAtuais - pontosRemover);
-      
+
       await set(userPontosRef, novosPontos);
       console.log(`Pontos removidos: ${pontosRemover}. Total agora é: ${novosPontos}`);
     } catch (error) {
       console.error("Erro ao remover pontos:", error);
     }
   }
-  
 }
