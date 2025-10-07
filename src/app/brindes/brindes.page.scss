@@ -60,6 +60,7 @@ ion-col {
 }
 
 
+
 .coin {
   background: linear-gradient(135deg, #ffd700, #f5c518, #e0a800);
   color: #000000;
@@ -74,37 +75,6 @@ ion-col {
   margin-top: 12px;
 }
 
-
-.pontos {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 20px auto;
-  padding: 12px 20px;
-  font-size: 1.2em;
-  font-weight: 600;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #ffffff;
-  background: linear-gradient(135deg, #2e2c2c, #3d3d3d);
-  border-radius: 14px;
-  width: fit-content;
-  min-width: 200px; 
-  text-align: center;
-}
-
-
-.pontos strong {
-  margin-left: 6px;
-  color: #f1c40f; 
-  font-size: 1.3em;
-  font-weight: bold;
-}
-
-
-.pontos:hover {
-  transform: scale(1.03);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.6);
-}
 
 ion-content {
   --padding-bottom: 70px; 
@@ -126,4 +96,29 @@ ion-card {
   margin-top: 30px;
   margin-bottom: 20px;
   padding: 10px;
+}
+
+.pontos-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 1.3em;
+  color: #000000;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #ffd700;
+  padding: 12px 12px;
+  border-radius: 12px;
+  width: fit-content;
+  margin: 0 auto 30px;
+}
+
+.pontos-footer ion-badge {
+  border-radius: 8px;
+}
+
+.pontos-footer .pontos-total {
+  font-weight: bold;
+  color: #000000;
+  font-size: 1.2em;
 }
