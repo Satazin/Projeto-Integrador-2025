@@ -24,7 +24,7 @@ import { PontoService } from '../ponto/pontos-recom';
   ]
 })
 export class CarrinhoPage implements OnInit {
-
+  quantidade = 1;
   carrinhoItens$: Observable<CartItem[]>;
   valorTotalCarrinho$: Observable<number>;
   public pontosGanhos$: Observable<number>;
@@ -193,6 +193,11 @@ export class CarrinhoPage implements OnInit {
         buttons: ['OK']
       });
       await errorAlert.present();
+    }
+  }
+  alterarQtd(valor: number) {
+    if (this.quantidade + valor >= 1) {
+      this.quantidade += valor;
     }
   }
 }

@@ -58,16 +58,16 @@ export class CarrinhoService {
   }
 
   async adicionarAoCarrinho(item: Product, quantidade: number): Promise<void> {
-    const user = this.userSubject.getValue();
-    if (!user) {
-      alert('Faça login para adicionar itens ao carrinho.');
-      return;
-    }
-    const userId = user.uid;
-    const itemRef = `carrinhos/${userId}/itens/${item.id}`;
-    const cartItem: CartItem = { ...item, quantidade };
-    await this.rtdb.set(itemRef, cartItem);
-  }
+  const user = this.userSubject.getValue();
+  if (!user) return alert('Faça login para adicionar itens ao carrinho.');
+
+  const ref = `carrinhos/${user.uid}/itens/${item.id}`;
+  const snap = await this.rtdb.get(ref);
+  const atual = snap.exists() ? snap.val().quantidade || 0 : 0;
+
+  await this.rtdb.set(ref, { ...item, quantidade: atual + quantidade });
+}
+
 
   async removeFromCart(itemId: string): Promise<void> {
     const user = this.userSubject.getValue();

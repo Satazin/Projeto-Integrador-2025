@@ -96,49 +96,7 @@ export class InfoitensPage implements OnInit, OnDestroy {
     }
   }
 
-  // Métodos de ação (inalterados)
-
-  async salvarItemMestre() {
-    if (!this.isAdminMode) {
-      await this.showAlert('Acesso Negado', 'Você não tem permissão de administrador para editar este item.');
-      return;
-    }
-    // ... restante da lógica de salvar
-    if (!this.item || !this.item.id) {
-      await this.showAlert('Erro', 'Item não carregado ou sem ID para salvar.');
-      return;
-    }
-
-    const loading = await this.loadingController.create({
-      message: 'Salvando item mestre...',
-      spinner: 'crescent'
-    });
-    await loading.present();
-
-    try {
-      const dadosParaSalvar = {
-        ...this.item,
-        observacao: this.observacao
-      };
-
-      delete dadosParaSalvar.id;
-      await this.rt.update(`pedidos/${this.item.id}`, dadosParaSalvar);
-      await this.showAlert('Sucesso!', 'Item mestre atualizado com sucesso no banco de dados.', ['OK']);
-      this.router.navigate(['/pedidos']);
-    } catch (error) {
-      console.error('Erro ao salvar item mestre:', error);
-      await this.showAlert('Erro', 'Falha ao salvar item mestre. Verifique o console.');
-    } finally {
-      await loading.dismiss();
-    }
-  }
-
   async adicionarAoCarrinho() {
-    if (this.isAdminMode) {
-      await this.showAlert('Atenção', 'Use o botão "Salvar Item Mestre" para editar as informações do menu.');
-      return;
-    }
-    // ... restante da lógica de carrinho
     if (!this.item) {
       await this.showAlert('Erro', 'Não foi possível adicionar o item ao carrinho.', ['OK']);
       return;

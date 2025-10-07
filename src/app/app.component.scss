@@ -39,13 +39,6 @@
   transition: color 0.2s ease, transform 0.2s ease;
 }
 
-/* Efeito hover/active */
-.nav-footer ion-button:hover,
-.nav-footer ion-button:focus {
-  color: #c2aa22; /* cor de destaque */
-  transform: scale(1.05);
-}
-
 /* Ícones */
 .nav-footer ion-icon {
   font-size: 1.6em;

@@ -38,6 +38,9 @@
               {{ item.observacao }}
             </p>
           </ion-label>
+          <ion-button fill="outline" size="small" (click)="alterarQtd(-1)" [disabled]="item.quantidade <= 1">-</ion-button>
+            <span>{{quantidade}}</span>
+          <ion-button fill="outline" size="small" (click)="alterarQtd(1)">+</ion-button>
 
           <ion-button slot="end" fill="solid" color="danger" (click)="removerItem(item)">
             <ion-icon name="trash-outline"></ion-icon>

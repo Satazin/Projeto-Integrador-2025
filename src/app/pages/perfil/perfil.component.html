@@ -41,12 +41,11 @@
         <ion-label position="stacked">Endereço</ion-label>
         <ion-input [value]="usuario.endereco" readonly="true" (click)="selecionarEndereco()"
           placeholder="Selecione o endereço no mapa"></ion-input>
-        <p>{{ usuario.endereco }}</p>
       </ion-item>
     </ion-list>
 
     <div class="botoes">
-      <ion-button expand="block" color="dark" class="btn-salvar" (click)="salvarPerfil()">Salvar Alterações</ion-button>
+      <ion-button expand="block" color="dark" class="btn-salvar" (click)="salvarPerfil()">Salvar </ion-button>
       <ion-button expand="block" color="danger" class="btn-logout" (click)="logout()">Logout</ion-button>
     </div>
   </div>
