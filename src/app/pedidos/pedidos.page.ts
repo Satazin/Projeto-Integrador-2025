@@ -145,10 +145,25 @@ export class PedidosPage implements OnInit, AfterViewInit {
       await alert.present();
     }
   }
+
   limparBusca() {
   this.termoBusca = '';
 }
 
+async deletarItem(id: string, nome: string) {
+  const alert = await this.alertController.create({
+    header: 'Excluir item',
+    message: `Deseja mesmo excluir ${nome}?`,
+    buttons: [
+      { text: 'Cancelar', role: 'cancel' },
+      {
+        text: 'Excluir',
+        handler: () => this.rt.remove(`/pedidos/${id}`),
+      },
+    ],
+  });
+  await alert.present();
+}
 
 
 }
