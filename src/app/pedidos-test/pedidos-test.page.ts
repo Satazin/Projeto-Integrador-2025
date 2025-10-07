@@ -1,12 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonInput, IonButton, IonItem, IonSelect, IonSelectOption } from '@ionic/angular/standalone';
+import {
+  IonContent,
+  IonHeader,
+  IonTitle,
+  IonToolbar,
+  IonInput,
+  IonButton,
+  IonItem,
+  IonSelect,
+  IonSelectOption,
+  ActionSheetController,
+  AlertController, IonIcon } from '@ionic/angular/standalone';
 import { RealtimeDatabaseService } from '../firebase/realtime-databse';
-import { ActivatedRoute, Router } from '@angular/router';
-
-// ADICIONADO PARA CAMERA / ACTION SHEET
-import { ActionSheetController } from '@ionic/angular';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 
 @Component({
@@ -14,70 +22,108 @@ import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
   templateUrl: './pedidos-test.page.html',
   styleUrls: ['./pedidos-test.page.scss'],
   standalone: true,
-  imports: [
+  imports: [IonIcon, 
     IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule,
-    IonInput, IonButton, IonItem, IonSelect, IonSelectOption
+    IonInput, IonButton, IonItem, IonSelect, IonSelectOption, RouterLink
   ]
 })
 export class PedidosTestPage implements OnInit {
-  public id: number = 0;
   public nome: string = '';
   public descricao: string = '';
   public serve: number = 1;
   public preco: number = 0;
   public categoria: string = '';
-  public imagem: string = ''; 
-
+  public imagem: string = '';
   public pedidos: any[] = [];
 
-  // 🔥 Categorias fixas
+  // Categorias fixas
   public categorias = [
-    { id: 'poke', nome: 'POKE' },
-    { id: 'temaki', nome: 'TEMAKI' },
-    { id: 'yakisoba', nome: 'YAKISOBA' },
-    { id: 'sushi', nome: 'SUSHI' },
-    { id: 'niguiris', nome: 'NIGUIRIS' },
-    { id: 'hot', nome: 'PORÇÕES HOT' },
-    { id: 'urumakis', nome: 'URUMAKIS' },
-    { id: 'acompanhamentos', nome: 'ACOMPANHAMENTOS' },
-    { id: 'combos', nome: 'COMBOS' },
-    { id: 'bebidas', nome: 'BEBIDAS' },
-    { id: 'sobremesas', nome: 'SOBREMESAS' }
+    { id: 1, slug: 'poke', nome: 'POKE' },
+    { id: 2, slug: 'temaki', nome: 'TEMAKI' },
+    { id: 3, slug: 'yakisoba', nome: 'YAKISOBA' },
+    { id: 4, slug: 'sushi', nome: 'SUSHI' },
+    { id: 5, slug: 'niguiris', nome: 'NIGUIRIS' },
+    { id: 6, slug: 'hot', nome: 'PORÇÕES HOT' },
+    { id: 7, slug: 'urumakis', nome: 'URUMAKIS' },
+    { id: 8, slug: 'acompanhamentos', nome: 'ACOMPANHAMENTOS' },
+    { id: 10, slug: 'bebidas', nome: 'BEBIDAS' },
+    { id: 11, slug: 'sobremesas', nome: 'SOBREMESAS' }
   ];
+  
 
   constructor(
     private rt: RealtimeDatabaseService,
     private ar: ActivatedRoute,
     private router: Router,
-    private actionSheetCtrl: ActionSheetController
+    private actionSheetCtrl: ActionSheetController,
+    private alertCtrl: AlertController
   ){
     this.ar.params.subscribe((param: any) => {
-      this.id = param.id;
+     //this.id = param.id;
     });
   }
 
   ngOnInit() {
-    this.listar();
   }
 
-  // SALVAR NO FIREBASE
-  salvar(){
-    this.rt.add('pedidos', {
-      nome: this.nome,
-      descricao: this.descricao,
-      serve: this.serve,
-      preco: this.preco,
-      categoria: this.categoria,
-      imagem: this.imagem
-    }, this.id)
-    .then((res: any) => {
-      console.log('Salvo com sucesso', res);
-      this.listar(); // atualiza lista
-      this.limparFormulario();
-    })
-    .catch((err: any) => {
-      console.log('Falhou', err);
-    });
+  // SALVAR NOVO PEDIDO
+  async salvar() {
+    // validação simples
+    if (!this.nome || !this.categoria || !this.preco) {
+      const a = await this.alertCtrl.create({
+        header: 'Campos obrigatórios',
+        message: 'Preencha pelo menos nome, categoria e preço.',
+        buttons: ['OK']
+      });
+      await a.present();
+      return;
+    }
+
+    try {
+      await this.rt.add('pedidos', {
+        nome: this.nome,
+        descricao: this.descricao,
+        serve: this.serve,
+        preco: this.preco,
+        categoria: this.categoria,
+        imagem: this.imagem
+      });
+
+      console.log('Salvo com sucesso');
+      this.listar();
+
+      // ALERT com opções: cadastrar outro ou ir pra lista de pedidos
+      const alert = await this.alertCtrl.create({
+        header: 'Produto cadastrado!',
+        message: 'Deseja cadastrar outro ou ir para a lista de pedidos?',
+        buttons: [
+          {
+            text: 'Cadastrar outro',
+            role: 'cancel',
+            handler: () => {
+              this.limparFormulario();
+            }
+          },
+          {
+            text: 'Ir para pedidos',
+            handler: () => {
+              this.router.navigate(['/pedidos']);
+            }
+          }
+        ]
+      });
+
+      await alert.present();
+
+    } catch (err) {
+      console.error('Falhou', err);
+      const alert = await this.alertCtrl.create({
+        header: 'Erro',
+        message: 'Não foi possível cadastrar o produto. Tente novamente.',
+        buttons: ['OK']
+      });
+      await alert.present();
+    }
   }
 
   // LISTAR PEDIDOS
@@ -105,30 +151,20 @@ export class PedidosTestPage implements OnInit {
     this.imagem = '';
   }
 
-  // ABRIR ACTION SHEET PARA ESCOLHER CÂMERA OU GALERIA
+  // ACTION SHEET: ESCOLHER CÂMERA OU GALERIA
   async selecionarImagem() {
     const actionSheet = await this.actionSheetCtrl.create({
       header: 'Selecionar imagem',
       buttons: [
-        {
-          text: 'Câmera',
-          handler: () => this.pegarImagem(CameraSource.Camera)
-        },
-        {
-          text: 'Galeria',
-          handler: () => this.pegarImagem(CameraSource.Photos)
-        },
-        {
-          text: 'Cancelar',
-          role: 'cancel'
-        }
+        { text: 'Câmera', handler: () => this.pegarImagem(CameraSource.Camera) },
+        { text: 'Galeria', handler: () => this.pegarImagem(CameraSource.Photos) },
+        { text: 'Cancelar', role: 'cancel' }
       ]
     });
-
     await actionSheet.present();
   }
 
-  // PEGAR IMAGEM E CONVERTER PARA BASE64
+  // PEGAR IMAGEM BASE64
   async pegarImagem(source: CameraSource) {
     try {
       const image = await Camera.getPhoto({
@@ -143,6 +179,12 @@ export class PedidosTestPage implements OnInit {
       }
     } catch (err) {
       console.error('Erro ao pegar imagem:', err);
+      const a = await this.alertCtrl.create({
+        header: 'Erro',
+        message: 'Falha ao obter imagem.',
+        buttons: ['OK']
+      });
+      await a.present();
     }
   }
 }

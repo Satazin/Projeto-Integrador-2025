@@ -1,117 +1,111 @@
 <ion-header>
-  <ion-toolbar >
+  <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/pedidos" color="dark"></ion-back-button>
+      <ion-back-button defaultHref="/pedidos" color="dark" text=""></ion-back-button>
     </ion-buttons>
-    <ion-title class="titulo">Nossos Brindes</ion-title>
+    <ion-title>Nossos brindes</ion-title>
   </ion-toolbar>
 </ion-header>
-
-<ion-content>
+<ion-content class="brindes-bg">
+  <div class="nossos-brindes">
+    <p>
+      Na Casa Bonsai, cada brinde é pensado com carinho!
+      Troque seus pontos por itens cheios de charme e
+      significado, como chaveiros, meias, xícaras,
+      gatinhos da sorte e mini bonsais.
+    </p>
+  </div>
   <ion-grid>
     <ion-row>
-    <!-- Chaveiro -->
       <ion-col size="6">
-        <ion-card class="brinde-card"  (click)="toggleDescricao('chaveiro')">
-            <div class="card-content" [class.active]="descricaoAtiva === 'chaveiro'"></div>
+        <ion-card class="brinde-card" (click)="toggleDescricao('chaveiro')">
           <img src="assets/chaveiro.png" alt="Chaveiro">
           <ion-card-content>
             <h2>Chaveiros</h2>
-             <p class="descricao" *ngIf="descricaoAtiva === 'chaveiro'">
-              Chaveiros estiloso para manter suas chaves organizadas.
-              </p>
+            <p class="descricao">
+              Chaveiros estiloso para manter suas chaves organizadas, com estilo e personalidade.
+            </p>
+            <div class="coin">500 <br> pontos</div>
           </ion-card-content>
-          <div class="coin">...</div>
         </ion-card>
       </ion-col>
 
-   <!-- Meias -->
       <ion-col size="6">
         <ion-card class="brinde-card" (click)="toggleDescricao('meias')">
-            <div class="card-content" [class.active]="descricaoAtiva === 'meias'"></div>
           <img src="assets/meias.png" alt="Meias">
           <ion-card-content>
             <h2>Meias</h2>
-              <p class="descricao" *ngIf="descricaoAtiva === 'meias'">
+            <p class="descricao">
               Meias confortaveis e estilosas representando oque voce mais gosta.
-              </p>
+            </p>
+            <div class="coin">1000 <br> pontos</div>
           </ion-card-content>
-          <div class="coin">...</div>
+
         </ion-card>
       </ion-col>
     </ion-row>
 
     <ion-row>
-      <!-- xicara -->
       <ion-col size="6">
         <ion-card class="brinde-card" (click)="toggleDescricao('caneca')">
-            <div class="card-content" [class.active]="descricaoAtiva === 'caneca'"></div>
           <img src="assets/caneca.png" alt="Caneca">
           <ion-card-content>
             <h2>Xícara</h2>
-            <p class="descricao" *ngIf="descricaoAtiva === 'caneca'">
-             Pense em você tomando sua bebida favorita nesta xícara com a nossa logo
-              </p>
+            <p class="descricao">
+              Pense em você tomando sua bebida favorita nesta xícara com a nossa logo
+            </p>
+            <div class="coin">1500 <br> pontos</div>
           </ion-card-content>
-          <div class="coin">...</div>
+
         </ion-card>
       </ion-col>
-  <!-- Gato -->
-        <ion-col size="6">
+
+      <ion-col size="6">
         <ion-card class="brinde-card" (click)="toggleDescricao('gato')">
-            <div class="card-content" [class.active]="descricaoAtiva === 'gato'"></div>
           <img src="assets/gato.png" alt="gato">
           <ion-card-content>
             <h2>Gatinho da sorte</h2>
-             <p class="descricao" *ngIf="descricaoAtiva === 'gato'">
-              Gatinho dourado para trazer a sorte para sua vida.
-              </p>
+            <p class="descricao">
+              Gatinho dourado que simboliza sorte e boas energias para a sua vida. </p>
+            <div class="coin">2000 <br> pontos</div>
           </ion-card-content>
-          <div class="coin">...</div>
+
         </ion-card>
       </ion-col>
-
     </ion-row>
 
     <ion-row>
-     
-       <!-- Totoro -->
       <ion-col size="6">
-        <ion-card class="brinde-card"  (click)="toggleDescricao('totoro')">
-          <div class="card-content" [class.active]="descricaoAtiva === 'totoro'"></div>
+        <ion-card class="brinde-card" (click)="toggleDescricao('totoro')">
           <img src="assets/totoro.png" alt="Totoro">
           <ion-card-content>
             <h2>Totoro</h2>
-             <p class="descricao" *ngIf="descricaoAtiva === 'totoro'">
-                Brinde inspirado no personagem Totoro
-                 do filme 
-                "Meu Amigo Totoro" do Studio Ghibli.
-              </p>
+            <p class="descricao">
+              Brinde inspirado no personagem Totoro do filme "Meu Amigo Totoro" do Studio Ghibli.
+            </p>
+            <div class="coin">2500 <br> pontos</div>
           </ion-card-content>
-          <div class="coin">...</div>
+
         </ion-card>
       </ion-col>
 
-   <!-- Bonsai -->
       <ion-col size="6">
-        <ion-card class="brinde-card"  (click)="toggleDescricao('bonsai')">
-            <div class="card-content" [class.active]="descricaoAtiva === 'bonsai'"></div>
+        <ion-card class="brinde-card" (click)="toggleDescricao('bonsai')">
           <img src="assets/bonsai.png" alt="Bonsai">
           <ion-card-content>
             <h2>Bonsai</h2>
-             <p class="descricao" *ngIf="descricaoAtiva === 'bonsai'">
-                Bonsai,uma tecnica de plantio pequena mas cheia de significado.
-              </p>
+            <p class="descricao">
+              Bonsai: uma técnica de plantio em miniatura, mas repleta de beleza, e significado. </p>
+            <div class="coin">4000 <br> pontos</div>
           </ion-card-content>
-          <div class="coin">...</div>
+
         </ion-card>
+
       </ion-col>
 
-
     </ion-row>
+    <div class="pontos">
+      Seus pontos: <strong> {{ pontos }} </strong>
+    </div>
   </ion-grid>
-
-  <div class="pontos">
-    Seus pontos: <strong>{{ pontos }}</strong>
-  </div>
 </ion-content>

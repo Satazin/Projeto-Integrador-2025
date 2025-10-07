@@ -1,52 +1,104 @@
 <ion-header>
-  <ion-toolbar class="header-toolbar">
-    
-    <ion-title class="header-title">Carrinho</ion-title>
-
+  <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/pedidos"></ion-back-button>
-  
+      <ion-back-button defaultHref="/pedidos" color="dark" text=""></ion-back-button>
     </ion-buttons>
+    <ion-title>Carrinho</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="carrinho-content">
-  <ion-list *ngIf="(carrinhoItens$ | async) as itens; else noItems" class="carrinho-list">
-    <ion-item *ngFor="let item of itens" class="carrinho-item">
-      <ion-thumbnail slot="start">
-        <img [src]="item.imagem" alt="{{ item.nome }}" />
-      </ion-thumbnail>
-      <ion-label>
-        <h2 class="item-nome">{{ item.nome }}</h2>
-        <p class="item-preco">R$ {{ item.preco | number:'1.2-2' }}</p>
-        <p class="item-descricao">{{ item.descricao }}</p>
-        <div class="item-quantidade">
-          <ion-button fill="outline" size="small" (click)="decrementarQuantidade(item)">-</ion-button>
-          <span>{{ item.quantidade }}</span>
-          <ion-button fill="outline" size="small" (click)="incrementarQuantidade(item)">+</ion-button>
-        </div>
-        <p class="item-subtotal">Subtotal: R$ {{ item.preco * item.quantidade | number:'1.2-2' }}</p>
-      </ion-label>
-      <ion-button slot="end" color="danger" fill="clear" (click)="removerItem(item)">
-        <ion-icon name="trash-outline"></ion-icon>
-      </ion-button>
-    </ion-item>
-  </ion-list>
+  <ng-container *ngIf="(carrinhoItens$ | async) as itens">
 
-  <ng-template #noItems>
-    <ion-item class="no-items">
-      <ion-label>Seu carrinho está vazio.</ion-label>
-    </ion-item>
-  </ng-template>
-
-  <ion-card class="total-card">
-    <ion-card-content>
-      <h3 class="total-title">Total</h3>
-      <p class="total-value">R$ {{ (valorTotalCarrinho$ | async) | number:'1.2-2' }}</p>
-      <div class="total-actions">
-        <ion-button color="light" (click)="voltar()">Voltar</ion-button>
-        <ion-button color="primary" (click)="continuar()">Continuar</ion-button>
+    <!-- Carrinho vazio -->
+    <ng-container *ngIf="itens.length === 0; else temItens">
+      <div class="carrinho-vazio">
+        <ion-icon name="cart-outline"></ion-icon>
+        <p>Seu carrinho está vazio.</p>
       </div>
-    </ion-card-content>
-  </ion-card>
+    </ng-container>
+
+    <!-- Carrinho com itens -->
+    <ng-template #temItens>
+      <ion-list>
+        <ion-item *ngFor="let item of itens">
+          <ion-thumbnail slot="start">
+            <img [src]="item.imagem" alt="Imagem do produto" />
+          </ion-thumbnail>
+
+          <ion-label>
+            <h2>{{ item.nome }}</h2>
+            <p>Quantidade: {{ item.quantidade }}</p>
+            <p>Preço: R$ {{ item.preco | number:'1.2-2' }}</p>
+            <p>Subtotal: R$ {{ item.preco * item.quantidade | number:'1.2-2' }}</p>
+
+            <!-- Observação -->
+            <p *ngIf="item.observacao" class="obs">
+              <ion-icon name="chatbubble-ellipses-outline"></ion-icon>
+              {{ item.observacao }}
+            </p>
+          </ion-label>
+
+          <ion-button slot="end" fill="solid" color="danger" (click)="removerItem(item)">
+            <ion-icon name="trash-outline"></ion-icon>
+          </ion-button>
+        </ion-item>
+      </ion-list>
+
+      <!-- Valor total -->
+      <ion-card *ngIf="itens.length > 0">
+        <ion-card-content>
+          <h3>Valor Total: R$ {{ valorTotalCarrinho$ | async | number:'1.2-2' }}</h3>
+        </ion-card-content>
+      </ion-card>
+
+      <!-- Formas de pagamento -->
+      <div class="pagamento-fixo">
+
+        <!-- PIX -->
+        <ion-card (click)="formaPagamento = 'pix'">
+          <ion-card-content class="pagamento-item">
+            <ion-icon 
+              name="radio-button-on-outline" 
+              [color]="formaPagamento === 'pix' ? 'primary' : 'medium'" 
+              size="large">
+            </ion-icon>
+            <ion-icon name="qr-code-outline" size="large"></ion-icon>
+
+            <ion-label>
+              <h2>Pix</h2>
+              <p>Pagamento instantâneo via QR Code</p>
+            </ion-label>
+          </ion-card-content>
+        </ion-card>
+
+        <!-- Cartão -->
+        <ion-card (click)="formaPagamento = 'cartao'">
+          <ion-card-content class="pagamento-item">
+            <ion-icon 
+              name="radio-button-on-outline" 
+              [color]="formaPagamento === 'cartao' ? 'primary' : 'medium'" 
+              size="large">
+            </ion-icon>
+
+            <ion-icon name="card-outline" size="large"></ion-icon>
+
+            <ion-label>
+              <h2>Cartão</h2>
+              <p>Crédito/Débito</p>
+            </ion-label>
+          </ion-card-content>
+        </ion-card>
+
+        <!-- Botão finalizar compra -->
+        <div class="botao-pagar">
+          <ion-button expand="block" color="primary" (click)="finalizarPagamento(formaPagamento)">
+            Finalizar Compra
+          </ion-button>
+        </div>
+
+      </div>
+    </ng-template>
+
+  </ng-container>
 </ion-content>

@@ -1,23 +1,9 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Localização Casa Bonsai</ion-title>
+  </ion-toolbar>
+</ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-card>
-    <ion-card-title>Casa Bonsai</ion-card-title>
-
-    <ion-card-content>
-      <h2>Encontre-nos no endereço abaixo:</h2>
-      <h2><strong>Rua das Flores, 123</strong></h2>
-      <h2><strong>Criciúma, SC, 88888-888</strong></h2>
-      <h2>Veja o mapa para mais detalhes:</h2>
-
-     
-      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1750.0876208523327!2d-49.368643804382316!3d-28.684404048054894!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9521827f065bb53d%3A0x77cdd613a71f01a3!2sEst%C3%A1dio%20Heriberto%20H%C3%BClse%20(Majestoso)!5e0!3m2!1spt-BR!2sbr!4v1756296864794!5m2!1spt-BR!2sbr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-    </ion-card-content>
-
-    <div class="secondary-button-container">
-      <ion-button expand="block" color="dark" routerLink="/pedidos">
-        Voltar 
-      </ion-button>
-    </div>
-    
-  </ion-card>
+<ion-content>
+  <div #map id="map-container"></div> 
 </ion-content>

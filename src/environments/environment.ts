@@ -1,7 +1,6 @@
-// src/environments/environment.ts
 export const environment = {
   production: false,
-  firebaseConfig: {
+ firebaseConfig: {
     apiKey: "AIzaSyB-HGkUTe_NDtsK015lILyq2-QwDf-s_Mw",
     authDomain: "projetointegrador-69272.firebaseapp.com",
     databaseURL: "https://projetointegrador-69272-default-rtdb.firebaseio.com",
@@ -10,4 +9,9 @@ export const environment = {
     messagingSenderId: "512186215917",
     appId: "1:512186215917:web:fd6924556a1186274f8be4"
   }
+};
+
+export const environments = {
+  production: false,
+  mapsKey: 'AIzaSyAgFZqriDuwgsznV14zmH91Ytcy3whKLK8'
 };

@@ -1,28 +1,37 @@
 <ion-content [fullscreen]="true" class="sobre-nos-bg">
-  <div class="sobre-nos-container">
-    <ion-card>
-      <img src="/assets/logoo.png" alt="Logo Casa Bonsai" class="logo-bonsai" />
-      <ion-card-title>Casa Bonsai</ion-card-title>
-      <ion-card-content>
-        O Bonsai nasceu com a ideia de levar a
-        tradição do sushi de forma prática e moderna
-        para dentro da casa das pessoas. Criado por
-        amantes da culinária japonesa, o restaurante
-        online combina ingredientes frescos, cortes
-        precisos e muito cuidado em cada preparo.
-        Assim como um bonsai, que exige paciência
-        e dedicação para crescer bonito e equilibrado,
-        o restaurante valoriza cada detalhe, desde o
-        sabor até a apresentação dos pratos. Hoje,
-        o Bonsai é referência em sushi online,
-        oferecendo qualidade, rapidez na entrega
-        e a experiência de saborear a cultura
-        japonesa com um toque especial.
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/pedidos" color="dark" text=""></ion-back-button>
+      </ion-buttons>
+      <ion-title>Sobre Nós</ion-title>
+    </ion-toolbar>
+  </ion-header>
 
-        <div class="botao-voltar-home">
-          <ion-button color="dark" routerLink="/pedidos">Voltar</ion-button>
-        </div>
-      </ion-card-content>
-    </ion-card>
+  <div class="sobre-nos-container">
+
+    <!-- Logo centralizada -->
+    <div class="logo-container">
+      <img src="/assets/logooo.png" alt="Logo Casa Bonsai" class="logo-bonsai" />
+    </div>
+
+    <h1 class="sobre-nos-title">Casa Bonsai</h1>
+
+    <p class="sobre-nos-text">
+      O Bonsai nasceu com a ideia de levar a
+      tradição do sushi de forma prática e moderna
+      para dentro da casa das pessoas. Criado por
+      amantes da culinária japonesa, o restaurante
+      online combina ingredientes frescos, cortes
+      precisos e muito cuidado em cada preparo.
+      Assim como um bonsai, que exige paciência
+      e dedicação para crescer bonito e equilibrado,
+      o restaurante valoriza cada detalhe, desde o
+      sabor até a apresentação dos pratos. Hoje,
+      o Bonsai é referência em sushi online,
+      oferecendo qualidade, rapidez na entrega
+      e a experiência de saborear a cultura
+      japonesa com um toque especial.
+    </p>
   </div>
 </ion-content>

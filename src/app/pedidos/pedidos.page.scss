@@ -9,9 +9,9 @@
 }
 
 ion-title {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     text-align: left;
-    font-size: 1.2em;
+    font-size: 1.4em;
     color: #ffffff;
 }
 
@@ -24,7 +24,7 @@ ion-avatar {
 .categorias-menu {
     display: flex;
     justify-content: center;
-    gap: 32px;
+   
     margin: 32px 0 18px 0;
 }
 
@@ -34,16 +34,18 @@ ion-avatar {
     font-size: 1em;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: #ffffff;
-    padding: 6px 18px;
-    border-radius: 3px;
-
+    border-radius: 8px; /* bordas mais arredondadas */
+    padding: 8px ; /* espaço interno para o texto não cortar */
 }
 
+/* Hover e botão selecionado */
 .categorias-menu button.selected,
 .categorias-menu button:hover {
     background: #444343;
-    color: #fff;
+    color: #ffffff;
+    
 }
+
 
 .produtos-lista {
     display: flex;
@@ -56,8 +58,8 @@ ion-avatar {
 
 .produto-card {
     display: flex;
-    background: #4d4d4d;
-    border: 2px solid #393939;
+    background: #101010;
+    border: 1px solid #ffffff;
     border-radius: 12px;
     padding: 15px;
     width: 350px;
@@ -84,18 +86,23 @@ ion-avatar {
 
 .produto-nome {
     font-weight: bold;
-    font-size: 1.5em;
+    font-size: 1.6em;
     margin-bottom: 8px;
 }
 
 .produto-desc {
-    font-size: 1em;
+    font-size: 1.1em;
     color: #fff6f6;
-    margin-bottom: 8px;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    /* número de linhas visíveis */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .produto-serve {
-    font-size: 1em;
+    font-size: 1.2em;
     font-weight: bold;
     color: #ffffff;
     margin-top: auto;
@@ -103,10 +110,9 @@ ion-avatar {
 
 .produto-preco {
     font-weight: bold;
-    font-size: 1.7em;
+    font-size: 1.8em;
     color: #ffffff;
     margin-top: auto;
-
 }
 
 
@@ -176,20 +182,27 @@ ion-badge {
 .slider {
     box-shadow: 0 10px 20px -5px rgb(0, 0, 0);
     margin: auto;
-    overflow-x: auto;         /* scroll horizontal */
+    overflow-x: auto;
     overflow-y: hidden;
     position: relative;
     width: 90%;
-    scroll-snap-type: x mandatory; /* efeito de snap */
-    -webkit-overflow-scrolling: touch; /* suave no mobile */
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
     font-size: 1.3em;
 }
+
 ion-content {
     --background: #000000;
 }
 
 .slide-track {
     display: flex;
+}
+
+ion-toolbar {
+    background: #000000;
+    border-bottom: 1px solid #ffffff;
+    box-shadow: 0 2px 12px rgb(0, 0, 0);
 }
 
 .slide {
@@ -203,34 +216,30 @@ ion-content {
     font-weight: bold;
     color: #ffffff;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin-top: 40px;
     font-size: 1.4em;
 }
 
 .categorias-menu-scroll {
-  position: sticky;
-  top:40px; // Altura da barra de pesquisa (ajuste se necessário)
-  z-index: 19;
-  background: #000000;
-  padding-bottom: 8px;
-  margin-bottom: 8px;
+    position: sticky;
+    top: 40px; // Altura da barra de pesquisa (ajuste se necessário)
+    z-index: 10;
+    background: #000000;
 }
 
 .search-bar-container {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  margin: 0;
-  position: sticky;
-  top: 0;
-  z-index: 20;
-  background: #000000; // Mesma cor do fundo para não sobrepor
-  padding-top: 12px;
-  padding-bottom: 6px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: #000000; 
+    padding-top: 12px;
+
 }
 
 .search-bar-custom {
     margin-left: 10px;
     margin-right: 10px;
 }
-

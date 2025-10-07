@@ -1,12 +1,24 @@
-<ion-content [fullscreen]="true">
-  <ion-card>
-    <ion-card-title>Fale Conosco</ion-card-title>
+<ion-content [fullscreen]="true" class="fale-conosco-bg">
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/pedidos" color="dark" text=""></ion-back-button>
+      </ion-buttons>
+      <ion-title>Contato</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <div class="fale-conosco-container">
+    <h1 class="titulo">Fale Conosco</h1>
 
-    <ion-card-content>
-      <h2>Tem alguma dúvida, sugestão ou deseja entrar em contato? <br> Envie-nos uma mensagem!</h2>
-      <ion-textarea label="Mensagem" label-placement="floating" placeholder="Escreva sua mensagem aqui"></ion-textarea>
-      <ion-button expand="block" color="primary">Enviar</ion-button>
-      <ion-button expand="block" color="dark" routerLink="/pedidos">Voltar ao Início</ion-button>
-    </ion-card-content>
-  </ion-card>
+    <h2>
+      Tem alguma dúvida, sugestão ou deseja entrar em contato?
+      Envie-nos uma mensagem, vamos adorar ouvir você! 
+    </h2>
+
+    <ion-textarea label="Mensagem" label-placement="floating" placeholder="Escreva sua mensagem aqui"></ion-textarea>
+
+    <div class="botoes-contato">
+      <ion-button expand="block" color="primary" class="btn-enviar" (click)="exibirAlerta()">Enviar</ion-button>
+    </div>
+  </div>
 </ion-content>

@@ -1,16 +1,11 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Pedidos Test</ion-title>
+    <ion-button routerLink="/pedidos" fill="clear" slot="end" color="dark"><ion-icon name="home-outline" slot="icon-only" size="large"></ion-icon></ion-button>
+  <ion-title>Cadastrar pedidos</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Pedidos Test</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
   <!-- FORMULÁRIO DE CADASTRO -->
   <div class="formulario">
     <p>Nome</p>
@@ -28,8 +23,8 @@
     <!-- SELECT DE CATEGORIA -->
     <p>Categoria</p>
     <ion-item>
-      <ion-select placeholder="Selecione a categoria" [(ngModel)]="categoria">
-        <ion-select-option *ngFor="let cat of categorias" [value]="cat.id">
+      <ion-select placeholder="Selecione a categoria"  [(ngModel)]="categoria">
+        <ion-select-option *ngFor="let cat of categorias" [value]="cat.slug">
           {{cat.nome}}
         </ion-select-option>
       </ion-select>

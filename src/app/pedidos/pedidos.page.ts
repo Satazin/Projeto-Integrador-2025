@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterLink, Router } from '@angular/router';
@@ -10,21 +10,24 @@ import {
   IonList,
   IonItem,
   IonButtons,
-  IonIcon, 
-  IonButton, 
+  IonIcon,
+  IonButton,
   IonAvatar,
   IonMenuButton,
-  IonMenu, IonBadge } from '@ionic/angular/standalone';
+  IonMenu,
+  AlertController,
+  LoadingController, IonFooter, IonLabel } from '@ionic/angular/standalone';
 import { RealtimeDatabaseService } from '../firebase/realtime-databse';
 import { CarrinhoService } from '../services/carrinho.service';
+import { AuthService } from '../services/auth';
 
 @Component({
   selector: 'app-pedidos',
   templateUrl: './pedidos.page.html',
   styleUrls: ['./pedidos.page.scss'],
   standalone: true,
-  imports: [ 
-   IonAvatar, IonButton, IonIcon,
+  imports: [
+    IonAvatar, IonButton, IonIcon,
     CommonModule, FormsModule, RouterLink,
     IonContent, IonHeader, IonTitle, IonToolbar,
     IonList, IonItem, IonButtons, IonMenuButton, IonMenu
@@ -38,30 +41,24 @@ export class PedidosPage implements OnInit, AfterViewInit {
     { id: 'yakisoba', nome: 'YAKISOBA' },
     { id: 'sushi', nome: 'SUSHI' },
     { id: 'niguiris', nome: 'NIGUIRIS' },
-    { id: 'hot', nome: 'PORÇÕES HOT' },
-    { id: 'urumakis', nome: 'URUMAKIS' },
-    { id: 'acompanhamentos', nome: 'ACOMPANHAMENTOS' },
-    { id: 'combos', nome: 'COMBOS' },
+    { id: 'hot', nome: 'HOT' },
     { id: 'bebidas', nome: 'BEBIDAS' },
-    { id: 'sobremesas', nome: 'SOBREMESAS' }
   ];
   public categoriaEmFoco: string = 'poke';
   termoBusca: string = '';
-  quantidadeCarrinho = 0;
 
   constructor(
     private rt: RealtimeDatabaseService,
     private elRef: ElementRef,
     private router: Router,
-    private carrinhoService: CarrinhoService
+    private carrinhoService: CarrinhoService,
+    public authService: AuthService,
+    private alertController: AlertController,
+    private loadingController: LoadingController
   ) {}
 
   ngOnInit() {
     this.listar();
-
-    this.carrinhoService.quantidade$.subscribe(qtd => {
-      this.quantidadeCarrinho = qtd;
-    });
   }
 
   ngAfterViewInit() {
@@ -86,14 +83,15 @@ export class PedidosPage implements OnInit, AfterViewInit {
     });
   }
 
-  // FILTRAR POR CATEGORIA
+  // FILTRAR POR CATEGORIA E BUSCA
   itensPorCategoria(cat: string) {
-    return this.pedidos.filter(i => i.categoria === cat)
-    .filter(i =>
-      !this.termoBusca ||
-      i.nome.toLowerCase().includes(this.termoBusca.toLowerCase()) ||
-      i.descricao.toLowerCase().includes(this.termoBusca.toLowerCase())
-    );
+    return this.pedidos
+      .filter(i => i.categoria === cat)
+      .filter(i =>
+        !this.termoBusca ||
+        i.nome.toLowerCase().includes(this.termoBusca.toLowerCase()) ||
+        i.descricao.toLowerCase().includes(this.termoBusca.toLowerCase())
+      );
   }
 
   // SCROLL SUAVE PARA A CATEGORIA
@@ -104,8 +102,6 @@ export class PedidosPage implements OnInit, AfterViewInit {
     }
   }
 
-
-  // MARCAR QUAL CATEGORIA ESTÁ EM FOCO
   onScroll() {
     const scrollEl = this.elRef.nativeElement.querySelector('ion-content');
     if (scrollEl) {
@@ -125,9 +121,30 @@ export class PedidosPage implements OnInit, AfterViewInit {
     }
   }
 
-  // ABRIR ITEM COM STATE
   abrirInfoItem(item: any) {
     this.router.navigate(['/infoitens', item.id], { state: { item } });
   }
 
+  async abrirPerfil() {
+    const usuarioLogado = this.authService.usuarioLogado;
+    if (usuarioLogado) {
+      this.router.navigate(['/perfil']);
+    } else {
+      const alert = await this.alertController.create({
+        header: 'Acesso Restrito',
+        message: 'Por favor, faça login para acessar seu perfil.',
+        buttons: [
+          'Cancelar',
+          {
+            text: 'Login',
+            handler: () => this.router.navigate(['/login'])
+          }
+        ]
+      });
+      await alert.present();
+    }
+  }
+  limparBusca() {
+  this.termoBusca = '';
+}
 }

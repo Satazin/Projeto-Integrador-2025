@@ -1,57 +1,59 @@
 .sobre-nos-bg {
-    --background: none;
-    background: url('/assets/fundo.loc.jpg') center center/cover no-repeat fixed;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  --background: #000000; /* fundo sólido */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
 }
 
+/* Container */
 .sobre-nos-container {
-    width: 100vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 100px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px 40px;
+  text-align: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-ion-card {
-    background: #444343;
-    border-radius: 18px;
-    border: 2px solid rgb(0, 0, 0);
-    text-align: center;
+/* Título */
+.sobre-nos-title {
+  font-size: 3em;
+  font-weight: bold;
+  color: #ffffff;
+  margin-bottom: 20px;
+  font-family: 'chinese';
 }
 
-.logo-bonsai {
-    width: 100px;
-    margin-top: 30px;
-    margin-bottom: 30px;
-
+/* Texto */
+.sobre-nos-text {
+  color: #ffffff;
+  font-size: 1.2em;
+  text-align: justify;
+  max-width: 800px;
+  line-height: 1.6;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-ion-card-title {
-    font-size: 4em;
-    font-weight: bold;
-    color: #ffffff;
-    margin-bottom: 6px;
-    font-family: 'chinese';
-}
-
-ion-card-content {
-    color: #ffffff;
-    font-size: 1.05em;
-    text-align: justify;
-}
-
-
+/* Botão */
 .botao-voltar-home {
-    margin-top: 30px;
-    margin-bottom: 12px;
-    font-weight: bold;
-    text-align: center;
-
+  margin-top: 30px;
+  margin-bottom: 12px;
+  text-align: center;
+  font-weight: bold;
 }
 
 @font-face {
   font-family: 'chinese';
   src: url('/assets/fonte.ttf') format('truetype');
+}
+.logo-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.logo-bonsai {
+  width: 150px; /* ajusta o tamanho conforme quiser */
+  height: auto;
 }
