@@ -8,7 +8,8 @@ import { CarrinhoService, CartItem } from '../services/carrinho.service';
 import { Auth, getAuth, onAuthStateChanged } from '@angular/fire/auth';
 import { getDatabase, ref, get } from "firebase/database";
 import { Router, RouterModule } from '@angular/router';
-import { PixModalPage } from '../pix-modal/pix-modal.page'; 
+import { PixModalPage } from '../pix-modal/pix-modal.page';
+import { PontoService } from '../ponto/pontos-recom';
 
 @Component({
   selector: 'app-carrinho',
@@ -25,9 +26,9 @@ import { PixModalPage } from '../pix-modal/pix-modal.page';
 export class CarrinhoPage implements OnInit {
   carrinhoItens$: Observable<CartItem[]>;
   valorTotalCarrinho$: Observable<number>;
+  public pontosGanhos$: Observable<number>;
   public formaPagamento: string = '';
-  public compraFinalizada: boolean = false;
-
+  public compraFinalizada: boolean = false; 
   public enderecoEntrega: string = 'Carregando endereço...';
   private userId: string | null = null;
   private dbRT;
@@ -38,16 +39,19 @@ export class CarrinhoPage implements OnInit {
     private loadingController: LoadingController,
     private modalController: ModalController,
     private router: Router,
-    private auth: Auth 
+    private auth: Auth,
+    public pontoService: PontoService
   ) {
     this.dbRT = getDatabase();
-
     this.carrinhoItens$ = this.carrinhoService.cartItems$;
-
     this.valorTotalCarrinho$ = this.carrinhoItens$.pipe(
       map(itens =>
         itens.reduce((total, item) => total + item.preco * item.quantidade, 0)
       )
+    );
+
+     this.pontosGanhos$ = this.valorTotalCarrinho$.pipe(
+      map(valorTotal => this.pontoService.calcularPontosGanhos(valorTotal))
     );
   }
 
@@ -68,7 +72,6 @@ export class CarrinhoPage implements OnInit {
 
   async carregarEndereco() {
     if (!this.userId) return;
-
     try {
       const enderecoRef = ref(this.dbRT, 'usuarios/' + this.userId + '/endereco');
       const enderecoSnap = await get(enderecoRef);
@@ -83,7 +86,6 @@ export class CarrinhoPage implements OnInit {
       this.enderecoEntrega = 'Falha ao carregar endereço.';
     }
   }
-
 
   async removerItem(item: CartItem) {
     try {
@@ -136,9 +138,7 @@ export class CarrinhoPage implements OnInit {
 
     if (metodo === 'pix') {
       const codigoPix = `E${Math.random().toString(36).substring(2, 15).toUpperCase()}F${Math.random().toString(36).substring(2, 15).toUpperCase()}`;
-
       const valorTotal = await this.valorTotalCarrinho$.pipe(take(1)).toPromise();
-
       const modal = await this.modalController.create({
         component: PixModalPage,
         componentProps: {
@@ -148,12 +148,10 @@ export class CarrinhoPage implements OnInit {
       });
 
       await modal.present();
-
       const { data } = await modal.onWillDismiss();
       if (data === true) {
         await this.processarCompra('Pix');
       }
-
     } else {
       await this.processarCompra(metodo);
     }
@@ -196,5 +194,4 @@ export class CarrinhoPage implements OnInit {
       await errorAlert.present();
     }
   }
-  
 }
