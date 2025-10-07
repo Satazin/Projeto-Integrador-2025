@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { getAuth, User, onAuthStateChanged } from 'firebase/auth';
-import { Observable, of, BehaviorSubject } from 'rxjs';
+import { Observable, of, BehaviorSubject, combineLatest } from 'rxjs';
 import { RealtimeDatabaseService } from '../firebase/realtime-databse';
-import { map } from 'rxjs/operators';
-import { PontoService } from '../ponto/pontos-recom'; // Importa o serviço de pontos
+import { map, tap } from 'rxjs/operators';
+import { PontoService } from '../ponto/pontos-recom';
 
 export interface Product {
   id: string;
@@ -20,6 +20,7 @@ export interface CartItem extends Product {
   quantidade: number;
 }
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -27,13 +28,16 @@ export class CarrinhoService {
   private userSubject = new BehaviorSubject<User | null>(null);
   public user$: Observable<User | null> = this.userSubject.asObservable();
   
+  private _totalItens = new BehaviorSubject<number>(0);
+  public totalItens$: Observable<number> = this._totalItens.asObservable(); 
+  
   private auth = getAuth();
   private cartItemsSubject = new BehaviorSubject<CartItem[]>([]);
   public cartItems$: Observable<CartItem[]> = this.cartItemsSubject.asObservable();
 
   constructor(
     private rtdb: RealtimeDatabaseService,
-    private pontoService: PontoService // Injeta o PontoService
+    private pontoService: PontoService
   ) {
     onAuthStateChanged(this.auth, (user) => {
       this.userSubject.next(user);
@@ -41,7 +45,12 @@ export class CarrinhoService {
         this.fetchCartItems();
       } else {
         this.cartItemsSubject.next([]);
+        this._totalItens.next(0);
       }
+    });
+    
+    this.cartItemsSubject.subscribe(() => {
+        this.atualizarContagem();
     });
   }
 
@@ -52,27 +61,43 @@ export class CarrinhoService {
       return;
     }
     const cartPath = `carrinhos/${user.uid}/itens`;
-    this.rtdb.list(cartPath).subscribe(itens => {
-      this.cartItemsSubject.next(itens);
+    
+    this.rtdb.list(cartPath).pipe(
+        tap(itens => {
+            const total = itens.reduce((acc, item: any) => acc + (item.quantidade || 0), 0);
+            this._totalItens.next(total);
+        })
+    ).subscribe((itens: any) => {
+      this.cartItemsSubject.next(itens as CartItem[]);
     });
   }
 
   async adicionarAoCarrinho(item: Product, quantidade: number): Promise<void> {
     const user = this.userSubject.getValue();
     if (!user) {
-      alert('Faça login para adicionar itens ao carrinho.');
+      console.error('Faça login para adicionar itens ao carrinho.'); 
       return;
     }
     const userId = user.uid;
     const itemRef = `carrinhos/${userId}/itens/${item.id}`;
-    const cartItem: CartItem = { ...item, quantidade };
+    
+    const currentItems = this.cartItemsSubject.getValue();
+    const existingItem = currentItems.find(i => i.id === item.id);
+    
+    let novaQuantidade = quantidade;
+    
+    if (existingItem) {
+        novaQuantidade += existingItem.quantidade;
+    }
+    
+    const cartItem: CartItem = { ...item, quantidade: novaQuantidade };
     await this.rtdb.set(itemRef, cartItem);
   }
 
   async removeFromCart(itemId: string): Promise<void> {
     const user = this.userSubject.getValue();
     if (!user) {
-      alert('Faça login para remover itens do carrinho.');
+      console.error('Faça login para remover itens do carrinho.');
       return;
     }
     const itemPath = `carrinhos/${user.uid}/itens/${itemId}`;
@@ -88,6 +113,7 @@ export class CarrinhoService {
     const cartPath = `carrinhos/${user.uid}/itens`;
     await this.rtdb.remove(cartPath);
     this.cartItemsSubject.next([]);
+    this._totalItens.next(0);
     console.log('Carrinho limpo localmente e no banco de dados.');
   }
 
@@ -105,20 +131,17 @@ export class CarrinhoService {
       console.log('Carrinho está vazio. Nenhuma compra para finalizar.');
       return;
     }
-    
-    // 1. Crie um array para os itens da compra e calcule o valor total
-    let valorTotalDaCompra = 0;
+
+      let valorTotalDaCompra = 0;
     const itensComSubtotal = cartItems.map(item => {
       const subtotal = item.preco * item.quantidade;
-      valorTotalDaCompra += subtotal; // Acumula o valor total
+      valorTotalDaCompra += subtotal;
       return {
         ...item,
-        // O preço salvo será o subtotal
-        preco: subtotal 
+        subtotal: subtotal 
       };
     });
-
-    // 2. Chame o serviço de pontos para adicionar os pontos ganhos
+    
     await this.pontoService.adicionarPontos(valorTotalDaCompra);
 
     const brasilTime = new Date().toLocaleString('pt-BR', {
@@ -127,7 +150,7 @@ export class CarrinhoService {
 
     const purchase = {
       data: brasilTime,
-      // Salve a compra com o novo array de itens processados
+      valorTotal: valorTotalDaCompra, // Adiciona o valor total da compra
       itens: itensComSubtotal
     };
 
@@ -138,8 +161,7 @@ export class CarrinhoService {
 
     console.log('Compra finalizada e histórico salvo.');
   }
-  
-  // Método para puxar o histórico de compras - ajustado para o Observable
+
   getHistoricoDeCompras(): Observable<any[]> {
     const user = this.userSubject.getValue();
     if (!user) {
@@ -159,5 +181,11 @@ export class CarrinhoService {
         }
       })
     );
+  }
+  
+  // ✅ FUNÇÃO REDUNDANTE REMOVIDA: A contagem agora é atualizada dentro do fetchCartItems.
+  private atualizarContagem() {
+    const count = this.cartItemsSubject.getValue().reduce((acc, item) => acc + item.quantidade, 0);
+    this._totalItens.next(count);
   }
 }

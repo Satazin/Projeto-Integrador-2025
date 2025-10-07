@@ -41,12 +41,12 @@ export class LocalizacaoPage implements OnInit, AfterViewInit {
         this.initializeGoogleMapsJS();
       });
     } else {
-      // ... (Lógica Nativa se precisar compilar para celular)
+      //Lógica Nativa se precisar compilar para celular
       console.warn('Rodando em ambiente nativo. O código de mapa nativo deve ser implementado aqui.');
     }
   }
 
-  // Carrega o script da API de forma dinâmica, usando a chave do environments
+  // Carrega o script da API usando a chave do environments
   private loadGoogleMapsScript(): Promise<void> {
     if (typeof google !== 'undefined' && typeof google.maps !== 'undefined') {
       return Promise.resolve();
@@ -137,11 +137,7 @@ export class LocalizacaoPage implements OnInit, AfterViewInit {
 
   confirmAddress() {
     if (!this.selectedAddress) return;
-
-    // ✅ CORREÇÃO: Usando o Serviço de Transferência
     this.enderecoTransfer.setEndereco(this.selectedAddress);
-
-    // Navega sem passar o estado (o Perfil lerá o serviço)
     this.router.navigate(['/perfil']);
   }
 }
