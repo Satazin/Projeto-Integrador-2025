@@ -4,7 +4,6 @@ import { IonicModule, Platform } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { environments } from 'src/environments/environment';
 import { EnderecoTransferService } from '../services/endereco-transfer';
-
 declare const google: any;
 
 @Component({

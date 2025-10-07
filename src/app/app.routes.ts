@@ -105,10 +105,6 @@ export const routes: Routes = [
     path: 'sobre-nos',
     loadComponent: () => import('./sobre-nos/sobre-nos.page').then(m => m.SobreNosPage)
   },
-  // {
-  //   path: 'localizacao',
-  //   loadComponent: () => import('./localizacao/localizacao.page').then( m => m.LocalizacaoPage)
-  // },
   {
     path: 'contato',
     loadComponent: () => import('./contato/contato.page').then(m => m.ContatoPage)
@@ -160,7 +156,8 @@ export const routes: Routes = [
     path: 'item-edit/:id',
     loadComponent: () => import('./item-edit/item-edit.page').then( m => m.ItemEditPage)
   },
-
-
-
+  {
+    path: 'localizacao-cadastro',
+    loadComponent: () => import('./localizacao-cadastro/localizacao-cadastro.page').then(m => m.LocalizacaoCadastroPage)
+  }
 ];
