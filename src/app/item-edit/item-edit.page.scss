@@ -1,0 +1,64 @@
+.editar-item-bg {
+  --background: #000000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 80px;
+}
+
+ion-grid {
+  width: 100%;
+}
+
+ion-col {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+ion-item {
+  --background: #2c2c2c;
+  --color: #ffffff;
+  border-radius: 8px;
+  margin: 10px 20px;
+}
+
+ion-label {
+  color: #ffffff;
+  font-weight: 500;
+  font-size: 0.9em;
+  margin-bottom: 5px;
+}
+
+ion-input,
+ion-textarea,
+ion-select {
+  color: #fff;
+}
+
+ion-select::part(placeholder) {
+  color: #bdbdbd;
+}
+
+.imagem-btn ion-button {
+  margin: 15px 20px 5px 20px;
+  background-color: #ffffff;
+  color: #000000;
+  font-weight: bold;
+  border-radius: 10px;
+}
+
+.salvar-btn ion-button {
+  margin: 10px 20px;
+  background-color: #00e676;
+  color: #000000;
+  font-weight: bold;
+  border-radius: 10px;
+}
+.foto-btn ion-button {
+  margin: 10px 20px;
+ 
+  color: #000000;
+  font-weight: bold;
+  border-radius: 10px;
+}

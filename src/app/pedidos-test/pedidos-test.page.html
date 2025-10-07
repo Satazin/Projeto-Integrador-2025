@@ -31,15 +31,16 @@
     </ion-item>
 
     <!-- BOTÃO PARA SELECIONAR IMAGEM -->
-    <p>Imagem</p>
-    <ion-button expand="block" (click)="selecionarImagem()">Selecionar Imagem</ion-button>
-
-    <!-- PRÉVIA DA IMAGEM -->
-    <div *ngIf="imagem" class="preview-img">
+      <div *ngIf="imagem" class="preview-img">
       <img [src]="imagem" alt="Prévia" />
     </div>
 
-    <ion-button expand="block" (click)="salvar()">Cadastrar</ion-button>
+    <p>Imagem</p>
+    <ion-button expand="block" (click)="selecionarImagem()" color="dark" class="botao-imagem">Selecionar Imagem</ion-button>
+
+    <!-- PRÉVIA DA IMAGEM -->
+   
+    <ion-button expand="block" (click)="salvar()" color="success">Cadastrar</ion-button>
   </div>
 
   <hr>

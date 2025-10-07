@@ -1,9 +1,9 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/pedidos"></ion-back-button>
+    <ion-buttons slot="start" >
+      <ion-back-button defaultHref="/pedidos" text="" color="dark"></ion-back-button>
     </ion-buttons>
-    <ion-title>Modo ADM: Editar Item</ion-title>
+    <ion-title> Editar Item</ion-title>
     <ion-buttons slot="end">
       <ion-label color="danger">ADM</ion-label>
     </ion-buttons>
@@ -24,7 +24,7 @@
   <ion-list *ngIf="item.id && !loading">
 
     <ion-list-header>
-      <ion-label>Informações Básicas (ID: {{ item.id }})</ion-label>
+      <ion-label>Informações básicas (ID: {{ item.id }})</ion-label>
     </ion-list-header>
 
     <ion-item>
@@ -50,14 +50,26 @@
     <ion-item>
       <ion-textarea label="Descrição" labelPlacement="stacked" [(ngModel)]="item.descricao" rows="4"></ion-textarea>
     </ion-item>
-    <ion-item>
-    <ion-button expand="block" (click)="selecionarImagem()">Selecionar Imagem</ion-button>
-    </ion-item>
+        <div class="foto-btn">
+          <ion-button
+            expand="block" 
+           (click)="selecionarImagem()" 
+           color="dark"
+          >
+            Selecionar Imagem
+          </ion-button>
+        </div>
+    <div class="salvar-btn">
+          <ion-button
+            expand="block"
+            color="success"
+            (click)="salvarAlteracoes()"
+            [disabled]="!item.nome || !item.preco || !item.categoria"
+          >
+            Salvar Item
+          </ion-button>
+        </div>
 
-
-    <ion-button expand="block" color="danger" size="large" (click)="salvarAlteracoes()"
-      [disabled]="!item.nome || !item.preco || !item.categoria">
-      Salvar Item
-    </ion-button>
+  
   </ion-list>
 </ion-content>
