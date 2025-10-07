@@ -132,15 +132,15 @@ export class PedidosPage implements OnInit, AfterViewInit {
       this.router.navigate(['/perfil']);
     } else {
       const alert = await this.alertController.create({
-        header: 'Acesso Restrito',
-        message: 'Por favor, faça login para acessar seu perfil.',
+          header: 'Acesso Restrito',
+        message: `Voce precisa estar logado para acessar o perfil.`,
         buttons: [
-          'Cancelar',
+          { text: 'Cancelar', role: 'cancel' },
           {
-            text: 'Login',
-            handler: () => this.router.navigate(['/login'])
-          }
-        ]
+            text: 'Logar',
+            handler: () => { this.router.navigate(['/login']); },
+          },
+        ],
       });
       await alert.present();
     }

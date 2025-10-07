@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { Database, ref, set as firebaseSet, onValue, remove, get as firebaseGet } from '@angular/fire/database';
+import { Database, ref, set as firebaseSet, onValue, remove, get as firebaseGet, update as firebaseUpdate } from '@angular/fire/database';
 import { firstValueFrom, Observable } from 'rxjs';
 
 @Injectable({
@@ -39,28 +39,33 @@ export class RealtimeDatabaseService {
     });
   }
 
-add(url: string, data: any, id: number = 0) {
-  return (async () => {
-    let indice = 1;
-    const snapshot: any = await firstValueFrom(this.list(url));
+  add(url: string, data: any, id: number = 0) {
+    return (async () => {
+      let indice = 1;
+      const snapshot: any = await firstValueFrom(this.list(url));
 
-    if (snapshot !== undefined) {
-      indice = snapshot.length + 1;
-    }
+      if (snapshot !== undefined) {
+        indice = snapshot.length + 1;
+      }
 
-    const url_indice = id === 0 ? indice : id;
-    const url_full = `${url}/${url_indice}`;
-    const refPath = this.ref(url_full);
+      const url_indice = id === 0 ? indice : id;
+      const url_full = `${url}/${url_indice}`;
+      const refPath = this.ref(url_full);
 
-    return firebaseSet(refPath, data);
-  })();
-}
+      return firebaseSet(refPath, data);
+    })();
+  }
 
-query(url: string, callback: any) {
-  return onValue(this.ref(url), callback);
-}
+  query(url: string, callback: any) {
+    return onValue(this.ref(url), callback);
+  }
 
-remove(url: string): Promise < void> {
-  return remove(ref(this.db, url));
-}
+  remove(url: string): Promise<void> {
+    return remove(ref(this.db, url));
+  }
+
+  async update(path: string, data: any): Promise<void> {
+    const dbRef = ref(this.db, path);
+    return firebaseUpdate(dbRef, data);
+  }
 }

@@ -28,6 +28,7 @@ import {
 } from 'ionicons/icons';
 import { filter } from 'rxjs/operators';
 import { AuthService } from './services/auth';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-root',
@@ -40,7 +41,8 @@ export class AppComponent {
 
   constructor(
     private router: Router,
-    public authService: AuthService
+    public authService: AuthService,
+    private alertController: AlertController
   ) {
     // registrar ícones
     addIcons({
@@ -75,12 +77,23 @@ export class AppComponent {
       });
   }
 
-  abrirPerfil() {
-    if (this.authService.usuarioLogado) {
+   async abrirPerfil() {
+    const usuarioLogado = this.authService.usuarioLogado;
+    if (usuarioLogado) {
       this.router.navigate(['/perfil']);
     } else {
-      alert('Faça login para acessar seu perfil.');
-      this.router.navigate(['/login']);
+      const alert = await this.alertController.create({
+          header: 'Acesso Restrito',
+        message: `Voce precisa estar logado para acessar o perfil.`,
+        buttons: [
+          { text: 'Cancelar', role: 'cancel' },
+          {
+            text: 'Logar',
+            handler: () => { this.router.navigate(['/login']); },
+          },
+        ],
+      });
+      await alert.present();
     }
   }
 }

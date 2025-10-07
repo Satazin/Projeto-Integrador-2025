@@ -4,37 +4,43 @@
       <ion-back-button defaultHref="/pedidos" color="dark" text=""></ion-back-button>
     </ion-buttons>
     <ion-title class="titulo">Detalhes do item</ion-title>
+    <ion-buttons slot="end" *ngIf="isAdminMode && item">
+      <ion-button color="danger" (click)="abrirItemParaEdicao(item)">
+        Editar Item
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" class="infoitens-content">
-  <div class="ion-padding" *ngIf="loading">
+  <div class="ion-padding ion-text-center" *ngIf="loading">
     <ion-spinner name="crescent"></ion-spinner>
+    <p>Carregando item...</p>
   </div>
 
-  <div class="ion-padding" *ngIf="!loading && errorMessage">
-    <p>{{ errorMessage }}</p>
+  <div class="ion-padding ion-text-center" *ngIf="!loading && errorMessage">
+    <p class="error-message">{{ errorMessage }}</p>
   </div>
 
-  <ion-card *ngIf="!loading && item">
-    <img [src]="item.imagem" alt="{{item.nome}}" class="infoitens-img" />
+  <ion-card *ngIf="!loading && item" class="item-card">
+    <img [src]="item.imagem || 'https://placehold.co/600x400/CCCCCC/000000?text=Sem+Foto'" alt="{{item.nome}}"
+      class="infoitens-img" />
+
     <ion-card-header>
       <ion-card-title>{{item.nome}}</ion-card-title>
-      <ion-card-subtitle>serve: {{item.serve}} pessoa/s</ion-card-subtitle>
+      <ion-card-subtitle>Serve: {{item.serve}} pessoa/s</ion-card-subtitle>
     </ion-card-header>
+
     <ion-card-content>
-      <p>{{item.descricao}}</p>
+      <p class="description-text">{{item.descricao}}</p>
+
       <div class="infoitens-preco">R$ {{item.preco | number:'1.2-2'}}</div>
 
       <ion-item lines="none" class="comentario-item">
-  <ion-label position="stacked">Algum comentário?</ion-label>
-  <ion-textarea
-    placeholder="Ex: tirar a cebola,etc."
-    maxlength="140"
-    [(ngModel)]="observacao"
-    autoGrow="true"
-  ></ion-textarea>
-</ion-item>
+        <ion-label position="stacked">Algum comentário?</ion-label>
+        <ion-textarea placeholder="Ex: tirar a cebola, etc." maxlength="140" [(ngModel)]="observacao"
+          autoGrow="true"></ion-textarea>
+      </ion-item>
 
       <div class="infoitens-container">
         <div class="infoitens-qtd">

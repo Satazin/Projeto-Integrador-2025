@@ -1,0 +1,63 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/pedidos"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Modo ADM: Editar Item</ion-title>
+    <ion-buttons slot="end">
+      <ion-label color="danger">ADM</ion-label>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div *ngIf="loading" class="ion-text-center ion-padding">
+    <ion-spinner></ion-spinner>
+    <p>Carregando item para edição...</p>
+  </div>
+
+  <div *ngIf="errorMessage && !loading" class="ion-text-center ion-padding">
+    <ion-icon name="alert-circle-outline" size="large" color="danger"></ion-icon>
+    <p>{{ errorMessage }}</p>
+  </div>
+
+  <ion-list *ngIf="item.id && !loading">
+
+    <ion-list-header>
+      <ion-label>Informações Básicas (ID: {{ item.id }})</ion-label>
+    </ion-list-header>
+
+    <ion-item>
+      <ion-input label="Nome do Item" labelPlacement="stacked" [(ngModel)]="item.nome" type="text" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input label="Preço (R$)" labelPlacement="stacked" [(ngModel)]="item.preco" type="number"
+        required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-select label="Categoria" labelPlacement="stacked" [(ngModel)]="item.categoria" required>
+        <ion-select-option value="poke">POKE</ion-select-option>
+        <ion-select-option value="temaki">TEMAKI</ion-select-option>
+        <ion-select-option value="yakisoba">YAKISOBA</ion-select-option>
+        <ion-select-option value="sushi">SUSHI</ion-select-option>
+        <ion-select-option value="niguiris">NIGUIRIS</ion-select-option>
+        <ion-select-option value="hot">HOT</ion-select-option>
+        <ion-select-option value="bebidas">BEBIDAS</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-textarea label="Descrição" labelPlacement="stacked" [(ngModel)]="item.descricao" rows="4"></ion-textarea>
+    </ion-item>
+    <ion-item>
+    <ion-button expand="block" (click)="selecionarImagem()">Selecionar Imagem</ion-button>
+    </ion-item>
+
+
+    <ion-button expand="block" color="danger" size="large" (click)="salvarAlteracoes()"
+      [disabled]="!item.nome || !item.preco || !item.categoria">
+      Salvar Item
+    </ion-button>
+  </ion-list>
+</ion-content>

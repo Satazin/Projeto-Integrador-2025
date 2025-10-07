@@ -156,6 +156,10 @@ export const routes: Routes = [
     path: 'pix-modal',
     loadComponent: () => import('./pix-modal/pix-modal.page').then(m => m.PixModalPage)
   },
+  {
+    path: 'item-edit/:id',
+    loadComponent: () => import('./item-edit/item-edit.page').then( m => m.ItemEditPage)
+  },
 
 
 

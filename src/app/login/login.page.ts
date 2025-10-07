@@ -8,7 +8,8 @@ import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
-import { environment } from 'src/environments/environment'; // Importa o environment
+import { environment } from 'src/environments/environment';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -23,24 +24,26 @@ export class LoginPage {
   senha = '';
   private auth = getAuth(initializeApp(environment.firebaseConfig));
 
-  constructor(private authService: AuthService, private router: Router) {
-     onAuthStateChanged(this.auth, (user) => {
-        if (user) {
-          // Verifica se o email do usuário logado é o do admin
-          if (user.email === this.authService.getAdminEmail()) {
-            this.router.navigate(['/pedidos-test']);
-          } else {
-            this.router.navigate(['/pedidos']);
-          }
+  constructor(private authService: AuthService, private router: Router, private alertController: AlertController) {
+    onAuthStateChanged(this.auth, (user) => {
+      if (user) {
+        if (user.email === this.authService.getAdminEmail()) {
+          this.router.navigate(['/pedidos-test']);
+        } else {
+          this.router.navigate(['/pedidos']);
         }
-        // Se user for null, fica na Home/Login
-      });
+      }
+    });
   }
 
-  // Realiza o login do usuário
   async fazerLogin() {
     if (!this.email || !this.senha) {
-      alert('Preencha email e senha!');
+      const alert = await this.alertController.create({
+        header: 'Atenção',
+        message: 'Por favor, preencha todos os campos e selecione o endereço no mapa.',
+        buttons: ['OK']
+      });
+      await alert.present();
       return;
     }
 
@@ -48,11 +51,16 @@ export class LoginPage {
       const resultado = await this.authService.login(this.email, this.senha);
       console.log('Usuário autenticado:', resultado.authUser);
       console.log('Dados do Realtime Database:', resultado.realtimeData);
-
       this.router.navigate(['/pedidos']);
     } catch (erro: any) {
+
       console.error('Erro no login:', erro.message);
-      alert('Falha ao logar, Credenciais inválidas');
+      const alert = await this.alertController.create({
+        header: 'Erro de Login',
+        message: 'Falha ao logar, Credenciais inválidas.',
+        buttons: ['OK']
+      });
+      await alert.present();
     }
   }
 }

@@ -65,7 +65,7 @@ export class CadastroPage {
     if (!this.email || !this.senha || !this.nome || !this.telefone || !this.endereco) {
       const alert = await this.alertController.create({
         header: 'Atenção',
-        message: 'Por favor, preencha todos os campos e **selecione o endereço no mapa**.',
+        message: 'Por favor, preencha todos os campos e selecione o endereço no mapa.',
         buttons: ['OK']
       });
       await alert.present();
