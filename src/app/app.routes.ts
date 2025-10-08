@@ -1,83 +1,74 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from './guards/auth-guard';
 import { AdminGuard } from './guards/admin-guard';
-import path from 'path';
 
 export const routes: Routes = [
-  {
-    path: 'home',
-    loadComponent: () => import('./home/home.page').then((m) => m.HomePage),
-  },
   {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full',
   },
   {
+    path: 'home',
+    loadComponent: () => import('./home/home.page').then((m) => m.HomePage),
+  },
+  {
     path: 'cadastro',
-    loadComponent: () => import('./cadastro/cadastro.page').then(m => m.CadastroPage)
+    loadComponent: () => import('./cadastro/cadastro.page').then(m => m.CadastroPage),
   },
   {
     path: 'login',
-    loadComponent: () => import('./login/login.page').then(m => m.LoginPage)
+    loadComponent: () => import('./login/login.page').then(m => m.LoginPage),
   },
   {
     path: 'pedidos',
-    loadComponent: () => import('./pedidos/pedidos.page').then(m => m.PedidosPage)
-  },
-
-  {
-    path: 'forgot-password',
-    loadComponent: () => import('./forgot-password/forgot-password.page').then(m => m.ForgotPasswordPage)
-  },
-  {
-    path: 'carrinho',
-    loadComponent: () => import('./carrinho/carrinho.page').then(m => m.CarrinhoPage)
-  },
-
-  {
-    path: 'forgot-password',
-    loadComponent: () => import('./forgot-password/forgot-password.page').then(m => m.ForgotPasswordPage)
-  },
-  {
-    path: 'sobre-nos',
-    loadComponent: () => import('./sobre-nos/sobre-nos.page').then(m => m.SobreNosPage),
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'localizacao',
-    loadComponent: () => import('./localizacao/localizacao.page').then(m => m.LocalizacaoPage)
-  },
-  {
-    path: 'contato',
-    loadComponent: () => import('./contato/contato.page').then(m => m.ContatoPage)
-  },
-  {
-    path: 'infoitens',
-    loadComponent: () => import('./infoitens/infoitens.page').then(m => m.InfoitensPage)
-  },
-  {
-    path: 'infoitens/:id',
-    loadComponent: () => import('./infoitens/infoitens.page').then(m => m.InfoitensPage)
+    loadComponent: () => import('./pedidos/pedidos.page').then(m => m.PedidosPage),
   },
   {
     path: 'pedidos-test',
     loadComponent: () => import('./pedidos-test/pedidos-test.page').then(m => m.PedidosTestPage),
-    canActivate: [AdminGuard] // 🔒 só admin acessa
+    canActivate: [AdminGuard],
+  },
+  {
+    path: 'forgot-password',
+    loadComponent: () => import('./forgot-password/forgot-password.page').then(m => m.ForgotPasswordPage),
+  },
+  {
+    path: 'carrinho',
+    loadComponent: () => import('./carrinho/carrinho.page').then(m => m.CarrinhoPage),
+  },
+  {
+    path: 'sobre-nos',
+    loadComponent: () => import('./sobre-nos/sobre-nos.page').then(m => m.SobreNosPage),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'localizacao',
+    loadComponent: () => import('./localizacao/localizacao.page').then(m => m.LocalizacaoPage),
+  },
+  {
+    path: 'contato',
+    loadComponent: () => import('./contato/contato.page').then(m => m.ContatoPage),
+  },
+  {
+    path: 'infoitens',
+    loadComponent: () => import('./infoitens/infoitens.page').then(m => m.InfoitensPage),
+  },
+  {
+    path: 'infoitens/:id',
+    loadComponent: () => import('./infoitens/infoitens.page').then(m => m.InfoitensPage),
   },
   {
     path: 'brindes',
-    loadComponent: () => import('./brindes/brindes.page').then(m => m.BrindesPage)
+    loadComponent: () => import('./brindes/brindes.page').then(m => m.BrindesPage),
   },
-
   {
     path: 'ponto',
-    loadComponent: () => import('./pontos/pontos.component').then(m => m.PontosPage)
+    loadComponent: () => import('./pontos/pontos.component').then(m => m.PontosPage),
   },
-
   {
     path: 'perfil',
-    loadComponent: () => import('./pages/perfil/perfil.component').then(m => m.PerfilComponent)
+    loadComponent: () => import('./pages/perfil/perfil.component').then(m => m.PerfilComponent),
   },
   {
     path: 'adm-login',
@@ -85,79 +76,22 @@ export const routes: Routes = [
   },
   {
     path: 'minhas-compras',
-    loadComponent: () => import('./minhas-compras/minhas-compras.page').then(m => m.MinhasComprasPage)
-  },
-
-  {
-    path: 'forgot-password',
-    loadComponent: () => import('./forgot-password/forgot-password.page').then(m => m.ForgotPasswordPage)
-  },
-  {
-    path: 'carrinho',
-    loadComponent: () => import('./carrinho/carrinho.page').then(m => m.CarrinhoPage)
-  },
-
-  {
-    path: 'forgot-password',
-    loadComponent: () => import('./forgot-password/forgot-password.page').then(m => m.ForgotPasswordPage)
-  },
-  {
-    path: 'sobre-nos',
-    loadComponent: () => import('./sobre-nos/sobre-nos.page').then(m => m.SobreNosPage)
-  },
-  {
-    path: 'contato',
-    loadComponent: () => import('./contato/contato.page').then(m => m.ContatoPage)
-  },
-  {
-    path: 'infoitens',
-    loadComponent: () => import('./infoitens/infoitens.page').then(m => m.InfoitensPage)
-  },
-  {
-    path: 'infoitens/:id',
-    loadComponent: () => import('./infoitens/infoitens.page').then(m => m.InfoitensPage)
-  },
-  {
-    path: 'pedidos-test',
-    loadComponent: () => import('./pedidos-test/pedidos-test.page').then(m => m.PedidosTestPage)
-  },
-  {
-    path: 'brindes',
-    loadComponent: () => import('./brindes/brindes.page').then(m => m.BrindesPage)
-  },
-
-  {
-    path: 'ponto',
-    loadComponent: () => import('./pontos/pontos.component').then(m => m.PontosPage)
-  },
-
-  {
-    path: 'perfil',
-    loadComponent: () => import('./pages/perfil/perfil.component').then(m => m.PerfilComponent)
-  },
-  {
-    path: 'adm-login',
-    loadComponent: () => import('./adm-login/adm-login.page').then(m => m.AdmLoginPage)
-  },
-  {
-    path: 'pedidos-test',
-    loadComponent: () => import('./pedidos-test/pedidos-test.page').then(m => m.PedidosTestPage)
-
+    loadComponent: () => import('./minhas-compras/minhas-compras.page').then(m => m.MinhasComprasPage),
   },
   {
     path: 'horario',
-    loadComponent: () => import('./horario/horario.page').then(m => m.HorarioPage)
+    loadComponent: () => import('./horario/horario.page').then(m => m.HorarioPage),
   },
   {
     path: 'pix-modal',
-    loadComponent: () => import('./pix-modal/pix-modal.page').then(m => m.PixModalPage)
+    loadComponent: () => import('./pix-modal/pix-modal.page').then(m => m.PixModalPage),
   },
   {
     path: 'item-edit/:id',
-    loadComponent: () => import('./item-edit/item-edit.page').then( m => m.ItemEditPage)
+    loadComponent: () => import('./item-edit/item-edit.page').then(m => m.ItemEditPage),
   },
   {
     path: 'localizacao-cadastro',
-    loadComponent: () => import('./localizacao-cadastro/localizacao-cadastro.page').then(m => m.LocalizacaoCadastroPage)
-  }
+    loadComponent: () => import('./localizacao-cadastro/localizacao-cadastro.page').then(m => m.LocalizacaoCadastroPage),
+  },
 ];

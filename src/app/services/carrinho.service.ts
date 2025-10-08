@@ -188,4 +188,29 @@ export class CarrinhoService {
     const count = this.cartItemsSubject.getValue().reduce((acc, item) => acc + item.quantidade, 0);
     this._totalItens.next(count);
   }
+  
+  // Atualiza a quantidade de um item no carrinho
+async updateQuantidade(itemId: string, novaQtd: number) {
+  const user = this.userSubject.getValue();
+  if (!user) {
+    console.error('Usuário não logado.');
+    return;
+  }
+
+  const itemPath = `carrinhos/${user.uid}/itens/${itemId}`;
+  await this.rtdb.update(itemPath, { quantidade: novaQtd });
+}
+
+// Altera a quantidade de um item (aumenta ou diminui)
+async alterarQtd(item: CartItem, valor: number) {
+  const novaQtd = item.quantidade + valor;
+  if (novaQtd < 1) return;
+
+  try {
+    await this.updateQuantidade(item.id, novaQtd);
+  } catch (error) {
+    console.error('Erro ao atualizar quantidade:', error);
+  }
+}
+
 }

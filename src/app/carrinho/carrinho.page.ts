@@ -195,9 +195,8 @@ export class CarrinhoPage implements OnInit {
       await errorAlert.present();
     }
   }
-  alterarQtd(valor: number) {
-    if (this.quantidade + valor >= 1) {
-      this.quantidade += valor;
-    }
-  }
+  async alterarQtd(item: CartItem, valor: number) {
+  await this.carrinhoService.alterarQtd(item, valor);
+}
+
 }
