@@ -41,12 +41,10 @@ export class LocalizacaoPage implements OnInit, AfterViewInit {
         this.initializeGoogleMapsJS();
       });
     } else {
-      //Lógica Nativa se precisar compilar para celular
       console.warn('Rodando em ambiente nativo. O código de mapa nativo deve ser implementado aqui.');
     }
   }
 
-  // Carrega o script da API usando a chave do environments
   private loadGoogleMapsScript(): Promise<void> {
     if (typeof google !== 'undefined' && typeof google.maps !== 'undefined') {
       return Promise.resolve();
@@ -64,7 +62,6 @@ export class LocalizacaoPage implements OnInit, AfterViewInit {
     });
   }
 
-  // INICIALIZAÇÃO DO MAPA JS SDK com @ts-ignore para evitar problemas de tipagem
   async initializeGoogleMapsJS() {
     try {
       // @ts-ignore
@@ -92,8 +89,6 @@ export class LocalizacaoPage implements OnInit, AfterViewInit {
           this.handleMapClick(lat, lng);
         }
       });
-
-      // Carregar a localização inicial
       this.handleMapClick(this.initialCenter.lat, this.initialCenter.lng);
 
 

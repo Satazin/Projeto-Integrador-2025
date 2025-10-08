@@ -59,16 +59,13 @@ export class PedidosTestPage implements OnInit {
     private alertCtrl: AlertController
   ){
     this.ar.params.subscribe((param: any) => {
-     //this.id = param.id;
     });
   }
 
   ngOnInit() {
   }
 
-  // SALVAR NOVO PEDIDO
   async salvar() {
-    // validação simples
     if (!this.nome || !this.categoria || !this.preco) {
       const a = await this.alertCtrl.create({
         header: 'Campos obrigatórios',
@@ -92,7 +89,6 @@ export class PedidosTestPage implements OnInit {
       console.log('Salvo com sucesso');
       this.listar();
 
-      // ALERT com opções: cadastrar outro ou ir pra lista de pedidos
       const alert = await this.alertCtrl.create({
         header: 'Produto cadastrado!',
         message: 'Deseja cadastrar outro ou ir para a lista de pedidos?',
@@ -126,7 +122,6 @@ export class PedidosTestPage implements OnInit {
     }
   }
 
-  // LISTAR PEDIDOS
   listar(){
     this.rt.query('/pedidos', (snapshot: any) => {
       const dados = snapshot.val();
@@ -141,7 +136,6 @@ export class PedidosTestPage implements OnInit {
     });
   }
 
-  // LIMPAR FORMULÁRIO
   limparFormulario() {
     this.nome = '';
     this.descricao = '';
@@ -150,8 +144,6 @@ export class PedidosTestPage implements OnInit {
     this.categoria = '';
     this.imagem = '';
   }
-
-  // ACTION SHEET: ESCOLHER CÂMERA OU GALERIA
   async selecionarImagem() {
     const actionSheet = await this.actionSheetCtrl.create({
       header: 'Selecionar imagem',
@@ -164,7 +156,6 @@ export class PedidosTestPage implements OnInit {
     await actionSheet.present();
   }
 
-  // PEGAR IMAGEM BASE64
   async pegarImagem(source: CameraSource) {
     try {
       const image = await Camera.getPhoto({

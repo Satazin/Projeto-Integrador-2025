@@ -3,8 +3,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule, LoadingController, AlertController, ActionSheetController } from '@ionic/angular';
-import { RealtimeDatabaseService } from '../firebase/realtime-databse'; 
-import { Camera, CameraResultType, CameraSource } from '@capacitor/camera'; 
+import { RealtimeDatabaseService } from '../firebase/realtime-databse';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 declare const __firebase_config: string;
 
 @Component({
@@ -19,15 +19,15 @@ export class ItemEditPage implements OnInit {
     id: null,
     nome: '',
     preco: 0,
-    descricao: '', 
+    descricao: '',
     imagem: '',
-    serve: 1, 
+    serve: 1,
     categoria: '',
   };
-  
+
   loading = true;
   errorMessage: string | null = null;
-  
+
   newImageBase64: string | null = null;
 
   constructor(
@@ -36,13 +36,12 @@ export class ItemEditPage implements OnInit {
     private rt: RealtimeDatabaseService,
     private loadingController: LoadingController,
     private alertController: AlertController,
-    private actionSheetCtrl: ActionSheetController 
+    private actionSheetCtrl: ActionSheetController
   ) {
   }
-  
+
   async ngOnInit() {
     const nav = this.router.getCurrentNavigation();
-    
     const passedItem = nav?.extras?.state?.['item'];
     if (passedItem) {
       Object.assign(this.item, passedItem);
@@ -72,6 +71,18 @@ export class ItemEditPage implements OnInit {
     }
   }
 
+ async selecionarImagem() {
+    const actionSheet = await this.actionSheetCtrl.create({
+      header: 'Selecionar imagem',
+      buttons: [
+        { text: 'Câmera', handler: () => this.pegarImagem(CameraSource.Camera) },
+        { text: 'Galeria', handler: () => this.pegarImagem(CameraSource.Photos) },
+        { text: 'Cancelar', role: 'cancel' }
+      ]
+    });
+    await actionSheet.present();
+  }
+
   async pegarImagem(source: CameraSource) {
     try {
       const image = await Camera.getPhoto({
@@ -82,41 +93,17 @@ export class ItemEditPage implements OnInit {
       });
 
       if (image?.base64String) {
-        this.newImageBase64 = `data:image/jpeg;base64,${image.base64String}`;
-        this.item.imagem = this.newImageBase64; 
+        this.item.imagem = `data:image/jpeg;base64,${image.base64String}`;
       }
     } catch (err) {
       console.error('Erro ao pegar imagem:', err);
-      await this.showAlert('Erro', 'Falha ao obter imagem. Verifique se o app tem permissão de câmera/galeria.');
+      const a = await this.alertController.create({
+        header: 'Erro',
+        message: 'Falha ao obter imagem.',
+        buttons: ['OK']
+      });
+      await a.present();
     }
-  }
-
-  async selecionarImagem() {
-    const actionSheet = await this.actionSheetCtrl.create({
-      header: 'Selecionar Imagem',
-      buttons: [
-        {
-          text: 'Usar Câmera',
-          icon: 'camera',
-          handler: () => {
-            this.pegarImagem(CameraSource.Camera);
-          }
-        },
-        {
-          text: 'Usar Galeria',
-          icon: 'image',
-          handler: () => {
-            this.pegarImagem(CameraSource.Photos);
-          }
-        },
-        {
-          text: 'Cancelar',
-          icon: 'close',
-          role: 'cancel'
-        }
-      ]
-    });
-    await actionSheet.present();
   }
 
 
@@ -137,19 +124,19 @@ export class ItemEditPage implements OnInit {
 
       if (this.newImageBase64) {
         loading.message = 'Atualizando imagem Base64...';
-        imageBase64ToSave = this.newImageBase64; 
-        this.newImageBase64 = null; 
+        imageBase64ToSave = this.newImageBase64;
+        this.newImageBase64 = null;
       }
       const dadosParaSalvar = {
         nome: this.item.nome,
-        preco: parseFloat(String(this.item.preco).replace(',', '.')) || 0, 
-        descricao: this.item.descricao || '', 
+        preco: parseFloat(String(this.item.preco).replace(',', '.')) || 0,
+        descricao: this.item.descricao || '',
         imagem: imageBase64ToSave,
-        serve: parseInt(this.item.serve, 10) || 1, 
+        serve: parseInt(this.item.serve, 10) || 1,
         categoria: this.item.categoria || '',
       };
-      
-      loading.message = 'Atualizando Realtime Database...';
+
+      loading.message = 'Atualizando...';
       await this.rt.update(`pedidos/${this.item.id}`, dadosParaSalvar);
 
       await this.showAlert('Sucesso!', 'Item atualizado com sucesso!', [

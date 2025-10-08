@@ -10,12 +10,12 @@
       <ion-button fill="clear" color="dark" routerLink="/horario">
         <ion-icon slot="icon-only" name="time-outline"></ion-icon>
       </ion-button>
-     <ion-button fill="clear" color="dark" routerLink="/carrinho">
-    <ion-icon slot="icon-only" name="cart-outline"></ion-icon>
-        <ion-badge color="danger" *ngIf="totalItens > 0">
+      <ion-button fill="clear" color="dark" routerLink="/carrinho">
+        <ion-icon slot="icon-only" name="cart-outline"></ion-icon>
+      </ion-button>
+      <ion-badge color="danger" *ngIf="totalItens > 0">
         {{ totalItens }}
-    </ion-badge>
-</ion-button>
+      </ion-badge>
       <ion-menu-button color="dark" menu="rightMenu"></ion-menu-button>
     </ion-buttons>
   </ion-toolbar>

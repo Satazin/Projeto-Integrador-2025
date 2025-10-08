@@ -90,8 +90,6 @@ export class LocalizacaoCadastroPage implements OnInit, AfterViewInit {
           this.handleMapClick(lat, lng);
         }
       });
-
-      // Carregar a localização inicial
       this.handleMapClick(this.initialCenter.lat, this.initialCenter.lng);
 
 

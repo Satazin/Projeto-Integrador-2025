@@ -1,31 +1,26 @@
 <ion-header>
-  <ion-toolbar color="primary">
+  <ion-toolbar color="light">
     <ion-buttons slot="start">
-        <ion-back-button defaultHref="/perfil"></ion-back-button>
+      <ion-back-button defaultHref="/perfil"></ion-back-button>
     </ion-buttons>
     <ion-title>Selecione seu Endereço</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div #map id="map-container"></div> 
+  <div #map id="map-container"></div>
   <div class="simulation-overlay" *ngIf="isWeb">
   </div>
   <div class="selection-overlay" *ngIf="selectedAddress">
-      <ion-card>
-          <ion-card-content>
-              <p>**Endereço Selecionado:**</p>
-              <p>{{ selectedAddress }}</p>
-          </ion-card-content>
-      </ion-card>
-      
-      <ion-button 
-          expand="block" 
-          color="success" 
-          (click)="confirmAddress()"
-          [disabled]="!selectedAddress"
-      >
-          Selecionar este Endereço
-      </ion-button>
+    <ion-card>
+      <ion-card-content>
+        <p>**Endereço Selecionado:**</p>
+        <p>{{ selectedAddress }}</p>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-button expand="block" color="light" (click)="confirmAddress()" [disabled]="!selectedAddress">
+      Selecionar este Endereço
+    </ion-button>
   </div>
 </ion-content>

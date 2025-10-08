@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start" >
+    <ion-buttons slot="start">
       <ion-back-button defaultHref="/pedidos" text="" color="dark"></ion-back-button>
     </ion-buttons>
     <ion-title> Editar Item</ion-title>
@@ -37,6 +37,10 @@
     </ion-item>
 
     <ion-item>
+      <ion-input label="Serve" labelPlacement="stacked" [(ngModel)]="item.serve" type="number" required></ion-input>
+    </ion-item>
+
+    <ion-item>
       <ion-select label="Categoria" labelPlacement="stacked" [(ngModel)]="item.categoria" required>
         <ion-select-option value="poke">POKE</ion-select-option>
         <ion-select-option value="temaki">TEMAKI</ion-select-option>
@@ -50,26 +54,23 @@
     <ion-item>
       <ion-textarea label="Descrição" labelPlacement="stacked" [(ngModel)]="item.descricao" rows="4"></ion-textarea>
     </ion-item>
-        <div class="foto-btn">
-          <ion-button
-            expand="block" 
-           (click)="selecionarImagem()" 
-           color="dark"
-          >
-            Selecionar Imagem
-          </ion-button>
-        </div>
-    <div class="salvar-btn">
-          <ion-button
-            expand="block"
-            color="success"
-            (click)="salvarAlteracoes()"
-            [disabled]="!item.nome || !item.preco || !item.categoria"
-          >
-            Salvar Item
-          </ion-button>
-        </div>
 
-  
+    <div *ngIf="item.imagem" class="preview-img">
+      <img [src]="item.imagem" alt="Prévia" />
+    </div>
+
+    <div class="foto-btn">
+      <ion-button expand="block" (click)="selecionarImagem()" color="dark">
+        Selecionar Imagem
+      </ion-button>
+    </div>
+    <div class="salvar-btn">
+      
+      <ion-button expand="block" color="success" (click)="salvarAlteracoes()">
+        Salvar Item
+      </ion-button>
+    </div>
+
+
   </ion-list>
 </ion-content>

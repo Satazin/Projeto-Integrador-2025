@@ -20,7 +20,6 @@ export interface CartItem extends Product {
   quantidade: number;
 }
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -183,7 +182,7 @@ export class CarrinhoService {
     );
   }
   
-  // ✅ FUNÇÃO REDUNDANTE REMOVIDA: A contagem agora é atualizada dentro do fetchCartItems.
+  // FUNÇÃO REDUNDANTE REMOVIDA: A contagem agora é atualizada dentro do fetchCartItems.
   private atualizarContagem() {
     const count = this.cartItemsSubject.getValue().reduce((acc, item) => acc + item.quantidade, 0);
     this._totalItens.next(count);

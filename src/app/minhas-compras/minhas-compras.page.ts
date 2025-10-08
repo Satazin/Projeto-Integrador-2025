@@ -45,7 +45,6 @@ export class MinhasComprasPage implements OnInit {
       const snapshot = await get(dbRef);
       if (snapshot.exists()) {
         const data = snapshot.val();
-        
         let comprasArray = Object.values(data);
         
         comprasArray.sort((a: any, b: any) => {

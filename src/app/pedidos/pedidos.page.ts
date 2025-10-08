@@ -87,7 +87,6 @@ export class PedidosPage implements OnInit, AfterViewInit {
     }
   }
 
-  // LISTAR PEDIDOS DO FIREBASE
   listar() {
     this.rt.query('/pedidos', (snapshot: any) => {
       const dados = snapshot.val();
@@ -102,7 +101,6 @@ export class PedidosPage implements OnInit, AfterViewInit {
     });
   }
 
-  // FILTRAR POR CATEGORIA E BUSCA
   itensPorCategoria(cat: string) {
     return this.pedidos
       .filter(i => i.categoria === cat)
@@ -113,7 +111,6 @@ export class PedidosPage implements OnInit, AfterViewInit {
       );
   }
 
-  // SCROLL SUAVE PARA A CATEGORIA
   scrollToCategoria(catId: string) {
     const el = this.elRef.nativeElement.querySelector('#' + catId);
     if (el) {
